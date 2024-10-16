@@ -16,4 +16,4 @@ void Proceso::setPPID(int ppid) { PPID = ppid; }
 void Proceso::setInicio(std::time_t inicio) { this->inicio = inicio; }
 void Proceso::setTiempoDeVida(int tiempoDeVida) { this->tiempoDeVida = tiempoDeVida; }
 void Proceso::setPrioridad(int prioridad) { this->prioridad = prioridad; }
-void Proceso::setNucleoAsignado(int nucleoAsignado) { this->nucleoAsignado = nucleoAsignado; }
+void Proceso::setNucleoAsignado(int nucleoAsignado) { this->nucleoAsignado = nucleoAsignado; } 

@@ -8,7 +8,7 @@ class Proceso
     private:
         int PID;
         int PPID = 1;
-        time_t inicio; // Initialize to 00:00
+        time_t inicio; // Time when the process was created
         int tiempoDeVida;
         int prioridad;
         int nucleoAsignado;
@@ -21,7 +21,7 @@ class Proceso
 
         public:
         // Constructor
-         Proceso(int pid, int ppid, std::time_t inicio, int tiempoDeVida, int prioridad, int nucleoAsignado);
+         Proceso(int pid, int ppid, std::time_t inicio, int tiempoDeVida, int prioridad, int nucleoAsignado); 
 
         // Getters
         int getPID() const;
