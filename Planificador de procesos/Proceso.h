@@ -8,35 +8,30 @@ class Proceso
     private:
         int PID;
         int PPID = 1;
-        time_t inicio; // Time when the process was created
+        time_t inicio; // Time when the process is going to be executed
         int tiempoDeVida;
         int prioridad;
         int nucleoAsignado;
 
-        // Calculate tiempoDeVida based on the start time
-        void calcularTiempoDeVida() {
-            time_t ahora = time(nullptr);
-            tiempoDeVida = static_cast<int>(difftime(ahora, inicio));
-        }
-
-        public:
+    public:
         // Constructor
-         Proceso(int pid, int ppid, std::time_t inicio, int tiempoDeVida, int prioridad, int nucleoAsignado); 
+        Proceso();
+        Proceso(int pid, int ppid, std::time_t inicio, int tiempoDeVida, int prioridad); //int nucleoAsignado
 
         // Getters
-        int getPID() const;
-        int getPPID() const;
-        std::time_t getInicio() const;
-        int getTiempoDeVida() const;
-        int getPrioridad() const;
-        int getNucleoAsignado() const;
+        int get_PID() const;
+        int get_PPID() const;
+        time_t get_inicio() const;
+        int get_tiempo_de_vida() const;
+        int get_prioridad() const;
+        int get_nucleo_asignado();
 
         // Setters
-        void setPPID(int ppid);
-        void setInicio(std::time_t inicio);
-        void setTiempoDeVida(int tiempoDeVida);
-        void setPrioridad(int prioridad);
-        void setNucleoAsignado(int nucleoAsignado);
+        void set_PPID(int ppid);
+        void set_inicio(time_t inicio);
+        void set_tiempo_de_vida(int tiempoDeVida);
+        void set_prioridad(int prioridad);
+        void set_nucleo_asignado(int nucleoAsignado);
 };
 
 #endif // PROCESO_H

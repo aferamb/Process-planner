@@ -1,6 +1,7 @@
 #ifndef COLA_H
 #define COLA_H
 #include "NodoCola.h"
+#include "Proceso.h"
 class Cola
 {
 private:
@@ -10,10 +11,10 @@ private:
 public:
     Cola();  
     ~Cola();
-    void encolar(char elemento, int prioridad);
-    char inicio();
-    char fin();
-    char desencolar();
+    void encolar(Proceso proceso);
+    Proceso inicio();
+    Proceso fin();
+    Proceso desencolar();
     int get_longitud();
     bool es_vacia();
     void mostrarCola (); //No es correcto, se implementa para ver que está creada correctamente

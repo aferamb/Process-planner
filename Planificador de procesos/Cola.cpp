@@ -1,97 +1,80 @@
 #include "Cola.h"
+#include "Proceso.h"
 #include <iostream>
 using namespace std;
 
-Cola::Cola()
-{
+Cola::Cola(){
     primero = NULL;
     ultimo = NULL;
     longitud = 0;
 }
 
 Cola::~Cola() {}
-
-void Cola::encolar(char elemento, int prioridad)
-{
-    NodoCola *nuevo_nodo = new NodoCola(elemento, prioridad);
-    if (es_vacia())
-    {
+a // para acordarme de terminar de modificar la funcion encolar
+void Cola::encolar(Proceso proceso){  // Si a esta funcion se le ha pasado un puntero a proceso, se deberia cambiar a Proceso *proceso <---------------------
+    NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
+    if (es_vacia()){
         primero = nuevo_nodo;
         ultimo = nuevo_nodo;
-        prioridad = prioridad;
     }
-    else
-    {
+    else{
         ultimo->siguiente = nuevo_nodo;
         ultimo = nuevo_nodo;
     }
     longitud++;
 }
 
-char Cola::desencolar()
-{
-    if (!es_vacia())
-    {
-        char elemento = primero->elemento;
+Proceso Cola::desencolar(){
+    if (!es_vacia()){
+        Proceso proceso = primero->proceso;
         NodoCola *aux = primero;
 
-        if ((primero == ultimo) && (primero -> siguiente == NULL))
-        {
+        if ((primero == ultimo) && (primero -> siguiente == NULL)){
             primero = NULL;
             ultimo = NULL;
             aux -> siguiente = NULL;
             delete(aux);
         }
-        else
-        {
+        else{
             primero = primero->siguiente;
             aux->siguiente = NULL;
             delete(aux);
         }
         
         longitud--;
-        return elemento;
+        return proceso;
     }
 }
 
-char Cola::inicio()
-{
-    if (!es_vacia())
-    {
-        return primero->elemento;
+Proceso Cola::inicio(){
+    if (!es_vacia()){
+        return primero->proceso;
     }
 }
 
-char Cola::fin()
-{
-    if (!es_vacia())
-    {
-        return ultimo->elemento;
+Proceso Cola::fin(){
+    if (!es_vacia()){
+        return ultimo->proceso;
     }
 }
 
-bool Cola::es_vacia()
-{
+bool Cola::es_vacia(){
     return ((primero == NULL) && (ultimo == NULL));
 }
 
-int Cola::get_longitud()
-{
+int Cola::get_longitud(){
     return longitud;
 }
 
-void Cola::mostrarCola()
-{
+void Cola::mostrarCola(){
     //No es correcto, la cola solo puede verse mostrando el primero y desencolando, se implementa para comprobar código facilmente
     NodoCola *aux = primero;
     if (es_vacia())
     {cout << "La cola está vacía" << endl;}
-    else
-    {
+    else{
         cout << "Datos de la cola" << endl;
-        while (aux)
-        {
-            cout << aux->elemento << " ";
+        while (aux){
+            cout << aux->proceso.get_PID() << " ";
             aux = aux->siguiente;
         }
     }
