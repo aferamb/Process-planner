@@ -2,24 +2,25 @@
 #include <iostream>
 using namespace std;
 
-Pila::Pila()
-    {cima = NULL;}
+Pila::Pila() {
+    cima = NULL;
+}
 
-Pila::~Pila()
-    {while (cima) desapilar();}
+Pila::~Pila() {
+    while (cima) desapilar();
+}
 
-bool Pila::esVacia()
-    {return cima == NULL;}
+bool Pila::esVacia() {
+    return cima == NULL;
+}
 
-void Pila::apilar(int v)
-{
-    pnodo nuevo = new NodoPila(v, cima);   
+void Pila::apilar(Proceso p) {
+    pnodo nuevo = new NodoPila(p, cima);
     // comienzo de la pila nuevo nodo
     cima = nuevo;
 }
 
-void Pila::desapilar()
-{
+void Pila::desapilar() {
     if (cima != NULL) {
         pnodo aux = cima;
         cima = cima->siguiente;
@@ -27,53 +28,48 @@ void Pila::desapilar()
     }
 }
 
-int Pila::mostrar()
-{
+Proceso Pila::mostrar() {
     if (esVacia()) {
         cout << "Pila vacia" << endl;
-        return 0;
+        return Proceso();   // Retornamos un proceso vacío
     } else {
-        cout << "Cima pila: " << cima->valor << endl;
-        return cima->valor;
+        cout << "Cima pila: " << cima->proceso.get_PID() << endl;
+        return cima->proceso;
     }
 }
 
-int Pila::contar()
-{
+int Pila::contar() {
     Pila pAux;
     int aux = 0;
-    while(!esVacia())
-    {
-        pAux.apilar(cima->valor);
+    while(!esVacia()) {
+        pAux.apilar(cima->proceso);
         desapilar();
         aux++;
     }
-    while(!pAux.esVacia())
-    {
-        apilar(pAux.cima->valor);
+
+    while(!pAux.esVacia()) {
+        apilar(pAux.cima->proceso);
         pAux.desapilar();
     }
-    cout << "Num elementos: " << aux << endl;
     return aux;
 }
 
-int Pila::fondo()
+Proceso Pila::fondo()
 {
     Pila pAux;
-    int aux = 0;
-    while(!esVacia())
-    {
-        pAux.apilar(cima->valor);
+    Proceso procesoFondo;
+
+    while(!esVacia()) {
+        pAux.apilar(cima->proceso);
         desapilar();
     }
-    aux = pAux.cima->valor;
-    while(!pAux.esVacia())
-    {
-        apilar(pAux.cima->valor);
+    procesoFondo = pAux.cima->proceso;
+    while(!pAux.esVacia()) {
+        apilar(pAux.cima->proceso);
         pAux.desapilar();
     }
-    cout << "Fondo pila: " << aux << endl;
-    return aux;
+    cout << "Fondo pila: " << procesoFondo.get_PID() << endl;
+    return procesoFondo;
 }
 
 void Pila::montar(Pila p)
@@ -81,53 +77,50 @@ void Pila::montar(Pila p)
     Pila pAux;
     while(!p.esVacia())
     {
-        pAux.apilar(p.cima->valor);
+        pAux.apilar(p.cima->proceso);
         p.desapilar();
     }
     while(!pAux.esVacia())
     {
-        apilar(pAux.cima->valor);
+        apilar(pAux.cima->proceso);
         pAux.desapilar();
     }
 }
 
-void Pila::quitar(int v)
-{
-    for (int i = 0; i <= v; i++)
-    {
-        desapilar();
-    }
-}
-
-void Pila::invertir()  
-{
+void Pila::quitar(Proceso p) {
     Pila pAux;
-    Pila pAux2;
-    while (!esVacia()) 
-    {
-        pAux.apilar(cima->valor);
+    // Buscar el proceso en la pila comparando los PID
+    while (!esVacia() && cima->proceso.get_PID() != p.get_PID()) {
+        pAux.apilar(cima->proceso);  // Mover el proceso actual a la pila auxiliar
         desapilar();
     }
-
-while (!pAux.esVacia()) 
-    {
-        pAux2.apilar(pAux.cima->valor);
+    // Si encontramos el proceso con el mismo PID, lo quitamos
+    if (!esVacia() && cima->proceso.get_PID() == p.get_PID()) {
+        desapilar();
+    }
+    // Volver a apilar los elementos desde la pila auxiliar a la pila original
+    while (!pAux.esVacia()) {
+        apilar(pAux.cima->proceso);
         pAux.desapilar();
     }
+}
 
-    while (!pAux2.esVacia()) 
-    {
-        apilar(pAux2.cima->valor);
-        pAux2.desapilar();
+void Pila::invertir() {
+    Pila pAux;
+    while (!esVacia()) {
+        pAux.apilar(cima->proceso);
+        desapilar();
+    }
+    while (!pAux.esVacia()) {
+        apilar(pAux.cima->proceso);
+        pAux.desapilar();
     }
 }
 
-Pila Pila::inversa()
-{
+Pila Pila::inversa() {
     Pila pAux;
-    while (!esVacia()) 
-    {
-        pAux.apilar(cima->valor);
+    while (!esVacia()) {
+        pAux.apilar(cima->proceso);
         desapilar();
     }
     return pAux;
@@ -136,36 +129,65 @@ Pila Pila::inversa()
 void Pila::eliminarFondo()
 {
     Pila pAux;
-    while(!esVacia())
-    {
-        pAux.apilar(cima->valor);
+    while(!esVacia()) {
+        pAux.apilar(cima->proceso);
         desapilar();
     }
     pAux.desapilar();
     while(!pAux.esVacia())
     {
-        apilar(pAux.cima->valor);
+        apilar(pAux.cima->proceso);
         pAux.desapilar();
     }
 }
 
-bool Pila::ordenadoMayorMenor()
-{
-    Pila pAux;
+bool Pila::ordenadoMayorMenor() {
+    Pila Aux;
     bool ordenado = true;
-    while (!esVacia()) 
-    {
-        int aux = cima->valor;
-        pAux.apilar(cima->valor);
-        desapilar();
-        if (aux > cima->valor) ordenado = false;
+    if (!esVacia()) {
+        Proceso procesoAnterior = cima->proceso;  // Guardamos el proceso de la cima
+
+        while (!esVacia()) {
+            Proceso procesoActual = cima->proceso;  // Tomamos el proceso actual
+            Aux.apilar(cima->proceso);  // Apilamos el proceso en la pila auxiliar
+            desapilar();  // Desapilamos de la pila original
+
+            // Comparamos el PID del proceso actual con el anterior
+            if (procesoActual.get_PID() > procesoAnterior.get_PID()) {
+                ordenado = false;  // Si el PID actual es mayor que el anterior, no está ordenado
+            }
+            procesoAnterior = procesoActual;  // Actualizamos el proceso anterior
+        }
     }
-    while(!pAux.esVacia())
-    {
-        apilar(pAux.cima->valor);
-        pAux.desapilar();
+    // Restauramos la pila original
+    while (!Aux.esVacia()) {
+        apilar(Aux.cima->proceso);
+        Aux.desapilar();
     }
-    if (ordenado) cout << "Pila ordenada de mayor a menor" << endl;
-    else cout << "Pila no ordenada de mayor a menor" << endl;
+    // Mensaje sobre si la pila está ordenada o no
+    if (ordenado) {
+        cout << "Pila ordenada de mayor a menor en base al PID" << endl;
+    } else {
+        cout << "Pila NO está ordenada de mayor a menor en base al PID" << endl;
+    }
     return ordenado;
+}
+
+void Pila::mostrarTodos() {
+    if (esVacia()) {
+        cout << "La pila está vacía.\n";
+        return;
+    }
+    Pila aux;
+    while (!esVacia()) {
+        Proceso p = cima->proceso;
+        cout << "PID: " << p.get_PID() << ", Minutos de inicio: " << p.get_inicio()
+             << ", Tiempo de vida: " << p.get_tiempo_de_vida() << " minutos, Prioridad: " << p.get_prioridad() << endl;
+        aux.apilar(p);
+        desapilar();
+    }
+    while (!aux.esVacia()) {
+        apilar(aux.cima->proceso);
+        aux.desapilar();
+    }
 }

@@ -1,34 +1,37 @@
 #ifndef PROCESO_H
 #define PROCESO_H
-#include <ctime>
+#include <iostream>
+
 using namespace std;
 
-class Proceso
-{
+class Proceso {
     private:
-        int PID;
-        int PPID = 1;
-        time_t inicio; // Time when the process is going to be executed
-        int tiempoDeVida;
-        int prioridad;
-        int nucleoAsignado;
+        static int contador_PID;    // Contador estático para asignar PID único
+        int PID;                    // Identificador del proceso
+        int PPID;                   // Identificador del proceso padre
+        int inicio;                 // Minutos de inicio del proceso en minutos desde las 00:00
+        int tiempoDeVida;           // Tiempo de vida del proceso en minutos
+        int prioridad;              // Prioridad del proceso (0 = mayor prioridad, 9 = menor prioridad)
+        int nucleoAsignado;         // Núcleo al que se asigna el proceso
 
     public:
-        // Constructor
+        // Constructor por defecto
         Proceso();
-        Proceso(int pid, int ppid, std::time_t inicio, int tiempoDeVida, int prioridad); //int nucleoAsignado
+        Proceso(int ppid, int inicio, int tiempoDeVida, int prioridad);
+
+        void generarProceso(int tiempoActual);
 
         // Getters
         int get_PID() const;
         int get_PPID() const;
-        time_t get_inicio() const;
+        int get_inicio() const;
         int get_tiempo_de_vida() const;
         int get_prioridad() const;
-        int get_nucleo_asignado();
+        int get_nucleo_asignado() const;
 
         // Setters
         void set_PPID(int ppid);
-        void set_inicio(time_t inicio);
+        void set_inicio(int inicio);
         void set_tiempo_de_vida(int tiempoDeVida);
         void set_prioridad(int prioridad);
         void set_nucleo_asignado(int nucleoAsignado);

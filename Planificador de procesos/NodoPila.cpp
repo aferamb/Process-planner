@@ -1,15 +1,7 @@
 #include "NodoPila.h"
 
-NodoPila::NodoPila()
-{
-    valor = 0;
-    siguiente = NULL;
-    //ctor
-}
-
-NodoPila::NodoPila(int v, NodoPila *sig)
-{
-    valor = v;
+NodoPila::NodoPila(Proceso p, NodoPila *sig) {
+    proceso = p;
     siguiente = sig;
 }
 

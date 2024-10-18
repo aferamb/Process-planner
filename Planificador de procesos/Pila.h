@@ -1,25 +1,26 @@
 #ifndef PILA_H
 #define PILA_H
 #include "NodoPila.h"
-class Pila
-{
+
+class Pila {
     private:
         pnodo cima;
     public:
         Pila();
         ~Pila();
         bool esVacia();
-        void apilar(int v);
+        void apilar(Proceso p);
         void desapilar();
-        int mostrar();
+        Proceso mostrar();
         int contar();
-        int fondo();
-        void montar(Pila p);
-        void quitar(int v);
+        Proceso fondo();
+        void montar(Pila s);
+        void quitar(Proceso p);
         void invertir();
         Pila inversa();
         void eliminarFondo();
         bool ordenadoMayorMenor();
+        void mostrarTodos();
 };
 
 #endif // PILA_H
