@@ -31,7 +31,7 @@ void Pila::desapilar() {
 Proceso Pila::mostrar() {
     if (esVacia()) {
         cout << "Pila vacia" << endl;
-        return Proceso();   // Retornamos un proceso vacío, no debería ser un 0 o nullptr o algo asi
+        return;   // Retornamos un proceso vacío, no debería ser un 0 o nullptr o algo asi
     } else {
         cout << "Cima pila: " << cima->proceso.get_PID() << endl;
         return cima->proceso;
@@ -152,9 +152,9 @@ bool Pila::ordenadoMayorMenor() {
             Aux.apilar(cima->proceso);  // Apilamos el proceso en la pila auxiliar
             desapilar();  // Desapilamos de la pila original
 
-            // Comparamos el PID del proceso actual con el anterior
-            if (procesoActual.get_PID() > procesoAnterior.get_PID()) {
-                ordenado = false;  // Si el PID actual es mayor que el anterior, no está ordenado
+            // Comparamos cuando inicia proceso actual con el anterior
+            if (procesoActual.get_inicio() < procesoAnterior.get_inicio()) {
+                ordenado = false;  // Si el tiempo de inicio actual es menor que el anterior, no está ordenado
             }
             procesoAnterior = procesoActual;  // Actualizamos el proceso anterior
         }
@@ -166,9 +166,9 @@ bool Pila::ordenadoMayorMenor() {
     }
     // Mensaje sobre si la pila está ordenada o no
     if (ordenado) {
-        cout << "Pila ordenada de mayor a menor en base al PID" << endl;
+        cout << "Pila ordenada de menor a mayor en base al tiempo de inicio" << endl;
     } else {
-        cout << "Pila NO está ordenada de mayor a menor en base al PID" << endl;
+        cout << "Pila NO está ordenada de menor a mayor en base al tiempo de inicio" << endl;
     }
     return ordenado;
 }
@@ -181,7 +181,7 @@ void Pila::mostrarTodos() {
     Pila aux;
     while (!esVacia()) {
         Proceso p = cima->proceso;
-        cout << "PID: " << p.get_PID() << ", Minutos de inicio: " << p.get_inicio() // falta el PPID
+        cout << "PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Minutos de inicio: " << p.get_inicio() 
              << ", Tiempo de vida: " << p.get_tiempo_de_vida() << " minutos, Prioridad: " << p.get_prioridad() << endl;
         aux.apilar(p);
         desapilar();

@@ -19,6 +19,7 @@ int main() {
     int opcion;
     Pila pila;
     Proceso p;
+    Cola cola;
     int tiempoTranscurrido = 0;
     int horas = 0;
     int minutos = 0;
@@ -27,10 +28,10 @@ int main() {
         cout << "\nTiempo transcurrido: " << (horas < 10 ? "0" : "") << horas << ":" << (minutos < 10 ? "0" : "") << minutos << endl;
 
         cout << "\nMENU PRINCIPAL\n\n";
-        cout << "1. Crear 10 procesos en pila de procesos.\n";
+        cout << "1. Crear pila de procesos. (datos creados manualmente en el codigo)\n";
         cout << "2. Mostrar todos los procesos en la pila de procesos.\n";
-        cout << "3. Borrar pila de procesos del sistema.\n"; // 
-        cout << "4. Mostrar cola de espera de procesos.\n";
+        cout << "3. Borrar pila de procesos del sistema.\n"; 
+        cout << "4. Mostrar cola de espera de procesos.\n"; // Cambiar la funcion
         cout << "5. Mostrar procesos en nucleos.\n";
         cout << "6. Aumentar tiempo del sistema (n minutos).\n";
         cout << "7. Simular ejecucion de procesos.\n"; // Al finalizar se mostrara el tiempo meio de estancia en el sistema operativo
@@ -52,12 +53,41 @@ int main() {
                 Proceso p3=Proceso(1, 1, 2, 3);
                 Proceso p4=Proceso(2, 7, 1, 7);
                 Proceso p5=Proceso(2, 8, 2, 2);
-                Proceso p6=Proceso(2, 15, 5, 1);
+                Proceso p6=Proceso(3, 15, 5, 1);
                 Proceso p7=Proceso(3, 20, 3, 4);
-                Proceso p8=Proceso(3, 22, 2, 6);
-                Proceso p9=Proceso(3, 25, 1, 8);
-                Proceso p10=Proceso(3, 26, 4, 2);
-                Proceso p11=Proceso(3, 30, 3, 3);
+                Proceso p8=Proceso(4, 22, 2, 6);
+                Proceso p9=Proceso(7, 25, 1, 8);
+                Proceso p10=Proceso(5, 26, 4, 2);
+                Proceso p11=Proceso(4, 29, 3, 3);
+                Proceso p12=Proceso(5, 31, 2, 5);
+                Proceso p13=Proceso(6, 33, 1, 1);
+                Proceso p14=Proceso(6, 34, 2, 4);
+                Proceso p15=Proceso(7, 36, 5, 0);
+                Proceso p16=Proceso(8, 41, 3, 6);
+                Proceso p17=Proceso(10, 44, 2, 7);
+                Proceso p18=Proceso(8, 46, 1, 8);
+                Proceso p19=Proceso(9, 47, 4, 2);
+
+                pila.apilar(p1);
+                pila.apilar(p2);
+                pila.apilar(p3);
+                pila.apilar(p4);
+                pila.apilar(p5);
+                pila.apilar(p6);
+                pila.apilar(p7);
+                pila.apilar(p8);
+                pila.apilar(p9);
+                pila.apilar(p10);
+                pila.apilar(p11);
+                pila.apilar(p12);
+                pila.apilar(p13);
+                pila.apilar(p14);
+                pila.apilar(p15);
+                pila.apilar(p16);
+                pila.apilar(p17);
+                pila.apilar(p18);
+                pila.apilar(p19);
+
                 cout << "Pila de procesos creada correctamente.\n";
                 break;
             }
@@ -67,16 +97,26 @@ int main() {
                 break;
             }
             case 3: {
-                // Desapilar el proceso en la cima
-                if (!pila.esVacia()) {
-                    pila.desapilar();
-                    cout << "Proceso desapilado.\n";
+                // Borrar pila de procesos
+                if (pila.esVacia()) {
+                    cout << "La pila de procesos ya está vacía.\n";
                 } else {
-                    cout << "No se puede desapilar, la pila está vacía.\n";
+                    pila.~Pila();
+                    cout << "Pila de procesos eliminada correctamente.\n";
                 }
                 break;
             }
             case 4: {
+                // Mostrar cola de espera de procesos
+                cout << "Cola de espera de procesos:\n";
+                cola.mostrarCola();
+                break;
+            }
+            case 5: {
+                cout << "Saliendo del programa...\n";
+                break;
+            }
+            case 6: {
                 // Aumentar tiempo del sistema
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
@@ -93,10 +133,6 @@ int main() {
 
                 cout << "Tiempo actualizado: " << (horas < 10 ? "0" : "") << horas << ":"
                     << (minutos < 10 ? "0" : "") << minutos << endl;
-                break;
-            }
-            case 5: {
-                cout << "Saliendo del programa...\n";
                 break;
             }
             default:
