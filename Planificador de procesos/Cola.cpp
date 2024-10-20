@@ -78,9 +78,9 @@ void Cola::mostrarCola(){
     if (es_vacia())
     {cout << "La cola está vacía" << endl;}
     else{
-        cout << "Datos de la cola" << endl;
+        cout << "| PID | PPID | Inicio | Tiempo vida | Prioridad | Nucleo |" << endl;
         while (aux){
-            cout << aux->proceso.get_PID() << " ";
+            cout << "| " << aux->proceso.get_PID() << " | " << aux->proceso.get_PPID() << " | " << aux->proceso.get_inicio() << " | " << aux->proceso.get_tiempo_de_vida() << " | " << aux->proceso.get_prioridad() << " | " << aux->proceso.get_nucleo_asignado() << " |" << endl;
             aux = aux->siguiente;
         }
         cout << endl;

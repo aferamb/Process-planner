@@ -29,21 +29,35 @@ int main() {
         cout << "\nMENU PRINCIPAL\n\n";
         cout << "1. Crear 10 procesos en pila de procesos.\n";
         cout << "2. Mostrar todos los procesos en la pila de procesos.\n";
-        cout << "3. Desapilar el proceso de la cima.\n"; // este tenfdria qu eeliminar la pila entera
-        // Mostrar la cola de espera de procesos
-        // Mostrar los procesos en ejecución en cada núcleo
-        cout << "4. Aumentar tiempo del sistema (n minutos).\n";
-        cout << "5. Salir.\n";
+        cout << "3. Borrar pila de procesos del sistema.\n"; // 
+        cout << "4. Mostrar cola de espera de procesos.\n";
+        cout << "5. Mostrar procesos en nucleos.\n";
+        cout << "6. Aumentar tiempo del sistema (n minutos).\n";
+        cout << "7. Simular ejecucion de procesos.\n"; // Al finalizar se mostrara el tiempo meio de estancia en el sistema operativo
+        cout << "8. Salir.\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
 
         switch (opcion) {
             case 1: {
+                /*
                 // Creamos 10 procesos y apilamos en la pila de procesos
                 for (int i = 1; i <= 10; i++) {
                     p.generarProceso(tiempoTranscurrido);
                     pila.apilar(p);
                 }
+                */
+                Proceso p1=Proceso(1, 0, 4, 0);
+                Proceso p2=Proceso(1, 0, 5, 1);
+                Proceso p3=Proceso(1, 1, 2, 3);
+                Proceso p4=Proceso(2, 7, 1, 7);
+                Proceso p5=Proceso(2, 8, 2, 2);
+                Proceso p6=Proceso(2, 15, 5, 1);
+                Proceso p7=Proceso(3, 20, 3, 4);
+                Proceso p8=Proceso(3, 22, 2, 6);
+                Proceso p9=Proceso(3, 25, 1, 8);
+                Proceso p10=Proceso(3, 26, 4, 2);
+                Proceso p11=Proceso(3, 30, 3, 3);
                 cout << "Pila de procesos creada correctamente.\n";
                 break;
             }
@@ -89,6 +103,6 @@ int main() {
                 cout << "Opcion no valida, intentelo nuevamente.\n";
             break;
         }
-    } while (opcion != 5);  // El menú sigue hasta que el usuario seleccione la opción 5 para salir
+    } while (opcion != 8);  // El menú sigue hasta que el usuario seleccione la opción 5 para salir
     return 0;
 }
