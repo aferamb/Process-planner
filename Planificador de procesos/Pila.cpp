@@ -31,7 +31,7 @@ void Pila::desapilar() {
 Proceso Pila::mostrar() {
     if (esVacia()) {
         cout << "Pila vacia" << endl;
-        return Proceso();   // Retornamos un proceso vacío
+        return Proceso();   // Retornamos un proceso vacío, no debería ser un 0 o nullptr o algo asi
     } else {
         cout << "Cima pila: " << cima->proceso.get_PID() << endl;
         return cima->proceso;
@@ -181,7 +181,7 @@ void Pila::mostrarTodos() {
     Pila aux;
     while (!esVacia()) {
         Proceso p = cima->proceso;
-        cout << "PID: " << p.get_PID() << ", Minutos de inicio: " << p.get_inicio()
+        cout << "PID: " << p.get_PID() << ", Minutos de inicio: " << p.get_inicio() // falta el PPID
              << ", Tiempo de vida: " << p.get_tiempo_de_vida() << " minutos, Prioridad: " << p.get_prioridad() << endl;
         aux.apilar(p);
         desapilar();

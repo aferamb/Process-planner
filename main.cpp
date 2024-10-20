@@ -19,7 +19,9 @@ int main() {
         cout << "\nMENU PRINCIPAL\n\n";
         cout << "1. Crear 10 procesos en pila de procesos.\n";
         cout << "2. Mostrar todos los procesos en la pila de procesos.\n";
-        cout << "3. Desapilar el proceso de la cima.\n";
+        cout << "3. Desapilar el proceso de la cima.\n"; // este tenfdria qu eeliminar la pila entera
+        // Mostrar la cola de espera de procesos
+        // Mostrar los procesos en ejecución en cada núcleo
         cout << "4. Aumentar tiempo del sistema (n minutos).\n";
         cout << "5. Salir.\n";
         cout << "Seleccione una opcion: ";

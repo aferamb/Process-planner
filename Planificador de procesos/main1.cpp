@@ -11,58 +11,84 @@
 #include "Proceso.h"
 #include <iostream>
 #include <ctime>
+#include <chrono>
 
 using namespace std;
 
-int main(){
-    // Inicializamos tiempo de inicio/referencia del programa
-    Global::tiempoReferencia = time(nullptr);
-    cout << "Tiempo de inicio del programa: " << Global::tiempoReferencia << endl;
-// El formateo de la fecha a hh:mm:ss lo ha hecho copilot, funciona, pero hay que saber explicarlo
-    tm* timeInfo = localtime(&Global::tiempoReferencia);
-    char buffer[9]; // hh:mm:ss is 8 characters + null terminator
-    strftime(buffer, sizeof(buffer), "%H:%M:%S", timeInfo);
-    cout << "Tiempo de inicio del programa en formato hh:mm:ss :  " << buffer << endl;
+int main() {
+    int opcion;
+    Pila pila;
+    Proceso p;
+    int tiempoTranscurrido = 0;
+    int horas = 0;
+    int minutos = 0;
 
+    do {
+        cout << "\nTiempo transcurrido: " << (horas < 10 ? "0" : "") << horas << ":" << (minutos < 10 ? "0" : "") << minutos << endl;
 
-// DANGER ZONE apartir de aqui es generado por copilot y no esta revisado, es para visuyalizar una posible estructura de un programa de planificacion de procesos
+        cout << "\nMENU PRINCIPAL\n\n";
+        cout << "1. Crear 10 procesos en pila de procesos.\n";
+        cout << "2. Mostrar todos los procesos en la pila de procesos.\n";
+        cout << "3. Desapilar el proceso de la cima.\n"; // este tenfdria qu eeliminar la pila entera
+        // Mostrar la cola de espera de procesos
+        // Mostrar los procesos en ejecución en cada núcleo
+        cout << "4. Aumentar tiempo del sistema (n minutos).\n";
+        cout << "5. Salir.\n";
+        cout << "Seleccione una opcion: ";
+        cin >> opcion;
 
-    // Creación de un proceso
-    Proceso proceso1 = Proceso(1, 5, 10, 20, 1);
-    Proceso proceso2 = Proceso(2, 5, 10, 20, 2);
-    Proceso proceso3 = Proceso(3, 5, 10, 20, 3);
-    Proceso proceso4 = Proceso(4, 5, 10, 20, 4);
-    Proceso proceso5 = Proceso(5, 5, 10, 20, 5);
+        switch (opcion) {
+            case 1: {
+                // Creamos 10 procesos y apilamos en la pila de procesos
+                for (int i = 1; i <= 10; i++) {
+                    p.generarProceso(tiempoTranscurrido);
+                    pila.apilar(p);
+                }
+                cout << "Pila de procesos creada correctamente.\n";
+                break;
+            }
+            case 2: {
+                // Mostrar todos los procesos en la pila
+                pila.mostrarTodos();
+                break;
+            }
+            case 3: {
+                // Desapilar el proceso en la cima
+                if (!pila.esVacia()) {
+                    pila.desapilar();
+                    cout << "Proceso desapilado.\n";
+                } else {
+                    cout << "No se puede desapilar, la pila está vacía.\n";
+                }
+                break;
+            }
+            case 4: {
+                // Aumentar tiempo del sistema
+                int n;
+                cout << "Ingrese el numero de minutos a aumentar: ";
+                cin >> n;
 
-    // Creación de una cola de procesos
-    Cola cola_procesos = Cola();
-    cola_procesos.encolar(proceso1);
-    cola_procesos.encolar(proceso2);
-    cola_procesos.encolar(proceso3);
-    cola_procesos.encolar(proceso4);
-    cola_procesos.encolar(proceso5);
+                // Actualizar horas y minutos
+                minutos += n; // Aumentar los minutos
+                if (minutos >= 60) { // Si los minutos son 60 o más
+                    horas += minutos / 60; // Aumentar horas
+                    minutos = minutos % 60; // Actualizar minutos
+                }
+                // Actualizar tiempo transcurrido
+                tiempoTranscurrido += n;
 
-    // Creación de un núcleo
-    Nucleo nucleo = Nucleo(1, proceso1, cola_procesos);
-
-    // Mostrar la cola de procesos
-    cout << "Cola de procesos:" << endl;
-    cola_procesos.mostrarCola();
-
-    // Mostrar el proceso en ejecución
-    cout << "Proceso en ejecución:" << endl;
-    cout << "ID: " << nucleo.get_proceso()->get_PID() << endl;
-    cout << "Prioridad: " << nucleo.get_proceso()->get_prioridad() << endl;
-    cout << "Tiempo de vida: " << nucleo.get_proceso()->get_tiempo_de_vida() << endl;
-
-    // Mostrar la cola de procesos
-    cout << "Cola de procesos:" << endl;
-    cola_procesos.mostrarCola();
-
-    // Mostrar el proceso en ejecución
-    cout << "Proceso en ejecución:" << endl;
-    cout << "ID: " << nucleo.get_proceso()->get_PID() << endl;
-    cout << "Prioridad: " << nucleo.get_proceso()->get_prioridad() << endl;
-    cout << "Tiempo de vida: " << nucleo.get_proceso()->get_tiempo_de_vida() << endl;
-
-    // Mo
+                cout << "Tiempo actualizado: " << (horas < 10 ? "0" : "") << horas << ":"
+                    << (minutos < 10 ? "0" : "") << minutos << endl;
+                break;
+            }
+            case 5: {
+                cout << "Saliendo del programa...\n";
+                break;
+            }
+            default:
+                cout << "Opcion no valida, intentelo nuevamente.\n";
+            break;
+        }
+    } while (opcion != 5);  // El menú sigue hasta que el usuario seleccione la opción 5 para salir
+    return 0;
+}
