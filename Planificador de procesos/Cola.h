@@ -18,5 +18,7 @@ public:
     int get_longitud();
     bool es_vacia();
     void mostrarCola (); //No es correcto, se implementa para ver que está creada correctamente
+    void ordenar_por_prioridad();
+    void ordenar_por_prioridad_no_provada();
 };
 #endif // COLA_H

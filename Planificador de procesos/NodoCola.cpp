@@ -5,7 +5,7 @@ NodoCola::NodoCola()
 {
     Proceso proceso;
     siguiente=NULL;
-    //constructor por defecto
+    prioridad=0; //prioridad por defecto
 }
 NodoCola::NodoCola(Proceso proceso, int prioridad, NodoCola*sig)
 {
