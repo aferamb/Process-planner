@@ -19,8 +19,6 @@ class Proceso {
         Proceso();
         Proceso(int ppid, int inicio, int tiempoDeVida, int prioridad);
 
-        void generarProceso(int tiempoActual);
-
         // Getters
         int get_PID() const;
         int get_PPID() const;

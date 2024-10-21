@@ -20,6 +20,7 @@ class Pila {
         Pila inversa();
         void eliminarFondo();
         bool ordenadoMayorMenor();
+        void ordenarPorTiempoInicio();
         void mostrarTodos();
 };
 

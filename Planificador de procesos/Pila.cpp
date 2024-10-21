@@ -31,7 +31,7 @@ void Pila::desapilar() {
 Proceso Pila::mostrar() {
     if (esVacia()) {
         cout << "Pila vacia" << endl;
-        return;   // Retornamos un proceso vacío, no debería ser un 0 o nullptr o algo asi
+        return Proceso();   // Retornamos un proceso vacío, no debería ser un 0 o nullptr o algo asi
     } else {
         cout << "Cima pila: " << cima->proceso.get_PID() << endl;
         return cima->proceso;
@@ -173,6 +173,23 @@ bool Pila::ordenadoMayorMenor() {
     return ordenado;
 }
 
+void Pila::ordenarPorTiempoInicio() {
+    Pila pAux;
+    while (!esVacia()) {
+        Proceso procesoActual = cima->proceso;
+        desapilar();
+        while (!pAux.esVacia() && pAux.cima->proceso.get_inicio() > procesoActual.get_inicio()) {
+            apilar(pAux.cima->proceso);
+            pAux.desapilar();
+        }
+        pAux.apilar(procesoActual);
+    }
+    while (!pAux.esVacia()) {
+        apilar(pAux.cima->proceso);
+        pAux.desapilar();
+    }
+}
+
 void Pila::mostrarTodos() {
     if (esVacia()) {
         cout << "La pila está vacía.\n";
@@ -181,7 +198,7 @@ void Pila::mostrarTodos() {
     Pila aux;
     while (!esVacia()) {
         Proceso p = cima->proceso;
-        cout << "PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Minutos de inicio: " << p.get_inicio() 
+        cout << "PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Minutos de inicio: " << p.get_inicio()
              << ", Tiempo de vida: " << p.get_tiempo_de_vida() << " minutos, Prioridad: " << p.get_prioridad() << endl;
         aux.apilar(p);
         desapilar();

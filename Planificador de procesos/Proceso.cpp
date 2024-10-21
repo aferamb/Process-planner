@@ -9,29 +9,22 @@ int Proceso::contador_PID = 0;
 
 // Constructor
 Proceso::Proceso(){
-  PID = ++contador_PID;
-  PPID = 1;
-  inicio = 0;
-  tiempoDeVida = 0;
-  prioridad = 9;
+  PID = -1;
+  PPID = -1;
+  inicio = -1;
+  tiempoDeVida = -1;
+  prioridad = -1;
   nucleoAsignado = -1;
 }
 
 // Constructor con parametros
 Proceso::Proceso(int ppid, int inicio, int tiempoDeVida, int prioridad){
-  this->PID = ++contador_PID;  
+  this->PID = ++contador_PID;
   this->PPID = ppid;
   this->inicio = inicio;
   this->tiempoDeVida = tiempoDeVida;
   this->prioridad = prioridad;
   nucleoAsignado = -1;  // El núcleo asignado comienza como -1 ya que no se asigna hasta que el proceso entre en ejecución.
-}
-
-void Proceso::generarProceso(int tiempoActual) {
-  PPID = 1;  // Asumimos que todos los procesos son hijos de init (PPID = 1) (para los primeros 10) aun falta para los demas procesos que no son = 1
-  inicio = tiempoActual;  // Aqui todavia no he implemntado el ctime, los genero al azar provisionalmente
-  tiempoDeVida = rand() % 30; // Supongamos que el proceso tiene un tiempo de vida maximo de 30 min
-  prioridad = rand() % 10;  // Prioridad entre 0 (máxima prioridad) y 9 (menor prioridad)
 }
 
 // Getters

@@ -94,6 +94,7 @@ int main() {
 
                 cout << "Pila de procesos creada correctamente.\n";
                 // Ordenar la pila de procesos y mostrarla
+                pila.ordenarPorTiempoInicio();
                 break;
             }
 
