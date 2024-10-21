@@ -15,12 +15,15 @@
 
 using namespace std;
 
+
 int main() {
     int opcion;
     Pila pila;
     Proceso p;
     Cola cola;
-    int tiempoTranscurrido = 0;
+    Nucleo nucleo1;
+    Nucleo nucleo2;
+    Global::tiempoTranscurrido = 0;
     int horas = 0;
     int minutos = 0;
 
@@ -48,10 +51,11 @@ int main() {
                     pila.apilar(p);
                 }
                 */
+
                 Proceso p1=Proceso(1, 0, 4, 0);
                 Proceso p2=Proceso(1, 0, 5, 1);
-                Proceso p3=Proceso(1, 1, 2, 3);
-                Proceso p4=Proceso(2, 7, 1, 7);
+                Proceso p3=Proceso(1, 1, 4, 3);
+                Proceso p4=Proceso(2, 7, 3, 7);
                 Proceso p5=Proceso(2, 8, 2, 2);
                 Proceso p6=Proceso(3, 15, 5, 1);
                 Proceso p7=Proceso(3, 20, 3, 4);
@@ -68,56 +72,69 @@ int main() {
                 Proceso p18=Proceso(8, 46, 1, 8);
                 Proceso p19=Proceso(9, 47, 4, 2);
 
-                pila.apilar(p1);
-                pila.apilar(p2);
-                pila.apilar(p3);
-                pila.apilar(p4);
-                pila.apilar(p5);
-                pila.apilar(p6);
                 pila.apilar(p7);
-                pila.apilar(p8);
-                pila.apilar(p9);
-                pila.apilar(p10);
                 pila.apilar(p11);
-                pila.apilar(p12);
                 pila.apilar(p13);
-                pila.apilar(p14);
-                pila.apilar(p15);
-                pila.apilar(p16);
-                pila.apilar(p17);
+                pila.apilar(p9);
                 pila.apilar(p18);
+                pila.apilar(p15);
+                pila.apilar(p6);
+                pila.apilar(p17);
+                pila.apilar(p2);
+                pila.apilar(p1);
+                pila.apilar(p12);
+                pila.apilar(p10);
+                pila.apilar(p4);
+                pila.apilar(p8);
+                pila.apilar(p14);
+                pila.apilar(p5);
+                pila.apilar(p16);
+                pila.apilar(p3);
                 pila.apilar(p19);
 
                 cout << "Pila de procesos creada correctamente.\n";
+                // Ordenar la pila de procesos y mostrarla
                 break;
             }
+
             case 2: {
                 // Mostrar todos los procesos en la pila
                 pila.mostrarTodos();
                 break;
             }
+
             case 3: {
                 // Borrar pila de procesos
                 if (pila.esVacia()) {
                     cout << "La pila de procesos ya está vacía.\n";
                 } else {
-                    pila.~Pila();
+                    //pila.~Pila();
+                    while (!pila.esVacia()) {
+                        pila.desapilar();
+                    }
                     cout << "Pila de procesos eliminada correctamente.\n";
                 }
                 break;
             }
+
             case 4: {
                 // Mostrar cola de espera de procesos
                 cout << "Cola de espera de procesos:\n";
                 cola.mostrarCola();
                 break;
             }
+
             case 5: {
-                cout << "Saliendo del programa...\n";
+                // Mostrar procesos en nucleos
+                cout << "Procesos en nucleos:\n";
+                cout << "Nucleo 1: ";
+                nucleo1.detalles_proceso();
+                cout << "Nucleo 2: ";
+                nucleo2.detalles_proceso();
                 break;
             }
-            case 6: {
-                // Aumentar tiempo del sistema
+
+            case 6: {       // Aumentar tiempo del sistema y simular ejecución de procesos hasta tiempo dado
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
@@ -128,13 +145,32 @@ int main() {
                     horas += minutos / 60; // Aumentar horas
                     minutos = minutos % 60; // Actualizar minutos
                 }
-                // Actualizar tiempo transcurrido
-                tiempoTranscurrido += n;
 
-                cout << "Tiempo actualizado: " << (horas < 10 ? "0" : "") << horas << ":"
-                    << (minutos < 10 ? "0" : "") << minutos << endl;
+                // Simular ejecución de procesos          
+                // Comprobar si hay procesos en la pila de procesos y meter en cola los procesos que tengan tiempo de inicio igual al tiempo actual/tiempo transcurrido
+                // Ordenar la cola de procesos por prioridad
+                // Comprobar si hay procesos en la cola de procesos y meter los procesos en los núcleos libres, sino, seguir con la ejecución de los procesos en los núcleos
+                // Cuando entren procesos en los núcleos, imprimir los detalles de los procesos en los núcleos cuando entran, y eliminar e imprimir los procesos que terminen su ejecución
+                // ademas de guardar el tiempo en el que el proceso salio de la pila (tiempo de inicio) y el tiempo en el que termino su ejec para calcular el tiempo de estancia en el sistema operativo
+                // actualizar dentro del bucle Global::tiempoTranscurrido += n;  
+
+
+                cout << "Tiempo actualizado: " << (horas < 10 ? "0" : "") << horas << ":" << (minutos < 10 ? "0" : "") << minutos << endl;
                 break;
             }
+
+            case 7: {
+                // Simular ejecucion de proceso
+                cout << "A continuacion se simulara el paso del tiempo en el sistema operativo hasta que finalicen todos los procesos" << endl;
+                cout << "Simulando ejecucion de procesos...\n";
+                // Simulamos la ejecución de los procesos
+                // Necesario modificar tiempo transcurrido en name space Global
+                break;
+            }
+
+            case 8:
+                cout << "Saliendo del programa...\n";
+                break;
             default:
                 cout << "Opcion no valida, intentelo nuevamente.\n";
             break;

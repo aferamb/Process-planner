@@ -5,6 +5,7 @@
 
 namespace Global {
     extern time_t tiempoReferencia;  // Declaración de la variable dentro del namespace
+    extern int tiempoTranscurrido; // Declaración de la variable dentro del namespace
 }
 
 #endif
