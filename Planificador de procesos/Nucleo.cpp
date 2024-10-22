@@ -114,7 +114,7 @@ void Nucleo::eliminar_proceso(){
 // Esta función se puede usar para mostrar los detalles de un proceso en ejecución.
 void Nucleo::detalles_proceso() const {
     if (proceso_en_ejecucion == NULL){
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "No hay proceso en ejecucion" << endl;
+        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | Nucleo " << id << ": No hay proceso en ejecucion" << endl;
     } else {
         cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Proceso en nucleo: " << id << ", PID: " << proceso_en_ejecucion->get_PID() << ", PPID: " << proceso_en_ejecucion->get_PPID() << ", Inicio: " << proceso_en_ejecucion->get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion->get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion->get_prioridad() << endl;
     }

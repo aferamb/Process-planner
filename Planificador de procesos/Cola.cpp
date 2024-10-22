@@ -50,18 +50,21 @@ Proceso Cola::desencolar(){
         longitud--;
         return proceso;
     }
+    return Proceso();
 }
 
 Proceso Cola::inicio(){
     if (!es_vacia()){
         return primero->proceso;
     }
+    //return Proceso();
 }
 
 Proceso Cola::fin(){ //no se si es correcto
     if (!es_vacia()){
         return ultimo->proceso;
     }
+    return Proceso();
 }
 
 bool Cola::es_vacia(){
