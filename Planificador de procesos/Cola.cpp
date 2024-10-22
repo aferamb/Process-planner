@@ -46,6 +46,12 @@ void Cola::encolar(Proceso proceso){
     longitud++;
 }
 
+
+/**
+ * @brief Desencola un proceso de la cola
+ * 
+ * @return Proceso Proceso desencolado
+ */
 Proceso Cola::desencolar(){
     if (!es_vacia()){
         Proceso proceso = primero->proceso;
@@ -69,6 +75,12 @@ Proceso Cola::desencolar(){
     return Proceso();
 }
 
+
+/**
+ * @brief  Devuelve el proceso que está en el inicio de la cola
+ * 
+ * @return Proceso Proceso en el inicio de la cola
+ */
 Proceso Cola::inicio(){
     if (!es_vacia()){
         return primero->proceso;
@@ -76,6 +88,12 @@ Proceso Cola::inicio(){
     //return Proceso();
 }
 
+
+/**
+ * @brief Devuelve el proceso que está al final de la cola
+ * 
+ * @return Proceso Proceso al final de la cola
+ */
 Proceso Cola::fin(){ //no se si es correcto
     if (!es_vacia()){
         return ultimo->proceso;
@@ -83,14 +101,32 @@ Proceso Cola::fin(){ //no se si es correcto
     return Proceso();
 }
 
+
+/**
+ * @brief Comprueba si la cola está vacía
+ * 
+ * @return true Si la cola está vacía
+ * @return false Si la cola no está vacía
+ */
 bool Cola::es_vacia(){
     return ((primero == NULL) && (ultimo == NULL));
 }
 
+
+/**
+ * @brief Devuelve la longitud de la cola
+ * 
+ * @return int Longitud de la cola
+ */
 int Cola::get_longitud(){
     return longitud;
 }
 
+
+/**
+ * @brief Muestra la cola
+ * 
+ */
 void Cola::mostrarCola(){
     //No es correcto, la cola solo puede verse mostrando el primero y desencolando, se implementa para comprobar código facilmente
     NodoCola *aux = primero;
@@ -106,6 +142,8 @@ void Cola::mostrarCola(){
     }
 }
 
+
+// Función para ordenar la cola según la prioridad de menor a mayor
 void Cola::ordenar_por_prioridad_no_provada() {
     if (primero == nullptr || primero->siguiente == nullptr) {
         // Si la cola está vacía o solo tiene un elemento, no es necesario ordenar
@@ -144,7 +182,11 @@ void Cola::ordenar_por_prioridad_no_provada() {
     ultimo = temp;
 }
 
-// Función para ordenar la cola según la prioridad de menor a mayor
+
+/**
+ * @brief Ordena la cola según la prioridad de menor a mayor
+ * 
+ */
 void Cola::ordenar_por_prioridad() {
     if (primero == nullptr || primero->siguiente == nullptr) {
         // Si la cola está vacía o solo tiene un elemento, no es necesario ordenar

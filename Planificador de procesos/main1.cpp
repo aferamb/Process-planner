@@ -1,9 +1,13 @@
-//     std::time_t startTime = std::time(nullptr);
-// Usando esta funcion optenemos el tiempo en el que el programa se inicio, se utilizara de referencia
-// para calcular el rtiempo tra es inicio del programa, restamos el tiempo actual con el tiempo de inicio y nos dara el tiempo transcurrido desde el inicio del programa
-// la referencia de tiempo se establece unicamente al inicio del programa, por que si se vuelve a llamar la funcion time() se obtendra un nuevo tiempo de referencia que 
-// no sera el mismo que el tiempo de inicio del programa.
-
+/**
+ * @file main1.cpp
+ * @author Alejandro
+ * @brief Programa principal para simular un planificador de procesos de la parte 1
+ * @version 0.1
+ * @date 2024-10-22
+ * 
+ * @copyright Copyright (c) 2024
+ * 
+ */
 #include "global.h"
 #include "Nucleo.h"
 #include "Cola.h"
