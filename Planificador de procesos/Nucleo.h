@@ -17,14 +17,22 @@ public:
     Nucleo(int id, Proceso proceso, Cola cola_procesos);
     ~Nucleo();
 
+    // Getters
+    int get_id() const;
+    int get_tiempo_inicio() const;
+    int get_tiempo_fin() const;
+    Proceso get_proceso() const; 
+    Cola get_cola_procesos() const;
+    void detalles_proceso() const;
+    void detalles_proceso(bool i) const;
+    void detalles_nucleo() const;
+
+    // Setters
     void set_id(int id);
     void set_proceso(Proceso proceso);
     void set_cola_procesos(Cola cola_procesos);
     void add_proceso(Proceso proceso);
-    int get_id();
-    void detalles_proceso();
-    Proceso get_proceso();
-    Cola get_cola_procesos();
+
     void eliminar_proceso();
     void actualizar_estado();
 };;

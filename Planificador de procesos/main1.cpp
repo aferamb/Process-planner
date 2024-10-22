@@ -12,23 +12,25 @@
 #include <iostream>
 #include <ctime>
 #include <chrono>
+#include <thread>
 
 using namespace std;
 
 
 int main() {
     int opcion;
+    float contador_tiempo_estancia = 0; // Contador para calcular el tiempo medio de estancia en el sistema operativo, se hace float para que el resultado de la division sea float
     Pila pila;
     Proceso p;
     Cola cola;
     Nucleo nucleo1;
     Nucleo nucleo2;
     Global::tiempoTranscurrido = 0;
-    int horas = 0;
-    int minutos = 0;
+    //int horas = Global::tiempoTranscurrido/60;  
+    //int minutos = Global::tiempoTranscurrido%60;
 
     do {
-        cout << "\nTiempo transcurrido: " << (horas < 10 ? "0" : "") << horas << ":" << (minutos < 10 ? "0" : "") << minutos << endl;
+        cout << "\nTiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
 
         cout << "\nMENU PRINCIPAL\n\n";
         cout << "1. Crear pila de procesos. (datos creados manualmente en el codigo)\n";
@@ -139,14 +141,6 @@ int main() {
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
-
-                // Actualizar horas y minutos
-                minutos += n; // Aumentar los minutos
-                if (minutos >= 60) { // Si los minutos son 60 o más
-                    horas += minutos / 60; // Aumentar horas
-                    minutos = minutos % 60; // Actualizar minutos
-                }
-
                 // Simular ejecución de procesos          
                 // Comprobar si hay procesos en la pila de procesos y meter en cola los procesos que tengan tiempo de inicio igual al tiempo actual/tiempo transcurrido
                 // Ordenar la cola de procesos por prioridad
@@ -155,27 +149,172 @@ int main() {
                 // ademas de guardar el tiempo en el que el proceso salio de la pila (tiempo de inicio) y el tiempo en el que termino su ejec para calcular el tiempo de estancia en el sistema operativo
                 // actualizar dentro del bucle Global::tiempoTranscurrido += n;  
 
+                for(int i = Global::tiempoTranscurrido; Global::tiempoTranscurrido <= i+n; Global::tiempoTranscurrido++){
 
-                cout << "Tiempo actualizado: " << (horas < 10 ? "0" : "") << horas << ":" << (minutos < 10 ? "0" : "") << minutos << endl;
+                    if (pila.esVacia() && cola.es_vacia() && nucleo1.get_proceso().get_PID() == -1 && nucleo2.get_proceso().get_PID() == -1){
+                        cout << "No hay procesos en la pila ni en la cola de espera, y ambos nucleos estan libres.\n";
+                        cout << endl;
+                        cout << "Ejecucion de procesos finalizada." << endl; 
+                        cout << endl;
+                        cout << "Tiempo medio de estancia en el sistema operativo: " << contador_tiempo_estancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
+                        break;
+                    }
+
+                    cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
+
+                    if(!pila.esVacia()){
+                        Proceso p = pila.mostrar();
+                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                            cola.encolar(p);
+                            pila.desapilar();
+                            if(!pila.esVacia()){
+                                p = pila.mostrar();
+                            } else {
+                                // Igual poner un delete p;
+                                break; // Si no hay mas procesos en la pila que inicien ahora, salir del bucle
+                            }
+                        }
+                    }
+
+                    cola.ordenar_por_prioridad(); // La no provada de momento no se usa
+                    if(!cola.es_vacia()){
+
+                        // Nucleo 1
+                        if ((nucleo1.get_proceso().get_PID() == -1) || (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido)){
+                            if (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido){
+                                nucleo1.detalles_proceso(false);
+                                contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
+                            }
+                            nucleo1.add_proceso(cola.desencolar());
+                            nucleo1.detalles_proceso(true);
+
+                        // Nucleo 2
+                        } else if (!cola.es_vacia() && ((nucleo2.get_proceso().get_PID() == -1) || (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido))){
+                            if (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido){
+                                nucleo2.detalles_proceso(false);
+                                contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
+                            }
+                            nucleo2.add_proceso(cola.desencolar());
+                            nucleo2.detalles_proceso(true);
+                        
+                        // Nucleo 2
+                        } else if (cola.es_vacia() && (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido)){
+                            nucleo2.detalles_proceso(false);
+                            contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
+                            nucleo2.eliminar_proceso();
+                        }
+
+                        nucleo1.detalles_proceso();
+                        nucleo2.detalles_proceso();
+
+                    } else {
+                        // Nucleo 1
+                        if (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido){
+                            nucleo1.detalles_proceso(false);
+                            contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
+                            nucleo1.eliminar_proceso();
+                        }
+                        // Nucleo 2
+                        if (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido){
+                            nucleo2.detalles_proceso(false);
+                            contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
+                            nucleo2.eliminar_proceso();
+                        }
+
+                        nucleo1.detalles_proceso();
+                        nucleo2.detalles_proceso();
+                    }
+                }
                 break;
             }
 
             case 7: {
                 // Simular ejecucion de proceso
                 cout << "A continuacion se simulara el paso del tiempo en el sistema operativo hasta que finalicen todos los procesos" << endl;
-                cout << "Simulando ejecucion de procesos...\n";
-                // Simulamos la ejecución de los procesos
-                // Necesario modificar tiempo transcurrido en name space Global
+
+                while (pila.esVacia() && cola.es_vacia() && nucleo1.get_proceso().get_PID() == -1 && nucleo2.get_proceso().get_PID() == -1){
+                    
+                    cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
+
+                    if(!pila.esVacia()){
+                        Proceso p = pila.mostrar();
+                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                            cola.encolar(p);
+                            pila.desapilar();
+                            if(!pila.esVacia()){
+                                p = pila.mostrar();
+                            } else {
+                                // Igual poner un delete p;
+                                break; // Si no hay mas procesos en la pila que inicien ahora, salir del bucle
+                            }
+                        }
+                    }
+
+                    cola.ordenar_por_prioridad(); // La no provada de momento no se usa
+                    if(!cola.es_vacia()){
+
+                        // Nucleo 1
+                        if ((nucleo1.get_proceso().get_PID() == -1) || (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido)){
+                            if (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido){
+                                nucleo1.detalles_proceso(false);
+                                contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
+                            }
+                            nucleo1.add_proceso(cola.desencolar());
+                            nucleo1.detalles_proceso(true);
+
+                        // Nucleo 2
+                        } else if (!cola.es_vacia() && ((nucleo2.get_proceso().get_PID() == -1) || (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido))){
+                            if (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido){
+                                nucleo2.detalles_proceso(false);
+                                contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
+                            }
+                            nucleo2.add_proceso(cola.desencolar());
+                            nucleo2.detalles_proceso(true);
+                        
+                        // Nucleo 2
+                        } else if (cola.es_vacia() && (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido)){
+                            nucleo2.detalles_proceso(false);
+                            contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
+                            nucleo2.eliminar_proceso();
+                        }
+
+                        nucleo1.detalles_proceso();
+                        nucleo2.detalles_proceso();
+
+                    } else {
+                        // Nucleo 1
+                        if (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido){
+                            nucleo1.detalles_proceso(false);
+                            contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
+                            nucleo1.eliminar_proceso();
+                        }
+                        // Nucleo 2
+                        if (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido){
+                            nucleo2.detalles_proceso(false);
+                            contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
+                            nucleo2.eliminar_proceso();
+                        }
+
+                        nucleo1.detalles_proceso();
+                        nucleo2.detalles_proceso();
+                    }
+                    Global::tiempoTranscurrido++;
+                    this_thread::sleep_for(chrono::seconds(1)); // Esperar 1 segundo
+                }
+                cout << endl;
+                cout << "Ejecucion de procesos finalizada." << endl; 
+                cout << endl;
+                cout << "Tiempo medio de estancia en el sistema operativo: " << contador_tiempo_estancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
                 break;
             }
 
             case 8:
                 cout << "Saliendo del programa...\n";
                 break;
+
             default:
                 cout << "Opcion no valida, intentelo nuevamente.\n";
-            break;
         }
-    } while (opcion != 8);  // El menú sigue hasta que el usuario seleccione la opción 5 para salir
+    } while (opcion != 8);  // El menú sigue hasta que el usuario seleccione la opción 8 para salir
     return 0;
 }

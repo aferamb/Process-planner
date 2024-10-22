@@ -18,6 +18,7 @@ class Proceso {
         // Constructor por defecto
         Proceso();
         Proceso(int ppid, int inicio, int tiempoDeVida, int prioridad);
+        ~Proceso();
 
         // Getters
         int get_PID() const;

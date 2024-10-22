@@ -27,6 +27,9 @@ Proceso::Proceso(int ppid, int inicio, int tiempoDeVida, int prioridad){
   nucleoAsignado = -1;  // El núcleo asignado comienza como -1 ya que no se asigna hasta que el proceso entre en ejecución.
 }
 
+// Destructor
+Proceso::~Proceso() {}
+
 // Getters
 int Proceso::get_PID() const {
   return PID;
