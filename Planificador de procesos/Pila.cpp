@@ -33,7 +33,7 @@ Proceso Pila::mostrar() {
         cout << "Pila vacia" << endl;
         return Proceso();   // Retornamos un proceso vacío, no debería ser un 0 o nullptr o algo asi
     } else {
-        cout << "Cima pila: " << cima->proceso.get_PID() << endl;
+        //cout << "Cima pila: " << cima->proceso.get_PID() << endl;
         return cima->proceso;
     }
 }
