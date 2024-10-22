@@ -127,18 +127,26 @@ int Cola::get_longitud(){
  * @brief Muestra la cola
  * 
  */
-void Cola::mostrarCola(){
-    //No es correcto, la cola solo puede verse mostrando el primero y desencolando, se implementa para comprobar código facilmente
-    NodoCola *aux = primero;
-    if (es_vacia())
-    {cout << "La cola está vacía" << endl;}
-    else{
-        cout << "| PID | PPID | Inicio | Tiempo vida | Prioridad | Nucleo |" << endl;
-        while (aux){
-            cout << "| " << aux->proceso.get_PID() << " | " << aux->proceso.get_PPID() << " | " << aux->proceso.get_inicio() << " | " << aux->proceso.get_tiempo_de_vida() << " | " << aux->proceso.get_prioridad() << " | " << aux->proceso.get_nucleo_asignado() << " |" << endl;
-            aux = aux->siguiente;
-        }
-        cout << endl;
+void Cola::mostrarCola() {
+    if (es_vacia()) {
+        cout << "La cola está vacía" << endl;
+        return;
+    }
+
+    Cola tempCola;
+    Proceso procesoActual;
+
+    cout << "|PID|PPID|Inicio|Tiempo vida|Prioridad|Nucleo|" << endl;
+    while (!es_vacia()) {
+        procesoActual = desencolar();
+        cout << "| " << procesoActual.get_PID() << " | " << procesoActual.get_PPID() << " | " << procesoActual.get_inicio() << " | " << procesoActual.get_tiempo_de_vida() << " | " << procesoActual.get_prioridad() << " | " << procesoActual.get_nucleo_asignado() << " |" << endl;
+        tempCola.encolar(procesoActual);
+    }
+    cout << endl;
+
+    // Restaurar la cola original
+    while (!tempCola.es_vacia()) {
+        encolar(tempCola.desencolar());
     }
 }
 
