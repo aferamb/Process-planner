@@ -3,12 +3,22 @@
 #include <iostream>
 using namespace std;
 
+
+/**
+ * @brief Construct a new Cola:: Cola object
+ * 
+ */
 Cola::Cola(){
     primero = NULL;
     ultimo = NULL;
     longitud = 0;
 }
 
+
+/**
+ * @brief Destroy the Cola:: Cola object
+ * 
+ */
 Cola::~Cola() {
     while (primero) {
         NodoCola* aux = primero;
@@ -17,6 +27,12 @@ Cola::~Cola() {
     }
 }
 
+
+/**
+ * @brief Encola un proceso en la cola
+ * 
+ * @param proceso Proceso a encolar
+ */
 void Cola::encolar(Proceso proceso){  
     NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
     if (es_vacia()){
