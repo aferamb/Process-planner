@@ -1,6 +1,7 @@
 #include "Cola.h"
 #include "Proceso.h"
 #include <iostream>
+#include <typeinfo> // Necesario para usar typeid
 using namespace std;
 
 
@@ -47,7 +48,7 @@ void Cola::encolar(Proceso proceso){
 }
 
 
-void Cola::insertar_por_prioridad(Proceso proceso){
+void Cola::insertar_por_prioridad(Proceso proceso){ // No funciona, por ellamor de dios, CUIDADO
     NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
     if (es_vacia()){
         primero = nuevo_nodo;
@@ -67,13 +68,16 @@ void Cola::insertar_por_prioridad(Proceso proceso){
         else{
             anterior->siguiente = nuevo_nodo;
             nuevo_nodo->siguiente = actual;
+            if (actual == NULL) {
+                ultimo = nuevo_nodo;
+            }
         }
     }
     longitud++;
 }
 
 /**
- * @brief Desencola un proceso de la cola
+ * @brief Desencola un proceso de la cola y lo devuelve, si la cola no está vacía. Sino devuelve un proceso vacío
  * 
  * @return Proceso Proceso desencolado
  */
@@ -96,8 +100,9 @@ Proceso Cola::desencolar(){
         
         longitud--;
         return proceso;
+    } else {
+        return Proceso();
     }
-    return Proceso();
 }
 
 
@@ -108,22 +113,27 @@ Proceso Cola::desencolar(){
  */
 Proceso Cola::inicio(){
     if (!es_vacia()){
+        cout << "tamos en class cola" << endl;
+        cout << "Proceso en el inicio de la cola: " << typeid(primero->proceso).name() << endl;
         return primero->proceso;
+    } else {
+        cout << "La cola está vacía" << endl;
+        return Proceso();
     }
-    //return Proceso();
 }
 
 
 /**
- * @brief Devuelve el proceso que está al final de la cola
+ * @brief Devuelve el proceso que está al final de la cola. Si la cola está vacía, devuelve un proceso vacío
  * 
  * @return Proceso Proceso al final de la cola
  */
 Proceso Cola::fin(){ //no se si es correcto
     if (!es_vacia()){
         return ultimo->proceso;
+    } else {
+        return Proceso();
     }
-    return Proceso();
 }
 
 
@@ -133,7 +143,7 @@ Proceso Cola::fin(){ //no se si es correcto
  * @return true Si la cola está vacía
  * @return false Si la cola no está vacía
  */
-bool Cola::es_vacia(){
+bool Cola::es_vacia() const {
     return ((primero == NULL) && (ultimo == NULL));
 }
 
@@ -153,15 +163,15 @@ int Cola::get_longitud(){
  * 
  */
 void Cola::mostrarCola() {
+    cout << "|PID|PPID|Inicio|Tiempo vida|Prioridad|Nucleo|" << endl;
     if (es_vacia()) {
-        cout << "La cola está vacía" << endl;
-        return;
+        cout << endl;
+        cout << "        La cola esta vacia" << endl;
     }
 
     Cola tempCola;
     Proceso procesoActual;
 
-    cout << "|PID|PPID|Inicio|Tiempo vida|Prioridad|Nucleo|" << endl;
     while (!es_vacia()) {
         procesoActual = desencolar();
         cout << "| " << procesoActual.get_PID() << " | " << procesoActual.get_PPID() << " | " << procesoActual.get_inicio() << " | " << procesoActual.get_tiempo_de_vida() << " | " << procesoActual.get_prioridad() << " | " << procesoActual.get_nucleo_asignado() << " |" << endl;

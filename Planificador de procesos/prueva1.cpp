@@ -50,5 +50,46 @@ int main() {
     cola.inicio();
     cola.mostrarCola();
 
+    Proceso p12=Proceso(6, 32, 2, 7);
+    Proceso p13=Proceso(7, 35, 1, 9);
+    Proceso p11=Proceso(6, 30, 3, 5);
+
+
+    cola.encolar(p13);
+    cola.encolar(p12);
+    cola.insertar_por_prioridad(p11);
+
+    if (cola.es_vacia()) {
+        cout << "La cola está vacía." << endl;
+    } else {
+        cout << "La cola no está vacía." << endl;
+    }
+
+    cola.mostrarCola();
+
+    Proceso desencolado1 = cola.desencolar();
+    Proceso desencolado2 = cola.desencolar();
+    Proceso desencolado3 = cola.desencolar();
+    Proceso desencolado4 = cola.desencolar();
+
+    cout << "Elementos desencolados:" << endl;
+    cout << desencolado1.get_PID() << endl;
+    cout << desencolado2.get_PID() << endl;
+    cout << desencolado3.get_PID() << endl;
+    cout << desencolado4.get_PID() << endl;    
+
+    if (cola.es_vacia()) {
+        cout << "La cola está vacía." << endl;
+    } else {
+        cout << "La cola no está vacía." << endl;
+    }
+cout << "If 3.0" << endl;
+                    cout << cola.get_longitud() << endl;
+                    cout << "If 3.0" << endl;
+                    cout << cola.inicio().get_PID() << endl;
+                    cout << cola.desencolar().get_PID() << endl;
+                    cout << "If 3.0" << endl;
+                    cout << cola.desencolar().get_PID() << endl;
+                    cout << cola.inicio().get_PID() << endl;
 
 }

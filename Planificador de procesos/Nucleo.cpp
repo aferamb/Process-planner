@@ -15,10 +15,10 @@ using namespace std;
  */
 Nucleo::Nucleo(){
     id = 0; // en la segunda parte el id se asigna automaticamente en base a la cantidad de nucleos en la lista de nucleos
-    proceso_en_ejecucion = NULL;
-    cola_procesos   = NULL;
-    tiempo_inicio = 0; //podria ser NULL
-    tiempo_fin = 0;
+    proceso_en_ejecucion;
+    cola_procesos;
+    tiempo_inicio = -1; //podria ser NULL
+    tiempo_fin = -1;
 }
 
 
@@ -29,10 +29,9 @@ Nucleo::Nucleo(){
  * @param proceso Proceso en ejecución
  * @param cola_procesos Cola de procesos en espera
  */
-Nucleo::Nucleo(int id, Proceso proceso, Cola cola_procesos){
+Nucleo::Nucleo(int id, Proceso proceso){
     this->id = id;
-    this->proceso_en_ejecucion = &proceso;
-    this->cola_procesos = &cola_procesos;
+    this->proceso_en_ejecucion = proceso;
     time_t tiempo_inicio = Global::tiempoTranscurrido;
     this->tiempo_inicio = tiempo_inicio;
     time_t tiempo_fin = tiempo_inicio + proceso.get_tiempo_de_vida();
@@ -59,13 +58,13 @@ void Nucleo::set_id(int id){
 
 
 /**
- * @brief Asigna un proceso al núcleo
+ * @brief Asigna un proceso al núcleo directamente
  * 
  * @param proceso Proceso a asignar
  */
 void Nucleo::set_proceso(Proceso proceso){
-    this->proceso_en_ejecucion = &proceso;
-    proceso.set_nucleo_asignado(id);
+    this->proceso_en_ejecucion = proceso;
+    proceso_en_ejecucion.set_nucleo_asignado(id);
     this->tiempo_inicio = Global::tiempoTranscurrido;
     this->tiempo_fin = tiempo_inicio + proceso.get_tiempo_de_vida();    
 }
@@ -77,22 +76,24 @@ void Nucleo::set_proceso(Proceso proceso){
  * @param cola_procesos Cola de procesos a asignar
  */
 void Nucleo::set_cola_procesos(Cola cola_procesos){
-    this->cola_procesos = &cola_procesos;
+    this->cola_procesos = cola_procesos;
     // modificar el atributo nucleo_asignado de los procesos en la cola
 }
 
 
 /**
- * @brief Añade un proceso a la cola de procesos del núcleo
+ * @brief Añade un proceso al nucleo si este esta vacio(proceso vacio) o lo encola si no lo esta
  * 
  * @param proceso Proceso a añadir
  */
 void Nucleo::add_proceso(Proceso proceso){
-    if ((cola_procesos == NULL)&(proceso_en_ejecucion == NULL)){
+    if ((cola_procesos.es_vacia()) && (proceso_en_ejecucion.get_PID() == -1)){
         set_proceso(proceso);
-    } else {
+        //cout << "Proceso asignado al nucleo " << id << endl; // para pruevas
+    } else if (proceso_en_ejecucion.get_PID() != -1){
         proceso.set_nucleo_asignado(id);
-        cola_procesos->encolar(proceso);
+        cola_procesos.insertar_por_prioridad(proceso); // cuidado
+        //cout << "Proceso encolado en el nucleo " << id << endl;  // para pruevas
     }
     // igual hacer que al llamar esta funcion se ordene la cola de procesos interna por prioridad
     // igual hacer que al llamar esta funcion se actualice si el proceso en ejecucion ha terminado
@@ -139,12 +140,12 @@ int Nucleo::get_tiempo_fin() const {
  * @return Proceso El proceso en ejecución o un proceso vacío si no hay ninguno en ejecución.
  */
 Proceso Nucleo::get_proceso() const {
-    if (proceso_en_ejecucion == NULL){
-        cout << "No hay proceso en ejecucion, devuelve un proceso vacio" << endl;
+    if (proceso_en_ejecucion.get_PID() == -1){
+        //cout << "No hay proceso en ejecucion, devuelve un proceso vacio" << endl;
         cout << endl;
         return Proceso(); //?
     } else {
-        return *proceso_en_ejecucion;
+        return proceso_en_ejecucion;
     }
 }
 
@@ -159,12 +160,12 @@ Proceso Nucleo::get_proceso() const {
  * @return Cola La cola de procesos en espera o una cola vacía si no hay cola de procesos.
  */
 Cola Nucleo::get_cola_procesos() const {
-    if (cola_procesos == NULL){
+    if (cola_procesos.es_vacia()){
         cout << "No hay cola de procesos, devuelve una cola vacia" << endl;
         cout << endl;
         return Cola();
     } else {
-        return *cola_procesos;
+        return cola_procesos;
     }
 }
 
@@ -173,25 +174,21 @@ Cola Nucleo::get_cola_procesos() const {
  * @brief Elimina el proceso en ejecución.
  *
  * Esta función elimina el proceso que actualmente está en ejecución en el núcleo, e inserta el siguiente proceso
- * si es que hay alguno en la cola de procesos en espera. Si no hay ningún proceso en ejecución y tampoco hay procesos
- * en la cola de procesos, se muestra un mensaje en la consola indicando que no hay proceso en ejecución
- * Si no hay ningún proceso en ejecución, se muestra un mensaje en la consola
- * indicando que no hay proceso en ejecución.
+ * si es que hay alguno en la cola de procesos en espera. Si no hay proceso inserta un proceso de la cola de procesos,
+ * y si la cola esta vacia, inserta un proceso vacio.
+ * 
  */
 void Nucleo::eliminar_proceso(){
-    if (proceso_en_ejecucion == NULL){
-        cout << "No hay proceso en ejecucion" << endl;
-        cout << endl;
+    if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia())) {
+        set_proceso(cola_procesos.desencolar());
     }
-    else if ((proceso_en_ejecucion != NULL) & (cola_procesos->es_vacia())){
-        delete proceso_en_ejecucion;
-        proceso_en_ejecucion = NULL;
+    else if ((proceso_en_ejecucion.get_PID() == -1) && (!cola_procesos.es_vacia())){
+        set_proceso(cola_procesos.desencolar());
+    } 
+    else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia())){
+        Proceso paux;
+        proceso_en_ejecucion = paux;
         //eliminar nucleo de la lista de nucleos y liberar memoria, if no es el ultimo nucleo, cambiar id de los siguientes nucleos?
-    }
-    else if ((proceso_en_ejecucion != NULL) & (!cola_procesos->es_vacia())) {
-        delete proceso_en_ejecucion;
-        set_proceso(cola_procesos->inicio());
-        cola_procesos->desencolar();
     }
 }
 
@@ -203,10 +200,10 @@ void Nucleo::eliminar_proceso(){
  * Si no hay ningún proceso en ejecución, se muestra un mensaje en la consola indicando que no hay proceso en ejecución.
  */
 void Nucleo::detalles_proceso() const {
-    if (proceso_en_ejecucion == NULL){
+    if (proceso_en_ejecucion.get_PID() == -1){
         cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | Nucleo " << id << ": No hay proceso en ejecucion" << endl;
     } else {
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Proceso en nucleo: " << id << ", PID: " << proceso_en_ejecucion->get_PID() << ", PPID: " << proceso_en_ejecucion->get_PPID() << ", Inicio: " << proceso_en_ejecucion->get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion->get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion->get_prioridad() << endl;
+        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Proceso en nucleo " << id << " PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
     }
 }
 
@@ -222,14 +219,14 @@ void Nucleo::detalles_proceso() const {
 void Nucleo::detalles_proceso(bool i) const {
     string saux;
     if (i){
-        saux = " | Proceso iniciado: ";
+        saux = " | Proceso iniciado en nucleo ";
     } else {
-        saux = " | Proceso terminado: ";
+        saux = " | Proceso terminado en nucleo ";
     }
-    if (proceso_en_ejecucion == NULL){
+    if (proceso_en_ejecucion.get_PID() == -1){
         cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "No hay proceso en ejecucion" << endl;
     } else {
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << saux << "Nucleo: " << id << ", PID: " << proceso_en_ejecucion->get_PID() << ", PPID: " << proceso_en_ejecucion->get_PPID() << ", Inicio: " << proceso_en_ejecucion->get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion->get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion->get_prioridad() << endl;
+        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << saux << id << ": " << "PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
     }
 }
 
@@ -241,31 +238,32 @@ void Nucleo::detalles_proceso(bool i) const {
  * Si no hay ningún proceso en ejecución, se muestra un mensaje en la consola indicando que no hay proceso en ejecución.
  * Si no hay cola de procesos en espera, se muestra un mensaje en la consola indicando que no hay cola de procesos.
  */
-void Nucleo::detalles_nucleo() const {
-    if (proceso_en_ejecucion == NULL){
+void Nucleo::detalles_nucleo(){
+    if (proceso_en_ejecucion.get_PID() == -1){
         cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
     } else {
         detalles_proceso();
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
     }
-    if (cola_procesos == NULL){
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "No hay cola de procesos" << endl;
+    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+    
+    if (cola_procesos.es_vacia()){
+        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
     } else {
         cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos: " << endl;
-        cola_procesos->mostrarCola();
+        cola_procesos.mostrarCola();
     }
 }
 
 //nooooooooooooooo se si esta bien
 void Nucleo::actualizar_estado(){
-    if (proceso_en_ejecucion != NULL){
+    if (proceso_en_ejecucion.get_PID() != -1){
         if (time(nullptr) == tiempo_fin){
-            delete proceso_en_ejecucion;
-            if (cola_procesos->es_vacia()){
-                proceso_en_ejecucion = NULL;
+            if (cola_procesos.es_vacia()){
+                Proceso paux;
+                proceso_en_ejecucion = paux;
             } else {
-                set_proceso(cola_procesos->inicio());
-                cola_procesos->desencolar();
+                set_proceso(cola_procesos.inicio());
+                cola_procesos.desencolar();
             }
         }
     }

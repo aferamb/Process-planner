@@ -8,13 +8,13 @@ class Nucleo
 {
 private:
     int id;
-    Proceso* proceso_en_ejecucion; // Proceso en ejecución
-    Cola* cola_procesos; // Cola de procesos en espera
+    Proceso proceso_en_ejecucion; // Proceso en ejecución
+    Cola cola_procesos; // Cola de procesos en espera
     time_t tiempo_inicio; // Tiempo cuando el proceso entra en el núcleo
     time_t tiempo_fin; // Calculado con el tiempo de vida del proceso y el tiempo de entrada/inicio del proceso en el núcleo
 public:
     Nucleo();
-    Nucleo(int id, Proceso proceso, Cola cola_procesos);
+    Nucleo(int id, Proceso proceso);
     ~Nucleo();
 
     // Getters
@@ -25,7 +25,7 @@ public:
     Cola get_cola_procesos() const;
     void detalles_proceso() const;
     void detalles_proceso(bool i) const;
-    void detalles_nucleo() const;
+    void detalles_nucleo(); // Como mostrar cola no es const esta tampoco puede serlo
 
     // Setters
     void set_id(int id);

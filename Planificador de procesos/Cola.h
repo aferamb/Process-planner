@@ -17,7 +17,7 @@ public:
     Proceso fin();
     Proceso desencolar();
     int get_longitud();
-    bool es_vacia();
+    bool es_vacia() const;
     void mostrarCola (); //No es correcto, se implementa para ver que está creada correctamente
     void ordenar_por_prioridad();
     void ordenar_por_prioridad_no_provada();

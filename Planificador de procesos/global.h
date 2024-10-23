@@ -13,4 +13,4 @@ namespace Global {
     extern int tiempoTranscurrido; // Declaración de la variable dentro del namespace
 }
 
-#endif
+#endif // GLOBAL_H
