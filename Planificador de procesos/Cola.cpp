@@ -162,7 +162,7 @@ int Cola::get_longitud(){
  * @brief Muestra la cola
  * 
  */
-void Cola::mostrarCola() {
+void Cola::mostrarCola() { // Probar a hacer que la tabla se ajuste al tamaño de los datos
     cout << "|PID|PPID|Inicio|Tiempo vida|Prioridad|Nucleo|" << endl;
     if (es_vacia()) {
         cout << endl;
