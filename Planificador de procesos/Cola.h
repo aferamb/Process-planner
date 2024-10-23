@@ -12,6 +12,7 @@ public:
     Cola();  
     ~Cola();
     void encolar(Proceso proceso);
+    void insertar_por_prioridad(Proceso proceso);
     Proceso inicio();
     Proceso fin();
     Proceso desencolar();

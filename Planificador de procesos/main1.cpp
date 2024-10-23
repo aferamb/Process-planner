@@ -134,10 +134,10 @@ int main() {
             case 5: {
                 // Mostrar procesos en nucleos
                 cout << "Procesos en nucleos:\n";
-                cout << "Nucleo 1: ";
                 nucleo1.detalles_proceso();
-                cout << "Nucleo 2: ";
                 nucleo2.detalles_proceso();
+                cout << endl;
+                cout << endl;
                 break;
             }
 

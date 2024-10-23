@@ -21,9 +21,9 @@ NodoCola::NodoCola(){
  * @param sig 
  */
 NodoCola::NodoCola(Proceso proceso, int prioridad, NodoCola*sig){
-    proceso = proceso;
-    siguiente = sig;
-    prioridad = prioridad;
+    this->proceso = proceso;
+    this->siguiente = sig;
+    this->prioridad = prioridad;
 }
 
 

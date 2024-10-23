@@ -10,6 +10,7 @@ private:
     NodoCola *siguiente;
     Proceso proceso;
     int prioridad;
+    //friend class Cola;
 public:
     NodoCola();
     NodoCola(Proceso proceso, int prioridad, NodoCola*sig = NULL);

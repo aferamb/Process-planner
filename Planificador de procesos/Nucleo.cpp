@@ -141,6 +141,7 @@ int Nucleo::get_tiempo_fin() const {
 Proceso Nucleo::get_proceso() const {
     if (proceso_en_ejecucion == NULL){
         cout << "No hay proceso en ejecucion, devuelve un proceso vacio" << endl;
+        cout << endl;
         return Proceso(); //?
     } else {
         return *proceso_en_ejecucion;
@@ -160,6 +161,7 @@ Proceso Nucleo::get_proceso() const {
 Cola Nucleo::get_cola_procesos() const {
     if (cola_procesos == NULL){
         cout << "No hay cola de procesos, devuelve una cola vacia" << endl;
+        cout << endl;
         return Cola();
     } else {
         return *cola_procesos;
@@ -179,6 +181,7 @@ Cola Nucleo::get_cola_procesos() const {
 void Nucleo::eliminar_proceso(){
     if (proceso_en_ejecucion == NULL){
         cout << "No hay proceso en ejecucion" << endl;
+        cout << endl;
     }
     else if ((proceso_en_ejecucion != NULL) & (cola_procesos->es_vacia())){
         delete proceso_en_ejecucion;
