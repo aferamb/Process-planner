@@ -7,6 +7,7 @@
 class Nucleo
 {
 private:
+    static int Contador_ID;
     int id;
     Proceso proceso_en_ejecucion; // Proceso en ejecución
     Cola cola_procesos; // Cola de procesos en espera

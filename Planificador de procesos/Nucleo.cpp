@@ -7,14 +7,14 @@
 #include <string>
 using namespace std;
 
-
+int Nucleo::Contador_ID = 0;
 
 /**
  * @brief Construct a new Nucleo:: Nucleo object (Constructor por defecto)
  * 
  */
 Nucleo::Nucleo(){
-    id = 0; // en la segunda parte el id se asigna automaticamente en base a la cantidad de nucleos en la lista de nucleos
+    id = Contador_ID++;
     proceso_en_ejecucion;
     cola_procesos;
     tiempo_inicio = -1; //podria ser NULL

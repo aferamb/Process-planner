@@ -30,9 +30,9 @@ int main() {
     Nucleo nucleo1;
     Nucleo nucleo2;
     Nucleo nucleo3;
-    nucleo1.set_id(1);
-    nucleo2.set_id(2);
-    nucleo3.set_id(3);
+    //nucleo1.set_id(1);
+    //nucleo2.set_id(2);
+    //nucleo3.set_id(3);
     Global::tiempoTranscurrido = 0;
     //int horas = Global::tiempoTranscurrido/60;  
     //int minutos = Global::tiempoTranscurrido%60;
@@ -154,6 +154,13 @@ int main() {
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
+                // Para la documentacion
+                //n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
+                if (n < 0){
+                    cout << endl;
+                    cout << "El tiempo no puede ser negativo.\n";
+                    break;
+                }
                 cout << endl;
                 // Simular ejecución de procesos          
                 // Comprobar si hay procesos en la pila de procesos y meter en cola los procesos que tengan tiempo de inicio igual al tiempo actual/tiempo transcurrido
@@ -165,7 +172,7 @@ int main() {
 
                 for(int i = Global::tiempoTranscurrido; Global::tiempoTranscurrido <= i+n; Global::tiempoTranscurrido++){
 
-                    if (pila.esVacia() && cola.es_vacia() && nucleo1.get_proceso().get_PID() == -1 && nucleo2.get_proceso().get_PID() == -1){
+                    if (pila.esVacia() && cola.es_vacia() && nucleo1.get_proceso().get_PID() == -1 && nucleo2.get_proceso().get_PID() == -1 && nucleo3.get_proceso().get_PID() == -1){
                         cout << "No hay procesos en la pila ni en la cola de espera, y ambos nucleos estan libres.\n";
                         cout << endl;
                         cout << "Ejecucion de procesos finalizada." << endl; 
@@ -282,7 +289,7 @@ int main() {
                 // Simular ejecucion de proceso
                 cout << "A continuacion se simulara el paso del tiempo en el sistema operativo hasta que finalicen todos los procesos" << endl;
 
-                while (!(pila.esVacia() && cola.es_vacia() && (nucleo1.get_proceso().get_PID() == -1) && (nucleo2.get_proceso().get_PID() == -1))){
+                while (!(pila.esVacia() && cola.es_vacia() && (nucleo1.get_proceso().get_PID() == -1) && (nucleo2.get_proceso().get_PID() == -1) && (nucleo3.get_proceso().get_PID() == -1))){
                     
                     cout << endl;
                     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
