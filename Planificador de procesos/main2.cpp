@@ -131,6 +131,12 @@ int main() {
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
+                n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
+                if (n <= 0){
+                    cout << endl;
+                    cout << "El tiempo no puede ser cero o negativo.\n";
+                    break;
+                }
                 cout << endl;
                 // Simular ejecución de procesos          
                 // Comprobar si hay procesos en la pila de procesos y meter en cola los procesos que tengan tiempo de inicio igual al tiempo actual/tiempo transcurrido

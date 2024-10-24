@@ -92,12 +92,9 @@ void Nucleo::add_proceso(Proceso proceso){
         //cout << "Proceso asignado al nucleo " << id << endl; // para pruevas
     } else if (proceso_en_ejecucion.get_PID() != -1){
         proceso.set_nucleo_asignado(id);
-        cola_procesos.insertar_por_prioridad(proceso); // cuidado
-        //cout << "Proceso encolado en el nucleo " << id << endl;  // para pruevas
+        cola_procesos.insertar_por_prioridad(proceso); 
+        // si el prodceso en nucleo termian ahora, se mete en ejecucion el siguiente proceso y el nuevo a la cola
     }
-    // igual hacer que al llamar esta funcion se ordene la cola de procesos interna por prioridad
-    // igual hacer que al llamar esta funcion se actualice si el proceso en ejecucion ha terminado
-
 }
 
 
@@ -254,6 +251,8 @@ void Nucleo::detalles_nucleo(){
     }
 }
 
+
+/*
 //nooooooooooooooo se si esta bien
 void Nucleo::actualizar_estado(){
     if (proceso_en_ejecucion.get_PID() != -1){
@@ -268,3 +267,4 @@ void Nucleo::actualizar_estado(){
         }
     }
 }
+*/

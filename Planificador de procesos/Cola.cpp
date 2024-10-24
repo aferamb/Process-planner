@@ -49,35 +49,12 @@ void Cola::encolar(Proceso proceso){
 
 
 void Cola::insertar_por_prioridad(Proceso proceso){ // No funciona, por ellamor de dios, CUIDADO
-    NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
-    if (es_vacia()){
-        primero = nuevo_nodo;
-        ultimo = nuevo_nodo;
-    }
-    else{
-        NodoCola *actual = primero;
-        NodoCola *anterior = NULL;
-        while ((actual != NULL) && (proceso.get_prioridad() >= actual->prioridad)){
-            anterior = actual;
-            actual = actual->siguiente;
-        }
-        if (anterior == NULL){
-            nuevo_nodo->siguiente = primero;
-            primero = nuevo_nodo;
-        }
-        else{
-            anterior->siguiente = nuevo_nodo;
-            nuevo_nodo->siguiente = actual;
-            if (actual == NULL) {
-                ultimo = nuevo_nodo;
-            }
-        }
-    }
-    longitud++;
+    encolar(proceso);
+    ordenar_por_prioridad();
 }
 
 /**
- * @brief Desencola un proceso de la cola y lo devuelve, si la cola no está vacía. Sino devuelve un proceso vacío
+ * @brief Desencola un proceso de la cola y lo devuelve, si la cola no está vSacía. Sino devuelve un proceso vacío
  * 
  * @return Proceso Proceso desencolado
  */

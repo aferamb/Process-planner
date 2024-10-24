@@ -155,10 +155,10 @@ int main() {
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
                 // Para la documentacion
-                //n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
-                if (n < 0){
+                n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
+                if (n <= 0){
                     cout << endl;
-                    cout << "El tiempo no puede ser negativo.\n";
+                    cout << "El tiempo no puede ser cero o negativo.\n";
                     break;
                 }
                 cout << endl;
