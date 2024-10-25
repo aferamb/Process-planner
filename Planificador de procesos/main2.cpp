@@ -28,8 +28,7 @@ int main() {
     Pila pila;
     Proceso p;
     Lista lista;
-    Nucleo nucleo1;
-    lista.insertar(nucleo1); // mirar a ver
+    lista.insertar_nucleo();// mirar a ver
     Global::tiempoTranscurrido = 0;
     //int horas = Global::tiempoTranscurrido/60;  
     //int minutos = Global::tiempoTranscurrido%60;
@@ -180,76 +179,7 @@ int main() {
                         }
                     }
 
-                    cola.mostrarCola();
-                    // Nucleo 1
-                    cout << endl;
-                    if (!cola.es_vacia() && ((nucleo1.get_proceso().get_PID() == -1) || (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido))){
-                        if (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido){
-                            nucleo1.detalles_proceso(false);
-                            //cout << endl;
-                            contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
-                            //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo1.eliminar_proceso();
-                        }
-                        nucleo1.add_proceso(cola.desencolar());
-                        nucleo1.detalles_proceso(true);
-                        cout << endl;
-                    }
-
-                    // Nucleo 2
-                    if (!cola.es_vacia() && ((nucleo2.get_proceso().get_PID() == -1) || (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido))){
-                        if (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido){
-                            nucleo2.detalles_proceso(false);
-                            //cout << endl;
-                            contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
-                            //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo2.eliminar_proceso();
-                        }
-                        nucleo2.add_proceso(cola.desencolar());
-                        nucleo2.detalles_proceso(true);
-                        cout << endl;
-                    }
-
-                    // Nucleo 3
-                    if (!cola.es_vacia() && ((nucleo3.get_proceso().get_PID() == -1) || (nucleo3.get_tiempo_fin() == Global::tiempoTranscurrido))){
-                        if (nucleo3.get_tiempo_fin() == Global::tiempoTranscurrido){
-                            nucleo3.detalles_proceso(false);
-                            //cout << endl;
-                            contador_tiempo_estancia += nucleo3.get_tiempo_fin() - nucleo3.get_proceso().get_inicio();
-                            //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo3.eliminar_proceso();
-                        }
-                        nucleo3.add_proceso(cola.desencolar());
-                        nucleo3.detalles_proceso(true);
-                        cout << endl;
-                    }
-
-                    // Nucleo 1
-                    if (cola.es_vacia() && (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido)){
-                        nucleo1.detalles_proceso(false);
-                        cout << endl;
-                        contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
-                        //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                        nucleo1.eliminar_proceso();
-                    }
-
-                    // Nucleo 2 
-                    if (cola.es_vacia() && (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido)){
-                        nucleo2.detalles_proceso(false);
-                        cout << endl;
-                        contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
-                        //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                        nucleo2.eliminar_proceso();
-                    }
-
-                    // Nucleo 3 
-                    if (cola.es_vacia() && (nucleo3.get_tiempo_fin() == Global::tiempoTranscurrido)){
-                        nucleo3.detalles_proceso(false);
-                        cout << endl;
-                        contador_tiempo_estancia += nucleo3.get_tiempo_fin() - nucleo3.get_proceso().get_inicio();
-                        //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                        nucleo3.eliminar_proceso();
-                    }
+                    
 
                     cout << endl;
                     nucleo1.detalles_proceso();
@@ -313,76 +243,7 @@ int main() {
                         }
                     }
 
-                    cola.mostrarCola();
-                    // Nucleo 1
-                    cout << endl;
-                    if (!cola.es_vacia() && ((nucleo1.get_proceso().get_PID() == -1) || (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido))){
-                        if (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido){
-                            nucleo1.detalles_proceso(false);
-                            //cout << endl;
-                            contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
-                            //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo1.eliminar_proceso();
-                        }
-                        nucleo1.add_proceso(cola.desencolar());
-                        nucleo1.detalles_proceso(true);
-                        cout << endl;
-                    }
-
-                    // Nucleo 2
-                    if (!cola.es_vacia() && ((nucleo2.get_proceso().get_PID() == -1) || (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido))){
-                        if (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido){
-                            nucleo2.detalles_proceso(false);
-                            //cout << endl;
-                            contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
-                            //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo2.eliminar_proceso();
-                        }
-                        nucleo2.add_proceso(cola.desencolar());
-                        nucleo2.detalles_proceso(true);
-                        cout << endl;
-                    }
-
-                    // Nucleo 3
-                    if (!cola.es_vacia() && ((nucleo3.get_proceso().get_PID() == -1) || (nucleo3.get_tiempo_fin() == Global::tiempoTranscurrido))){
-                        if (nucleo3.get_tiempo_fin() == Global::tiempoTranscurrido){
-                            nucleo3.detalles_proceso(false);
-                            //cout << endl;
-                            contador_tiempo_estancia += nucleo3.get_tiempo_fin() - nucleo3.get_proceso().get_inicio();
-                            //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo3.eliminar_proceso();
-                        }
-                        nucleo3.add_proceso(cola.desencolar());
-                        nucleo3.detalles_proceso(true);
-                        cout << endl;
-                    }
-
-                    // Nucleo 1
-                    if (cola.es_vacia() && (nucleo1.get_tiempo_fin() == Global::tiempoTranscurrido)){
-                        nucleo1.detalles_proceso(false);
-                        cout << endl;
-                        contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
-                        //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                        nucleo1.eliminar_proceso();
-                    }
-
-                    // Nucleo 2 
-                    if (cola.es_vacia() && (nucleo2.get_tiempo_fin() == Global::tiempoTranscurrido)){
-                        nucleo2.detalles_proceso(false);
-                        cout << endl;
-                        contador_tiempo_estancia += nucleo2.get_tiempo_fin() - nucleo2.get_proceso().get_inicio();
-                        //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                        nucleo2.eliminar_proceso();
-                    }
-
-                    // Nucleo 3 
-                    if (cola.es_vacia() && (nucleo3.get_tiempo_fin() == Global::tiempoTranscurrido)){
-                        nucleo3.detalles_proceso(false);
-                        cout << endl;
-                        contador_tiempo_estancia += nucleo3.get_tiempo_fin() - nucleo3.get_proceso().get_inicio();
-                        //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                        nucleo3.eliminar_proceso();
-                    }
+                    
 
                     cout << endl;
                     nucleo1.detalles_proceso();
