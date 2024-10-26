@@ -1,6 +1,7 @@
 #include "Lista.h"
 #include "Nucleo.h"
 #include "Proceso.h"
+#include "global.h"
 #include <iostream>
 
 using namespace std;
@@ -68,7 +69,7 @@ bool Lista::ordenada_menor_mayor() const {
 }
 
 
-void Lista::ordenar_menor_mayor() {
+void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior
     if (es_vacia() || primero == ultimo) {
         return; // No es necesario ordenar si la lista está vacía o tiene un solo elemento
     }
@@ -97,7 +98,7 @@ int Lista::get_longitud() const {
 }
 
 
-void Lista::insertar_nucleo() {
+void Lista::insertar_nucleo() { // corregir, falta asignar el puntero anterior del siguiente nodo
     Nucleo nuevoNucleo;
     NodoLista* nuevoNodo = new NodoLista(nuevoNucleo, nullptr);
 
@@ -148,6 +149,8 @@ void Lista::eliminar(int posicion) {
         NodoLista* anterior = obtener_nodo(posicion - 1);
         nodoAEliminar = anterior->siguiente;
         anterior->siguiente = nodoAEliminar->siguiente;
+        NodoLista* siguiente = nodoAEliminar->siguiente;
+        siguiente->anterior = anterior; // he añadido que actualice el puntero anterior del siguiente nodo, para que no sae null    
     }
 
     delete nodoAEliminar;
@@ -155,10 +158,20 @@ void Lista::eliminar(int posicion) {
 }
 
 
-void Lista::insertar(Proceso proceso, int posicion) {
+void Lista::insertar_proceso(Proceso proceso, int posicion) {
     NodoLista* nodo = obtener_nodo(posicion);
     if (nodo != nullptr) {
         nodo->nucleo.add_proceso(proceso);
+    } else {
+        cout << "Posición inválida" << endl;
+    }
+}
+
+
+void Lista::eliminar_proceso(int posicion) {
+    NodoLista* nodo = obtener_nodo(posicion);
+    if (nodo != nullptr) {
+        nodo->nucleo.eliminar_proceso();
     } else {
         cout << "Posición inválida" << endl;
     }
@@ -204,7 +217,7 @@ int Lista::nucleo_mas_carga() const {
 }
 
 
-Nucleo Lista::coger(int n) const {
+Nucleo Lista::coger(int n) const { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
     NodoLista* nodo = obtener_nodo(n);
     if (nodo != nullptr) {
         return nodo->nucleo;
@@ -218,12 +231,13 @@ Nucleo Lista::coger(int n) const {
 NodoLista* Lista::obtener_nodo(int posicion) const {
     if (posicion < 0 || posicion >= longitud) {
         return nullptr;
+        cout << "Posición inválida, funcion obtener_nodo devuelve nullptr" << endl;
     }
 
     NodoLista* actual = primero;
     for (int i = 0; i < posicion; ++i) {
         actual = actual->siguiente;
     }
-    return actual;
+    return actual; // nose pero igual hay que pasarlo como & address del puntero <------------- no se si lo pasa como copia o como referencia
 }
 

@@ -170,19 +170,21 @@ Cola Nucleo::get_cola_procesos() const {
 /**
  * @brief Elimina el proceso en ejecución.
  *
- * Esta función elimina el proceso que actualmente está en ejecución en el núcleo, e inserta el siguiente proceso
+ * Esta función elimina el proceso que actualmente está en ejecución en el núcleo solo si este ha terminado su ejecucion, e inserta el siguiente proceso
  * si es que hay alguno en la cola de procesos en espera. Si no hay proceso inserta un proceso de la cola de procesos,
  * y si la cola esta vacia, inserta un proceso vacio.
  * 
+ * Si el proceso es nulo y la cola de procesos esta vacia no hace nada. ()
+ * 
  */
 void Nucleo::eliminar_proceso(){
-    if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia())) {
+    if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){ 
         set_proceso(cola_procesos.desencolar());
     }
     else if ((proceso_en_ejecucion.get_PID() == -1) && (!cola_procesos.es_vacia())){
         set_proceso(cola_procesos.desencolar());
     } 
-    else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia())){
+    else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){
         Proceso paux;
         proceso_en_ejecucion = paux;
         //eliminar nucleo de la lista de nucleos y liberar memoria, if no es el ultimo nucleo, cambiar id de los siguientes nucleos?

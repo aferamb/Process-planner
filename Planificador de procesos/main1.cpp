@@ -213,7 +213,7 @@ int main() {
                             //cout << endl;
                             contador_tiempo_estancia += nucleo1.get_tiempo_fin() - nucleo1.get_proceso().get_inicio();
                             //cout << "Contador de estancia en el sistema operativo: " << contador_tiempo_estancia << " minutos." << endl;
-                            nucleo1.eliminar_proceso();
+                            nucleo1.eliminar_proceso(); // Funcion modificacada, puede dar error<------------------------------------------------------------------------------------------------
                         }
                         nucleo1.add_proceso(cola.desencolar());
                         nucleo1.detalles_proceso(true);

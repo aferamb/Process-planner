@@ -25,7 +25,8 @@ public:
     void estado_nucleo(int posicion) const; // Muestra la información del nucleo en una posición
     void mostrar_estado_nucleos() const; // Muestra la información de todos los nucleos en la lista
     void eliminar(int posicion); // Elimina un nucleo en una posición
-    void insertar(Proceso proceso, int posicion = 0); // Inserta un proceso en un nucleo dado                    
+    void insertar_proceso(Proceso proceso, int posicion = 0); // Inserta un proceso en un nucleo dado     
+    void eliminar_proceso(int posicion); // Elimina un proceso en un nucleo dado               
     int nucleo_menos_carga() const; // Devuelve posdicion del nucleo con menos carga, o con ninguna carga
     int nucleo_mas_carga() const; // Devuelve posición del nucleo con más carga
     
