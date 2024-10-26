@@ -29,6 +29,8 @@ Lista::~Lista() {
     }
 }
 
+
+
 Nucleo Lista::prim() const {
     if (!es_vacia()) {
         return primero->nucleo;
@@ -38,6 +40,8 @@ Nucleo Lista::prim() const {
         return Nucleo(); // Retorna un núcleo vacío
     }
 }
+
+
 
 Nucleo Lista::ult() const {
     if (!es_vacia()) {
@@ -49,9 +53,11 @@ Nucleo Lista::ult() const {
 }
 
 
+
 bool Lista::es_vacia() const {
     return (primero == nullptr);
 }
+
 
 
 bool Lista::ordenada_menor_mayor() const {
@@ -69,9 +75,10 @@ bool Lista::ordenada_menor_mayor() const {
 }
 
 
-void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior
+
+void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior, NO USAR HASTA QUE SE CORRIJA
     if (es_vacia() || primero == ultimo) {
-        return; // No es necesario ordenar si la lista está vacía o tiene un solo elemento
+        return; 
     }
 
     bool intercambiado;
@@ -93,12 +100,14 @@ void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de a
 }
 
 
+
 int Lista::get_longitud() const {
     return longitud;
 }
 
 
-void Lista::insertar_nucleo() { // corregir, falta asignar el puntero anterior del siguiente nodo
+
+void Lista::insertar_nucleo() { 
     Nucleo nuevoNucleo;
     NodoLista* nuevoNodo = new NodoLista(nuevoNucleo, nullptr);
 
@@ -107,13 +116,15 @@ void Lista::insertar_nucleo() { // corregir, falta asignar el puntero anterior d
         ultimo = nuevoNodo;
     } else {
         ultimo->siguiente = nuevoNodo;
+        nuevoNodo->anterior = ultimo; // he añadido que actualice el puntero anterior del siguiente nodo, para que no sae null
         ultimo = nuevoNodo;
     }
     longitud++;
 }
 
 
-void Lista::estado_nucleo(int posicion) const {
+
+void Lista::estado_nucleo(int posicion) {
     NodoLista* nodo = obtener_nodo(posicion);
     if (nodo != nullptr) {
         nodo->nucleo.detalles_nucleo();
@@ -123,16 +134,19 @@ void Lista::estado_nucleo(int posicion) const {
 }
 
 
+
 void Lista::mostrar_estado_nucleos() const {
     NodoLista* actual = primero;
     int pos = 0;
     while (actual != nullptr) {
         cout << "Nucleo en posicion " << pos << ":" << endl;
         actual->nucleo.detalles_nucleo();
+        cout << endl;
         actual = actual->siguiente;
         pos++;
     }
 }
+
 
 
 void Lista::eliminar(int posicion) {
@@ -145,6 +159,9 @@ void Lista::eliminar(int posicion) {
     if (posicion == 0) {
         nodoAEliminar = primero;
         primero = primero->siguiente;
+        if (primero != nullptr) {
+            primero->anterior = nullptr; // he añadido que actualice el puntero anterior del primer nodo, para que no apunte a cossas raras
+        }
     } else {
         NodoLista* anterior = obtener_nodo(posicion - 1);
         nodoAEliminar = anterior->siguiente;
@@ -158,6 +175,7 @@ void Lista::eliminar(int posicion) {
 }
 
 
+
 void Lista::insertar_proceso(Proceso proceso, int posicion) {
     NodoLista* nodo = obtener_nodo(posicion);
     if (nodo != nullptr) {
@@ -166,6 +184,7 @@ void Lista::insertar_proceso(Proceso proceso, int posicion) {
         cout << "Posición inválida" << endl;
     }
 }
+
 
 
 void Lista::eliminar_proceso(int posicion) {
@@ -180,12 +199,13 @@ void Lista::eliminar_proceso(int posicion) {
 
 /**
  * @brief Devuelve la posición del núcleo con menos carga de procesos , o con ninguna carga. Si imprimir es true, muestra la información del nucleo.
- * y si todos los nucleos tienen mas de dos procesos en espera crea un nuevo nucleo, lo inserta en la lista, y muestra la información del nuevo nucleo al ser el nucleo con menos carga
+ * Y si todos los nucleos tienen mas de dos procesos en espera crea un nuevo nucleo, lo inserta en la lista, 
+ * y muestra la información del nuevo nucleo al ser el nucleo con menos carga
  * 
  * @param imprimir 
  * @return int 
  */
-int Lista::nucleo_menos_carga(bool imprimir) const {
+int Lista::nucleo_menos_carga(bool imprimir) {
     if (es_vacia()) return -1;
 
     int posicion = 0, posicionMenosCarga = 0;
@@ -202,6 +222,12 @@ int Lista::nucleo_menos_carga(bool imprimir) const {
         actual = actual->siguiente;
     }
 
+    // Si todos los núcleos tienen más de dos procesos en espera, crea un nuevo núcleo
+    if (menorCarga > 2) {
+        insertar_nucleo();
+        posicionMenosCarga = nucleo_menos_carga();
+    }
+
     if (imprimir) {
         cout << "Nucleo con menos carga de procesos: " << endl;
         estado_nucleo(posicionMenosCarga);
@@ -210,7 +236,9 @@ int Lista::nucleo_menos_carga(bool imprimir) const {
     return posicionMenosCarga;
 }
 
-int Lista::nucleo_mas_carga(bool imprimir) const {
+
+
+int Lista::nucleo_mas_carga(bool imprimir) {
     if (es_vacia()) return -1;
 
     int posicion = 0, posicionMasCarga = 0;
@@ -236,7 +264,7 @@ int Lista::nucleo_mas_carga(bool imprimir) const {
 }
 
 
-Nucleo Lista::coger(int n) const { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
+Nucleo Lista::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
     NodoLista* nodo = obtener_nodo(n);
     if (nodo != nullptr) {
         return nodo->nucleo;
@@ -247,16 +275,16 @@ Nucleo Lista::coger(int n) const { // esta igual deveria devolvel un puntero al 
 }
 
 
-NodoLista* Lista::obtener_nodo(int posicion) const {
+NodoLista* Lista::obtener_nodo(int posicion) {
     if (posicion < 0 || posicion >= longitud) {
-        return nullptr;
         cout << "Posición inválida, funcion obtener_nodo devuelve nullptr" << endl;
+        return nullptr;
     }
 
     NodoLista* actual = primero;
     for (int i = 0; i < posicion; ++i) {
         actual = actual->siguiente;
     }
-    return actual; // nose pero igual hay que pasarlo como & address del puntero <------------- no se si lo pasa como copia o como referencia
+    return actual; 
 }
 
