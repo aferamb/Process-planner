@@ -1,0 +1,943 @@
+Breakpoint 1 at 0x1400034bc: file main2_test.cpp, line 188.
+Breakpoint 2 at 0x14000860b: file Lista.cpp, line 268.
+Breakpoint 3 at 0x140008755: file Lista.cpp, line 282.
+Starting program: C:\Users\ALEJANDRO\Desktop\Tareas\Uni\2 Curso\Cuatri 1\Estructuras_de_datos\Lab\PL1_ESTRUCTURA_DE_DATOS\Planificador de procesos\Main_2_test_debug.exe 
+[New Thread 14804.0xa90]
+[New Thread 14804.0x3ec4]
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:282
+282	    if (posicion < 0 || posicion >= longitud) {
+Program not restarted.
+Continuing.
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:282
+282	    if (posicion < 0 || posicion >= longitud) {
+287	    NodoLista* actual = primero;
+288	    for (int i = 0; i < posicion; ++i) {
+291	    return actual; 
+$1 = (NodoLista *) 0x7e4230
+292	}
+Lista::estado_nucleo (this=0x5ff5a0, posicion=0) at Lista.cpp:129
+129	    if (nodo != nullptr) {
+130	        nodo->nucleo.detalles_nucleo();
+$2 = (NodoLista *) 0x7e4230
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Continuing.
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:282
+282	    if (posicion < 0 || posicion >= longitud) {
+287	    NodoLista* actual = primero;
+288	    for (int i = 0; i < posicion; ++i) {
+291	    return actual; 
+$3 = (NodoLista *) 0x7e4230
+292	}
+Lista::insertar_proceso (this=0x5ff5a0, proceso=..., posicion=0) at Lista.cpp:181
+181	    if (nodo != nullptr) {
+[New Thread 14804.0x60d4]
+182	        nodo->nucleo.add_proceso(proceso);
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:91
+91	    if ((cola_procesos.es_vacia()) && (proceso_en_ejecucion.get_PID() == -1)){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:92
+92	        set_proceso(proceso);
+Nucleo::set_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:66
+66	    this->proceso_en_ejecucion = proceso;
+67	    proceso_en_ejecucion.set_nucleo_asignado(id);
+Proceso::set_nucleo_asignado (this=0x7e4234, nucleoAsignado=0) at Proceso.cpp:76
+76	  this->nucleoAsignado = nucleoAsignado;
+77	}
+Nucleo::set_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:68
+68	    this->tiempo_inicio = Global::tiempoTranscurrido;
+69	    this->tiempo_fin = tiempo_inicio + proceso.get_tiempo_de_vida();    
+Proceso::get_tiempo_de_vida (this=0x5ff1d0) at Proceso.cpp:47
+47	  return tiempoDeVida;
+48	}
+Nucleo::set_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:70
+70	    detalles_proceso(true);
+Nucleo::detalles_proceso (this=0x7e4230, i=true) at Nucleo.cpp:225
+225	    string saux;
+226	    if (i){
+227	        saux = " | Proceso iniciado en nucleo ";
+231	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_proceso (this=0x7e4230, i=true) at Nucleo.cpp:234
+234	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << saux << id << ": " << "PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Proceso::get_PPID (this=0x7e4234) at Proceso.cpp:39
+39	  return PPID;
+40	}
+Proceso::get_inicio (this=0x7e4234) at Proceso.cpp:43
+43	  return inicio;
+44	}
+Proceso::get_tiempo_de_vida (this=0x7e4234) at Proceso.cpp:47
+47	  return tiempoDeVida;
+48	}
+Proceso::get_prioridad (this=0x7e4234) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+Nucleo::detalles_proceso (this=0x7e4230, i=true) at Nucleo.cpp:236
+236	}
+Nucleo::set_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:71
+71	}
+Proceso::~Proceso (this=0x5ff1d0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:99
+99	}
+Proceso::~Proceso (this=0x5ff250, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Lista::insertar_proceso (this=0x5ff5a0, proceso=..., posicion=0) at Lista.cpp:186
+186	}
+Proceso::~Proceso (this=0x5ff930, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+main () at main2_test.cpp:173
+173	                            cout << endl;
+174	                            lista.mostrar_estado_nucleos(); // para ver si mete el proceso
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:139
+139	    NodoLista* actual = primero;
+140	    int pos = 0;
+141	    while (actual != nullptr) {
+142	        cout << "Nucleo en posicion " << pos << ":" << endl;
+143	        actual->nucleo.detalles_nucleo();
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:250
+250	        detalles_proceso();
+Nucleo::detalles_proceso (this=0x7e4230) at Nucleo.cpp:208
+208	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_proceso (this=0x7e4230) at Nucleo.cpp:211
+211	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Proceso en nucleo " << id << " PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Proceso::get_PPID (this=0x7e4234) at Proceso.cpp:39
+39	  return PPID;
+40	}
+Proceso::get_inicio (this=0x7e4234) at Proceso.cpp:43
+43	  return inicio;
+44	}
+Proceso::get_tiempo_de_vida (this=0x7e4234) at Proceso.cpp:47
+47	  return tiempoDeVida;
+48	}
+Proceso::get_prioridad (this=0x7e4234) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+Nucleo::detalles_proceso (this=0x7e4230) at Nucleo.cpp:213
+213	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:252
+252	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+253	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+254	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:255
+255	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
+260	}
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:144
+144	        cout << endl;
+145	        actual = actual->siguiente;
+146	        pos++;
+141	    while (actual != nullptr) {
+142	        cout << "Nucleo en posicion " << pos << ":" << endl;
+143	        actual->nucleo.detalles_nucleo();
+Nucleo::detalles_nucleo (this=0x7ef470) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7ef474) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_nucleo (this=0x7ef470) at Nucleo.cpp:248
+248	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
+252	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+253	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+254	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7ef490) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::detalles_nucleo (this=0x7ef470) at Nucleo.cpp:255
+255	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
+260	}
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:144
+144	        cout << endl;
+145	        actual = actual->siguiente;
+146	        pos++;
+141	    while (actual != nullptr) {
+142	        cout << "Nucleo en posicion " << pos << ":" << endl;
+143	        actual->nucleo.detalles_nucleo();
+Nucleo::detalles_nucleo (this=0x7ee890) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7ee894) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_nucleo (this=0x7ee890) at Nucleo.cpp:248
+248	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
+252	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+253	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+254	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7ee8b0) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::detalles_nucleo (this=0x7ee890) at Nucleo.cpp:255
+255	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
+260	}
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:144
+144	        cout << endl;
+145	        actual = actual->siguiente;
+146	        pos++;
+141	    while (actual != nullptr) {
+148	}
+main () at main2_test.cpp:175
+175	                            pila.desapilar();
+Pila::desapilar (this=0x5ff5e0) at Pila.cpp:52
+52	    if (cima != NULL) {
+53	        pnodo aux = cima;
+54	        cima = cima->siguiente;
+55	        delete aux;
+NodoPila::~NodoPila (this=0x80c460, __in_chrg=<optimized out>) at NodoPila.cpp:23
+23	}
+Proceso::~Proceso (this=0x80c460, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Pila::desapilar (this=0x5ff5e0) at Pila.cpp:57
+57	}
+main () at main2_test.cpp:176
+176	                            if(!pila.esVacia()){
+Pila::esVacia (this=0x5ff5e0) at Pila.cpp:31
+31	    return cima == NULL;
+32	}
+main () at main2_test.cpp:177
+177	                                p = pila.mostrar();
+Pila::mostrar (this=0x5ff5e0) at Pila.cpp:66
+66	    if (esVacia()) {
+Pila::esVacia (this=0x5ff5e0) at Pila.cpp:31
+31	    return cima == NULL;
+32	}
+Pila::mostrar (this=0x5ff5e0) at Pila.cpp:71
+71	        return cima->proceso;
+73	}
+Proceso::~Proceso (this=0x5ff950, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+main () at main2_test.cpp:171
+171	                        while(p.get_inicio() == Global::tiempoTranscurrido){
+Proceso::get_inicio (this=0x5ff320) at Proceso.cpp:43
+43	  return inicio;
+44	}
+main () at main2_test.cpp:172
+172	                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+Lista::nucleo_menos_carga (this=0x5ff5a0, imprimir=false) at Lista.cpp:209
+209	    if (es_vacia()) return -1;
+Lista::es_vacia (this=0x5ff5a0) at Lista.cpp:58
+58	    return (primero == nullptr);
+59	}
+Lista::nucleo_menos_carga (this=0x5ff5a0, imprimir=false) at Lista.cpp:211
+211	    int posicion = 0, posicionMenosCarga = 0;
+212	    int menorCarga = primero->nucleo.get_cola_procesos().get_longitud();
+Nucleo::get_cola_procesos (this=0x7e4230) at Nucleo.cpp:161
+161	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::get_cola_procesos (this=0x7e4230) at Nucleo.cpp:162
+162	        cout << "Cola de procesos vacia" << endl;
+163	        cout << endl;
+164	        return cola_procesos;
+168	}
+Cola::get_longitud (this=0x5ff210) at Cola.cpp:134
+134	    return longitud;
+135	}
+Cola::~Cola (this=0x5ff210, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+29	}
+Lista::nucleo_menos_carga (this=0x5ff5a0, imprimir=false) at Lista.cpp:213
+213	    NodoLista* actual = primero->siguiente;
+215	    while (actual != nullptr) {
+216	        posicion++;
+217	        int cargaActual = actual->nucleo.get_cola_procesos().get_longitud();
+Nucleo::get_cola_procesos (this=0x7ef470) at Nucleo.cpp:161
+161	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7ef490) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::get_cola_procesos (this=0x7ef470) at Nucleo.cpp:162
+162	        cout << "Cola de procesos vacia" << endl;
+163	        cout << endl;
+164	        return cola_procesos;
+168	}
+Cola::get_longitud (this=0x5ff230) at Cola.cpp:134
+134	    return longitud;
+135	}
+Cola::~Cola (this=0x5ff230, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+29	}
+Lista::nucleo_menos_carga (this=0x5ff5a0, imprimir=false) at Lista.cpp:218
+218	        if (cargaActual < menorCarga) {
+222	        actual = actual->siguiente;
+$4 = 0
+$5 = 0
+215	    while (actual != nullptr) {
+216	        posicion++;
+217	        int cargaActual = actual->nucleo.get_cola_procesos().get_longitud();
+Nucleo::get_cola_procesos (this=0x7ee890) at Nucleo.cpp:161
+161	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7ee8b0) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::get_cola_procesos (this=0x7ee890) at Nucleo.cpp:162
+162	        cout << "Cola de procesos vacia" << endl;
+163	        cout << endl;
+164	        return cola_procesos;
+168	}
+Cola::get_longitud (this=0x5ff230) at Cola.cpp:134
+134	    return longitud;
+135	}
+Cola::~Cola (this=0x5ff230, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+29	}
+Lista::nucleo_menos_carga (this=0x5ff5a0, imprimir=false) at Lista.cpp:218
+218	        if (cargaActual < menorCarga) {
+222	        actual = actual->siguiente;
+215	    while (actual != nullptr) {
+226	    if (menorCarga > 2) {
+$6 = (NodoLista *) 0x0
+Cannot access memory at address 0x48
+231	    if (imprimir) {
+236	    return posicionMenosCarga;
+237	}
+Lista::insertar_proceso (this=0x5ff5a0, proceso=..., posicion=0) at Lista.cpp:180
+180	    NodoLista* nodo = obtener_nodo(posicion);
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:282
+282	    if (posicion < 0 || posicion >= longitud) {
+287	    NodoLista* actual = primero;
+288	    for (int i = 0; i < posicion; ++i) {
+291	    return actual; 
+$7 = (NodoLista *) 0x7e4230
+292	}
+Lista::insertar_proceso (this=0x5ff5a0, proceso=..., posicion=0) at Lista.cpp:181
+181	    if (nodo != nullptr) {
+182	        nodo->nucleo.add_proceso(proceso);
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:91
+91	    if ((cola_procesos.es_vacia()) && (proceso_en_ejecucion.get_PID() == -1)){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+$8 = 1
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:94
+94	    } else if (proceso_en_ejecucion.get_PID() != -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:95
+95	        proceso.set_nucleo_asignado(id);
+Proceso::set_nucleo_asignado (this=0x5ff250, nucleoAsignado=0) at Proceso.cpp:76
+76	  this->nucleoAsignado = nucleoAsignado;
+77	}
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:96
+96	        cola_procesos.insertar_por_prioridad(proceso); 
+Cola::insertar_por_prioridad (this=0x7e4250, proceso=...) at Cola.cpp:52
+52	    encolar(proceso);
+Cola::encolar (this=0x7e4250, proceso=...) at Cola.cpp:38
+38	    NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
+Proceso::get_prioridad (this=0x5ff170) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+NodoCola::NodoCola (this=0x80d540, proceso=..., prioridad=1, sig=0x0) at NodoCola.cpp:23
+23	NodoCola::NodoCola(Proceso proceso, int prioridad, NodoCola*sig){
+Proceso::Proceso (this=0x80d548) at Proceso.cpp:12
+12	  PID = -1;
+13	  PPID = -1;
+14	  inicio = -1;
+15	  tiempoDeVida = -1;
+16	  prioridad = -1;
+17	  nucleoAsignado = -1;
+18	}
+NodoCola::NodoCola (this=0x80d540, proceso=..., prioridad=1, sig=0x0) at NodoCola.cpp:24
+24	    this->proceso = proceso;
+25	    this->siguiente = sig;
+26	    this->prioridad = prioridad;
+27	}
+Proceso::~Proceso (this=0x5ff100, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::encolar (this=0x7e4250, proceso=...) at Cola.cpp:39
+39	    if (es_vacia()){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::encolar (this=0x7e4250, proceso=...) at Cola.cpp:40
+40	        primero = nuevo_nodo;
+41	        ultimo = nuevo_nodo;
+47	    longitud++;
+48	}
+Proceso::~Proceso (this=0x5ff170, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::insertar_por_prioridad (this=0x7e4250, proceso=...) at Cola.cpp:53
+53	    ordenar_por_prioridad();
+Cola::ordenar_por_prioridad (this=0x7e4250) at Cola.cpp:211
+211	    if (primero == nullptr || primero->siguiente == nullptr) {
+213	        return;
+237	}
+Cola::insertar_por_prioridad (this=0x7e4250, proceso=...) at Cola.cpp:54
+54	}
+Proceso::~Proceso (this=0x5ff1f0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Nucleo::add_proceso (this=0x7e4230, proceso=...) at Nucleo.cpp:99
+99	}
+Proceso::~Proceso (this=0x5ff250, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Lista::insertar_proceso (this=0x5ff5a0, proceso=..., posicion=0) at Lista.cpp:186
+186	}
+Proceso::~Proceso (this=0x5ff930, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+main () at main2_test.cpp:173
+173	                            cout << endl;
+174	                            lista.mostrar_estado_nucleos(); // para ver si mete el proceso
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:139
+139	    NodoLista* actual = primero;
+140	    int pos = 0;
+141	    while (actual != nullptr) {
+142	        cout << "Nucleo en posicion " << pos << ":" << endl;
+143	        actual->nucleo.detalles_nucleo();
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:250
+250	        detalles_proceso();
+Nucleo::detalles_proceso (this=0x7e4230) at Nucleo.cpp:208
+208	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_proceso (this=0x7e4230) at Nucleo.cpp:211
+211	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Proceso en nucleo " << id << " PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
+Proceso::get_PID (this=0x7e4234) at Proceso.cpp:35
+35	  return PID;
+36	}
+Proceso::get_PPID (this=0x7e4234) at Proceso.cpp:39
+39	  return PPID;
+40	}
+Proceso::get_inicio (this=0x7e4234) at Proceso.cpp:43
+43	  return inicio;
+44	}
+Proceso::get_tiempo_de_vida (this=0x7e4234) at Proceso.cpp:47
+47	  return tiempoDeVida;
+48	}
+Proceso::get_prioridad (this=0x7e4234) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+Nucleo::detalles_proceso (this=0x7e4230) at Nucleo.cpp:213
+213	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:252
+252	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+253	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+254	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:257
+257	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos: " << endl;
+258	        cola_procesos.mostrarCola();
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:143
+143	    cout << "|PID|PPID|Inicio|Tiempo vida|Prioridad|Nucleo|" << endl;
+144	    if (es_vacia()) {
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:149
+149	    Cola tempCola;
+Cola::Cola (this=0x5ff180) at Cola.cpp:13
+13	    primero = NULL;
+14	    ultimo = NULL;
+15	    longitud = 0;
+16	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:150
+150	    Proceso procesoActual;
+Proceso::Proceso (this=0x5ff160) at Proceso.cpp:12
+12	  PID = -1;
+13	  PPID = -1;
+14	  inicio = -1;
+15	  tiempoDeVida = -1;
+16	  prioridad = -1;
+17	  nucleoAsignado = -1;
+18	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:152
+152	    while (!es_vacia()) {
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:153
+153	        procesoActual = desencolar();
+Cola::desencolar (this=0x7e4250) at Cola.cpp:62
+62	    if (!es_vacia()){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::desencolar (this=0x7e4250) at Cola.cpp:63
+63	        Proceso proceso = primero->proceso;
+64	        NodoCola *aux = primero;
+66	        if ((primero == ultimo) && (primero -> siguiente == NULL)){
+67	            primero = NULL;
+68	            ultimo = NULL;
+69	            aux -> siguiente = NULL;
+70	            delete(aux);
+NodoCola::~NodoCola (this=0x80d540, __in_chrg=<optimized out>) at NodoCola.cpp:36
+36	}
+Proceso::~Proceso (this=0x80d548, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::desencolar (this=0x7e4250) at Cola.cpp:78
+78	        longitud--;
+79	        return proceso;
+80	    } else {
+Proceso::~Proceso (this=0x5ff100, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::desencolar (this=0x7e4250) at Cola.cpp:83
+83	}
+Proceso::~Proceso (this=0x5ff1a0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:154
+154	        cout << "| " << procesoActual.get_PID() << " | " << procesoActual.get_PPID() << " | " << procesoActual.get_inicio() << " | " << procesoActual.get_tiempo_de_vida() << " | " << procesoActual.get_prioridad() << " | " << procesoActual.get_nucleo_asignado() << " |" << endl;
+Proceso::get_PID (this=0x5ff160) at Proceso.cpp:35
+35	  return PID;
+36	}
+Proceso::get_PPID (this=0x5ff160) at Proceso.cpp:39
+39	  return PPID;
+40	}
+Proceso::get_inicio (this=0x5ff160) at Proceso.cpp:43
+43	  return inicio;
+44	}
+Proceso::get_tiempo_de_vida (this=0x5ff160) at Proceso.cpp:47
+47	  return tiempoDeVida;
+48	}
+Proceso::get_prioridad (this=0x5ff160) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+Proceso::get_nucleo_asignado (this=0x5ff160) at Proceso.cpp:55
+55	  return nucleoAsignado;
+56	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:155
+155	        tempCola.encolar(procesoActual);
+Cola::encolar (this=0x5ff180, proceso=...) at Cola.cpp:38
+38	    NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
+Proceso::get_prioridad (this=0x5ff1c0) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+NodoCola::NodoCola (this=0x80d540, proceso=..., prioridad=1, sig=0x0) at NodoCola.cpp:23
+23	NodoCola::NodoCola(Proceso proceso, int prioridad, NodoCola*sig){
+Proceso::Proceso (this=0x80d548) at Proceso.cpp:12
+12	  PID = -1;
+13	  PPID = -1;
+14	  inicio = -1;
+15	  tiempoDeVida = -1;
+16	  prioridad = -1;
+17	  nucleoAsignado = -1;
+18	}
+NodoCola::NodoCola (this=0x80d540, proceso=..., prioridad=1, sig=0x0) at NodoCola.cpp:24
+24	    this->proceso = proceso;
+25	    this->siguiente = sig;
+26	    this->prioridad = prioridad;
+27	}
+Proceso::~Proceso (this=0x5ff0f0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::encolar (this=0x5ff180, proceso=...) at Cola.cpp:39
+39	    if (es_vacia()){
+Cola::es_vacia (this=0x5ff180) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::encolar (this=0x5ff180, proceso=...) at Cola.cpp:40
+40	        primero = nuevo_nodo;
+41	        ultimo = nuevo_nodo;
+47	    longitud++;
+48	}
+Proceso::~Proceso (this=0x5ff1c0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:152
+152	    while (!es_vacia()) {
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:157
+157	    cout << endl;
+160	    while (!tempCola.es_vacia()) {
+Cola::es_vacia (this=0x5ff180) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:161
+161	        encolar(tempCola.desencolar());
+Cola::desencolar (this=0x5ff180) at Cola.cpp:62
+62	    if (!es_vacia()){
+Cola::es_vacia (this=0x5ff180) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::desencolar (this=0x5ff180) at Cola.cpp:63
+63	        Proceso proceso = primero->proceso;
+64	        NodoCola *aux = primero;
+66	        if ((primero == ultimo) && (primero -> siguiente == NULL)){
+67	            primero = NULL;
+68	            ultimo = NULL;
+69	            aux -> siguiente = NULL;
+70	            delete(aux);
+NodoCola::~NodoCola (this=0x80d540, __in_chrg=<optimized out>) at NodoCola.cpp:36
+36	}
+Proceso::~Proceso (this=0x80d548, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::desencolar (this=0x5ff180) at Cola.cpp:78
+78	        longitud--;
+79	        return proceso;
+80	    } else {
+Proceso::~Proceso (this=0x5ff100, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::desencolar (this=0x5ff180) at Cola.cpp:83
+83	}
+Cola::encolar (this=0x7e4250, proceso=...) at Cola.cpp:38
+38	    NodoCola *nuevo_nodo = new NodoCola(proceso, proceso.get_prioridad());
+Proceso::get_prioridad (this=0x5ff1e0) at Proceso.cpp:51
+51	  return prioridad;
+52	}
+NodoCola::NodoCola (this=0x80d540, proceso=..., prioridad=1, sig=0x0) at NodoCola.cpp:23
+23	NodoCola::NodoCola(Proceso proceso, int prioridad, NodoCola*sig){
+Proceso::Proceso (this=0x80d548) at Proceso.cpp:12
+12	  PID = -1;
+13	  PPID = -1;
+14	  inicio = -1;
+15	  tiempoDeVida = -1;
+16	  prioridad = -1;
+17	  nucleoAsignado = -1;
+18	}
+NodoCola::NodoCola (this=0x80d540, proceso=..., prioridad=1, sig=0x0) at NodoCola.cpp:24
+24	    this->proceso = proceso;
+25	    this->siguiente = sig;
+26	    this->prioridad = prioridad;
+27	}
+Proceso::~Proceso (this=0x5ff0f0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::encolar (this=0x7e4250, proceso=...) at Cola.cpp:39
+39	    if (es_vacia()){
+Cola::es_vacia (this=0x7e4250) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::encolar (this=0x7e4250, proceso=...) at Cola.cpp:40
+40	        primero = nuevo_nodo;
+41	        ultimo = nuevo_nodo;
+47	    longitud++;
+48	}
+Proceso::~Proceso (this=0x5ff1e0, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:160
+160	    while (!tempCola.es_vacia()) {
+Cola::es_vacia (this=0x5ff180) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Cola::mostrarCola (this=0x7e4250) at Cola.cpp:163
+163	}
+Proceso::~Proceso (this=0x5ff160, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Cola::~Cola (this=0x5ff180, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+29	}
+Nucleo::detalles_nucleo (this=0x7e4230) at Nucleo.cpp:260
+260	}
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:144
+144	        cout << endl;
+145	        actual = actual->siguiente;
+146	        pos++;
+141	    while (actual != nullptr) {
+142	        cout << "Nucleo en posicion " << pos << ":" << endl;
+143	        actual->nucleo.detalles_nucleo();
+Nucleo::detalles_nucleo (this=0x7ef470) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7ef474) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_nucleo (this=0x7ef470) at Nucleo.cpp:248
+248	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
+252	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+253	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+254	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7ef490) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::detalles_nucleo (this=0x7ef470) at Nucleo.cpp:255
+255	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
+260	}
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:144
+144	        cout << endl;
+145	        actual = actual->siguiente;
+146	        pos++;
+141	    while (actual != nullptr) {
+142	        cout << "Nucleo en posicion " << pos << ":" << endl;
+143	        actual->nucleo.detalles_nucleo();
+Nucleo::detalles_nucleo (this=0x7ee890) at Nucleo.cpp:247
+247	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x7ee894) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::detalles_nucleo (this=0x7ee890) at Nucleo.cpp:248
+248	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
+252	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+253	    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+254	    if (cola_procesos.es_vacia()){
+Cola::es_vacia (this=0x7ee8b0) at Cola.cpp:124
+124	    return ((primero == NULL) && (ultimo == NULL));
+125	}
+Nucleo::detalles_nucleo (this=0x7ee890) at Nucleo.cpp:255
+255	        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
+260	}
+Lista::mostrar_estado_nucleos (this=0x5ff5a0) at Lista.cpp:144
+144	        cout << endl;
+145	        actual = actual->siguiente;
+146	        pos++;
+141	    while (actual != nullptr) {
+148	}
+main () at main2_test.cpp:175
+175	                            pila.desapilar();
+Pila::desapilar (this=0x5ff5e0) at Pila.cpp:52
+52	    if (cima != NULL) {
+53	        pnodo aux = cima;
+54	        cima = cima->siguiente;
+55	        delete aux;
+NodoPila::~NodoPila (this=0x80c410, __in_chrg=<optimized out>) at NodoPila.cpp:23
+23	}
+Proceso::~Proceso (this=0x80c410, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Pila::desapilar (this=0x5ff5e0) at Pila.cpp:57
+57	}
+main () at main2_test.cpp:176
+176	                            if(!pila.esVacia()){
+Pila::esVacia (this=0x5ff5e0) at Pila.cpp:31
+31	    return cima == NULL;
+32	}
+main () at main2_test.cpp:177
+177	                                p = pila.mostrar();
+Pila::mostrar (this=0x5ff5e0) at Pila.cpp:66
+66	    if (esVacia()) {
+Pila::esVacia (this=0x5ff5e0) at Pila.cpp:31
+31	    return cima == NULL;
+32	}
+Pila::mostrar (this=0x5ff5e0) at Pila.cpp:71
+71	        return cima->proceso;
+73	}
+Proceso::~Proceso (this=0x5ff950, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+main () at main2_test.cpp:171
+171	                        while(p.get_inicio() == Global::tiempoTranscurrido){
+Proceso::get_inicio (this=0x5ff320) at Proceso.cpp:43
+43	  return inicio;
+44	}
+main () at main2_test.cpp:183
+183	                    }
+Proceso::~Proceso (this=0x5ff320, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+main () at main2_test.cpp:186
+186	                    cout << "Inicio de eliminacion de procesos que han terminado." << endl;
+187	                    for (int i = 0; i < lista.get_longitud(); i++){
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105	    return longitud;
+106	}
+
+Thread 1 hit Breakpoint 1, main () at main2_test.cpp:188
+188	                        cout << "6" << i << endl;
+189	                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:268
+268	    cout << "Cogiendo nucleo en posicion " << n << endl;
+269	    NodoLista* nodo = obtener_nodo(n);
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:282
+282	    if (posicion < 0 || posicion >= longitud) {
+287	    NodoLista* actual = primero;
+288	    for (int i = 0; i < posicion; ++i) {
+291	    return actual; 
+$9 = (NodoLista *) 0x7e4230
+292	}
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:270
+270	    cout << "Nodo obtenido" << endl;
+271	    if (nodo != nullptr) {
+272	        cout << "Nodo no es nullptr" << endl;
+273	        return nodo->nucleo;
+$10 = (NodoLista *) 0x7e4230
+278	}
+Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:141
+141	    if (proceso_en_ejecucion.get_PID() == -1){
+Proceso::get_PID (this=0x5ff994) at Proceso.cpp:35
+35	  return PID;
+36	}
+Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:146
+146	        return proceso_en_ejecucion;
+148	}
+Proceso::get_PID (this=0x5ff970) at Proceso.cpp:35
+35	  return PID;
+36	}
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:268
+268	    cout << "Cogiendo nucleo en posicion " << n << endl;
+269	    NodoLista* nodo = obtener_nodo(n);
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:282
+282	    if (posicion < 0 || posicion >= longitud) {
+287	    NodoLista* actual = primero;
+288	    for (int i = 0; i < posicion; ++i) {
+291	    return actual; 
+$11 = (NodoLista *) 0x7e4230
+292	}
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:270
+270	    cout << "Nodo obtenido" << endl;
+271	    if (nodo != nullptr) {
+272	        cout << "Nodo no es nullptr" << endl;
+273	        return nodo->nucleo;
+$12 = (NodoLista *) 0x7e4230
+No symbol "return" in current context.
+278	}
+Nucleo::get_tiempo_fin (this=0x5ff9e0) at Nucleo.cpp:128
+128	    return tiempo_fin;
+129	}
+Nucleo::~Nucleo (this=0x5ff9e0, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47	Nucleo::~Nucleo() {}
+Cola::~Cola (this=0x5ffa00, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+25	        NodoCola* aux = primero;
+26	        primero = primero->siguiente;
+27	        delete aux;
+NodoCola::~NodoCola (this=0x80d540, __in_chrg=<optimized out>) at NodoCola.cpp:36
+36	}
+Proceso::~Proceso (this=0x80d548, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+No symbol "proceso" in current context.
+Cola::~Cola (this=0x5ffa00, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+29	}
+Proceso::~Proceso (this=0x5ff9e4, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Proceso::~Proceso (this=0x5ff970, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47	Nucleo::~Nucleo() {}
+Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:24
+24	    while (primero) {
+25	        NodoCola* aux = primero;
+26	        primero = primero->siguiente;
+27	        delete aux;
+NodoCola::~NodoCola (this=0x80d540, __in_chrg=<optimized out>) at NodoCola.cpp:36
+36	}
+Proceso::~Proceso (this=0x80d548, __in_chrg=<optimized out>) at Proceso.cpp:31
+31	Proceso::~Proceso() {}
+warning: Critical error detected c0000374
+
+Thread 1 received signal SIGTRAP, Trace/breakpoint trap.
+0x00007ffe4ed0f353 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+Single stepping until exit from function ntdll!RtlIsZeroMemory,
+which has no line number information.
+0x00007ffe4ec620d0 in ntdll!RtlRaiseException () from C:\Windows\SYSTEM32\ntdll.dll
+Single stepping until exit from function ntdll!RtlRaiseException,
+which has no line number information.
+gdb: unknown target exception 0xc0000374 at 0x7ffe4ed0f3c9
+
+Thread 1 received signal ?, Unknown signal.
+0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+A syntax error in expression, near `> backtrace_log.txt'.
+A syntax error in expression, near `> backtracee_log.txt'.
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+#0  0x00007ffe4ed0f3c9 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#1  0x00007ffe4ed0f393 in ntdll!RtlIsZeroMemory () from C:\Windows\SYSTEM32\ntdll.dll
+#2  0x00007ffe4ed18112 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#3  0x00007ffe4ed183fa in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#4  0x00007ffe4ed1e081 in ntdll!RtlpNtSetValueKey () from C:\Windows\SYSTEM32\ntdll.dll
+#5  0x00007ffe4ec35bf0 in ntdll!RtlGetCurrentServiceSessionId () from C:\Windows\SYSTEM32\ntdll.dll
+#6  0x00007ffe4ec347b1 in ntdll!RtlFreeHeap () from C:\Windows\SYSTEM32\ntdll.dll
+#7  0x00007ffe4c53f05b in ucrtbase!_free_base () from C:\Windows\System32\ucrtbase.dll
+#8  0x00007ff7b72814c9 in Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:27
+#9  0x00007ff7b728518c in Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+#10 0x00007ff7b72835e4 in main () at main2_test.cpp:189
+Starting program: C:\Users\ALEJANDRO\Desktop\Tareas\Uni\2 Curso\Cuatri 1\Estructuras_de_datos\Lab\PL1_ESTRUCTURA_DE_DATOS\Planificador de procesos\Main_2_test_debug.exe 
+[New Thread 17936.0x5750]
+[New Thread 17936.0x4760]
+[New Thread 17936.0x515c]
+
+Thread 1 received signal SIGSEGV, Segmentation fault.
+0x00007ff627577898 in Proceso::get_PID (this=0x4) at Proceso.cpp:35
+35	  return PID;

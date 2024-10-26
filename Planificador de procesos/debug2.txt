@@ -1,0 +1,1150 @@
+Find the GDB manual and other documentation resources online at:
+    <http://www.gnu.org/software/gdb/documentation/>.
+
+For help, type "help".
+Type "apropos word" to search for commands related to "word"...
+Reading symbols from Main_2_test_debug.exe...
+(gdb) break main2_test.cpp:188
+Breakpoint 1 at 0x1400034bc: file main2_test.cpp, line 188.
+(gdb) break coger
+Breakpoint 2 at 0x14000871d: file Lista.cpp, line 289.
+(gdb) break obtener_nodo
+Breakpoint 3 at 0x1400088c1: file Lista.cpp, line 304.
+(gdb) run
+Starting program: C:\Users\ALEJANDRO\Desktop\Tareas\Uni\2 Curso\Cuatri 1\Estructuras_de_datos\Lab\PL1_ESTRUCTURA_DE_DATOS\Planificador de procesos\Main_2_test_debug.exe 
+[New Thread 13304.0x434]
+[New Thread 13304.0x50c8]
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+00:00              MENU PRINCIPAL
+
+1. Crear pila de procesos. (datos creados manualmente en el codigo)
+2. Mostrar todos los procesos en la pila de procesos.
+3. Borrar pila de procesos del sistema.
+4. Aumentar tiempo del sistema (n minutos).
+5. Mostrar estado de los nucleos.
+6. Consulta nucleo con menos carga, nucleo con mas carga.
+7. Consulta numero de nucleos operativos.
+8. Simular ejecucion de procesos.
+9. Salir.
+Seleccione una opcion: 1
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Pila de procesos creada correctamente.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+00:00              MENU PRINCIPAL
+
+1. Crear pila de procesos. (datos creados manualmente en el codigo)
+2. Mostrar todos los procesos en la pila de procesos.
+3. Borrar pila de procesos del sistema.
+4. Aumentar tiempo del sistema (n minutos).
+5. Mostrar estado de los nucleos.
+6. Consulta nucleo con menos carga, nucleo con mas carga.
+7. Consulta numero de nucleos operativos.
+8. Simular ejecucion de procesos.
+9. Salir.
+Seleccione una opcion: 4
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ingrese el numero de minutos a aumentar: 6
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+Tiempo actual: 00:00
+
+Proceso en la cima de la pila: PID: 1, PPID: 1, Inicio: 0, Tiempo de vida: 4, Prioridad: 0
+
+
+Cola de procesos vacia
+
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb) continue 
+Continuing.
+00:00 | Proceso iniciado en nucleo 0: PID: 1, PPID: 1, Inicio: 0, Tiempo de vida: 4, Prioridad: 0
+
+Nucleo en posicion 0:
+00:00 | Proceso en nucleo 0 PID: 1, PPID: 1, Inicio: 0, Tiempo de vida: 4, Prioridad: 0
+00:00 | Tiempo de inicio ejecucion: 0, Tiempo de finalizacion: 4
+00:00 | Tiempo de ejecucion restante: 4 minutos
+00:00 | Cola de procesos vacia
+
+Nucleo en posicion 1:
+00:00 | Nucleo: 2 No hay proceso en ejecucion
+00:00 | Tiempo de inicio ejecucion: -1, Tiempo de finalizacion: -1
+00:00 | Tiempo de ejecucion restante: -1 minutos
+00:00 | Cola de procesos vacia
+
+Nucleo en posicion 2:
+00:00 | Nucleo: 4 No hay proceso en ejecucion
+00:00 | Tiempo de inicio ejecucion: -1, Tiempo de finalizacion: -1
+00:00 | Tiempo de ejecucion restante: -1 minutos
+00:00 | Cola de procesos vacia
+
+Cola de procesos vacia
+
+
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=1) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+Continuing.
+00:00 | Proceso iniciado en nucleo 2: PID: 2, PPID: 1, Inicio: 0, Tiempo de vida: 5, Prioridad: 1
+
+Nucleo en posicion 0:
+00:00 | Proceso en nucleo 0 PID: 1, PPID: 1, Inicio: 0, Tiempo de vida: 4, Prioridad: 0
+00:00 | Tiempo de inicio ejecucion: 0, Tiempo de finalizacion: 4
+00:00 | Tiempo de ejecucion restante: 4 minutos
+00:00 | Cola de procesos vacia
+
+Nucleo en posicion 1:
+00:00 | Proceso en nucleo 2 PID: 2, PPID: 1, Inicio: 0, Tiempo de vida: 5, Prioridad: 1
+00:00 | Tiempo de inicio ejecucion: 0, Tiempo de finalizacion: 5
+00:00 | Tiempo de ejecucion restante: 5 minutos
+00:00 | Cola de procesos vacia
+
+Nucleo en posicion 2:
+00:00 | Nucleo: 4 No hay proceso en ejecucion
+00:00 | Tiempo de inicio ejecucion: -1, Tiempo de finalizacion: -1
+00:00 | Tiempo de ejecucion restante: -1 minutos
+00:00 | Cola de procesos vacia
+
+Inicio de eliminacion de procesos que han terminado.
+
+Thread 1 hit Breakpoint 1, main () at main2_test.cpp:188
+188                             cout << "6" << i << endl;
+(gdb) step
+60
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 0
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xf4230
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 0, proceso_en_ejecucion = {PID = 1, PPID = 1, inicio = 0, tiempoDeVida = 4, prioridad = 0, nucleoAsignado = 0}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, tiempo_inicio = 0, 
+  tiempo_fin = 4}
+nodo = 0xf4230
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb) info locals
+No locals.
+(gdb) step
+[New Thread 13304.0x3644]
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb) 
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+(gdb)
+Proceso::get_PID (this=0x5ff994) at Proceso.cpp:35
+35        return PID;
+(gdb)
+36      }
+(gdb) print $1
+History has not yet reached $1.
+(gdb)
+History has not yet reached $1.
+(gdb) step
+Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:146
+146             return proceso_en_ejecucion;
+(gdb) print$1
+Undefined command: "print$1".  Try "help".
+(gdb) print $1
+History has not yet reached $1.
+(gdb) step
+148     }
+(gdb)
+Proceso::get_PID (this=0x5ff970) at Proceso.cpp:35
+35        return PID;
+(gdb) print $1
+History has not yet reached $1.
+(gdb)
+History has not yet reached $1.
+(gdb) step
+36      }
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 0
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) print locals
+No symbol "locals" in current context.
+(gdb) info locals
+actual = 0xf4230
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 0, proceso_en_ejecucion = {PID = 1, PPID = 1, inicio = 0, tiempoDeVida = 4, prioridad = 0, nucleoAsignado = 0}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, tiempo_inicio = 0, 
+  tiempo_fin = 4}
+nodo = 0xf4230
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_tiempo_fin (this=0x5ff9e0) at Nucleo.cpp:128
+128         return tiempo_fin;
+(gdb) finish
+Run till exit from #0  Nucleo::get_tiempo_fin (this=0x5ff9e0) at Nucleo.cpp:128
+0x00007ff76218358c in main () at main2_test.cpp:189
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+Value returned is $1 = 4
+(gdb) step
+Nucleo::~Nucleo (this=0x5ff9e0, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ffa00, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff9e4, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Proceso::~Proceso (this=0x5ff970, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff994, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+main () at main2_test.cpp:187
+187                         for (int i = 0; i < lista.get_longitud(); i++){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb)
+106     }
+(gdb)
+
+Thread 1 hit Breakpoint 1, main () at main2_test.cpp:188
+188                             cout << "6" << i << endl;
+(gdb)
+61
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 1
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=1) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb) info locals
+i = 0
+actual = 0xff3f0
+(gdb) step
+313         return actual; 
+(gdb) info locals
+actual = 0xff3f0
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 2, proceso_en_ejecucion = {PID = 2, PPID = 1, inicio = 0, tiempoDeVida = 5, prioridad = 1, nucleoAsignado = 2}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, tiempo_inicio = 0, 
+  tiempo_fin = 5}
+nodo = 0xff3f0
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+(gdb) finish
+Run till exit from #0  Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:141
+0x00007ff762183540 in main () at main2_test.cpp:189
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+Value returned is $2 = {PID = 2, PPID = 1, inicio = 0, tiempoDeVida = 5, prioridad = 1, nucleoAsignado = 2}
+(gdb) step
+Proceso::get_PID (this=0x5ff970) at Proceso.cpp:35
+35        return PID;
+(gdb) finish
+Run till exit from #0  Proceso::get_PID (this=0x5ff970) at Proceso.cpp:35
+0x00007ff762183554 in main () at main2_test.cpp:189
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+Value returned is $3 = 2
+(gdb) step
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 1
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=1) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb) info locals
+actual = 0x1
+(gdb) step
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb) info locals
+i = 0
+actual = 0xf4230
+(gdb) step
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xff3f0
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 2, proceso_en_ejecucion = {PID = 2, PPID = 1, inicio = 0, tiempoDeVida = 5, prioridad = 1, nucleoAsignado = 2}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, tiempo_inicio = 0, 
+  tiempo_fin = 5}
+nodo = 0xff3f0
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_tiempo_fin (this=0x5ff9e0) at Nucleo.cpp:128
+128         return tiempo_fin;
+(gdb) finish
+Run till exit from #0  Nucleo::get_tiempo_fin (this=0x5ff9e0) at Nucleo.cpp:128
+0x00007ff76218358c in main () at main2_test.cpp:189
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+Value returned is $4 = 5
+(gdb) step 
+Nucleo::~Nucleo (this=0x5ff9e0, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ffa00, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff9e4, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Proceso::~Proceso (this=0x5ff970, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff994, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+main () at main2_test.cpp:187
+187                         for (int i = 0; i < lista.get_longitud(); i++){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb) finish
+Run till exit from #0  Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+0x00007ff76218363f in main () at main2_test.cpp:187
+187                         for (int i = 0; i < lista.get_longitud(); i++){
+Value returned is $5 = 3
+(gdb) step
+
+Thread 1 hit Breakpoint 1, main () at main2_test.cpp:188
+188                             cout << "6" << i << endl;
+(gdb)
+62
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 2
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=2) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb) info locals
+i = 0
+actual = 0xf4230
+(gdb) step
+310         for (int i = 0; i < posicion; ++i) {
+(gdb) info locals
+i = 0
+actual = 0xff3f0
+(gdb) step
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xfe810
+(gdb)  step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 4, proceso_en_ejecucion = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, 
+  tiempo_inicio = -1, tiempo_fin = -1}
+nodo = 0xfe810
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+(gdb) finish
+Run till exit from #0  Nucleo::get_proceso (this=0x5ff990) at Nucleo.cpp:141
+
+0x00007ff762183540 in main () at main2_test.cpp:189
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+Value returned is $6 = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}
+(gdb) step
+Proceso::get_PID (this=0x5ff970) at Proceso.cpp:35
+35        return PID;
+(gdb) finish
+Run till exit from #0  Proceso::get_PID (this=0x5ff970) at Proceso.cpp:35
+0x00007ff762183554 in main () at main2_test.cpp:189
+189                             if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+Value returned is $7 = -1
+(gdb) step
+Proceso::~Proceso (this=0x5ff970, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Nucleo::~Nucleo (this=0x5ff990, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb) 
+Cola::~Cola (this=0x5ff9b0, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff994, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+main () at main2_test.cpp:187
+187                         for (int i = 0; i < lista.get_longitud(); i++){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb) finish
+Run till exit from #0  Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+0x00007ff76218363f in main () at main2_test.cpp:187
+187                         for (int i = 0; i < lista.get_longitud(); i++){
+Value returned is $8 = 3
+(gdb) step
+196                         cout << "Inicio de eliminacion de nucleos vacios y sin carga." << endl;
+(gdb)
+Inicio de eliminacion de nucleos vacios y sin carga.
+197                         for (int i = 0; i < lista.get_longitud(); i++){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb) 
+106     }
+(gdb)
+main () at main2_test.cpp:198
+198                             cout << "8" << i << endl;
+(gdb) info locals 
+i = 0
+i = 0
+n = 5
+opcion = 4
+pila = {cima = 0x11c3a0}
+p = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}
+lista = {primero = 0xf4230, ultimo = 0xfe810, longitud = 3}
+(gdb) step
+80
+199                             if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+(gdb) step
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb)
+106     }
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 0
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=0) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xf4230
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 0, proceso_en_ejecucion = {PID = 1, PPID = 1, inicio = 0, tiempoDeVida = 4, prioridad = 0, nucleoAsignado = 0}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, tiempo_inicio = 0, 
+  tiempo_fin = 4}
+nodo = 0xf4230
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=0) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+(gdb) 
+Proceso::get_PID (this=0x5ffa54) at Proceso.cpp:35
+35        return PID;
+(gdb) finish
+Run till exit from #0  Proceso::get_PID (this=0x5ffa54) at Proceso.cpp:35
+0x00007ff762185408 in Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+Value returned is $9 = 1
+(gdb) step
+146             return proceso_en_ejecucion;
+(gdb)
+148     }
+(gdb)
+Proceso::get_PID (this=0x5ffa30) at Proceso.cpp:35
+35        return PID;
+(gdb)
+36      }
+(gdb)
+Proceso::~Proceso (this=0x5ffa30, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Nucleo::~Nucleo (this=0x5ffa50, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ffa70, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ffa54, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+main () at main2_test.cpp:197
+197                         for (int i = 0; i < lista.get_longitud(); i++){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb) info locals
+No locals.
+(gdb) step
+106     }
+(gdb)
+main () at main2_test.cpp:198
+198                             cout << "8" << i << endl;
+(gdb) info locals
+i = 1
+i = 0
+n = 5
+opcion = 4
+pila = {cima = 0x11c3a0}
+p = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}
+lista = {primero = 0xf4230, ultimo = 0xfe810, longitud = 3}
+(gdb) step
+81
+199                             if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb)
+106     }
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 1
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb) 
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=1) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb) \
+
+313         return actual; 
+(gdb) info locals
+actual = 0xff3f0
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 2, proceso_en_ejecucion = {PID = 2, PPID = 1, inicio = 0, tiempoDeVida = 5, prioridad = 1, nucleoAsignado = 2}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, tiempo_inicio = 0, 
+  tiempo_fin = 5}
+nodo = 0xff3f0
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=1) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+(gdb)
+Proceso::get_PID (this=0x5ffa54) at Proceso.cpp:35
+35        return PID;
+(gdb) 
+36      }
+(gdb)
+Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:146
+146             return proceso_en_ejecucion;
+(gdb) 
+148     }
+(gdb)
+Proceso::get_PID (this=0x5ffa30) at Proceso.cpp:35
+35        return PID;
+(gdb)
+36      }
+(gdb)
+Proceso::~Proceso (this=0x5ffa30, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Nucleo::~Nucleo (this=0x5ffa50, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ffa70, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ffa54, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+main () at main2_test.cpp:197
+197                         for (int i = 0; i < lista.get_longitud(); i++){
+(gdb)
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb)
+106     }
+(gdb)
+main () at main2_test.cpp:198
+198                             cout << "8" << i << endl;
+(gdb)
+82
+199                             if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+(gdb) info locals
+i = 2
+i = 0
+n = 5
+opcion = 4
+pila = {cima = 0x11c3a0}
+p = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}
+lista = {primero = 0xf4230, ultimo = 0xfe810, longitud = 3}
+(gdb) step
+Lista::get_longitud (this=0x5ff5a0) at Lista.cpp:105
+105         return longitud;
+(gdb)
+106     }
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb)
+Cogiendo nucleo en posicion 2
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=2) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xfe810
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb)
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 4, proceso_en_ejecucion = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, 
+  tiempo_inicio = -1, tiempo_fin = -1}
+nodo = 0xfe810
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:141
+141         if (proceso_en_ejecucion.get_PID() == -1){
+(gdb)
+Proceso::get_PID (this=0x5ffa54) at Proceso.cpp:35
+35        return PID;
+(gdb)
+36      }
+(gdb)
+Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:143
+143             cout << endl;
+(gdb)
+
+144             return Proceso(); //?
+(gdb)
+Proceso::Proceso (this=0x5ffa30) at Proceso.cpp:12
+12        PID = -1;
+(gdb)
+13        PPID = -1;
+(gdb)
+14        inicio = -1;
+(gdb)
+15        tiempoDeVida = -1;
+(gdb)
+16        prioridad = -1;
+(gdb)
+17        nucleoAsignado = -1;
+(gdb)
+18      }
+(gdb)
+Nucleo::get_proceso (this=0x5ffa50) at Nucleo.cpp:148
+148     }
+(gdb)
+Proceso::get_PID (this=0x5ffa30) at Proceso.cpp:35
+35        return PID;
+(gdb)
+36      }
+(gdb)
+
+Thread 1 hit Breakpoint 2, Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:289
+289         cout << "Cogiendo nucleo en posicion " << n << endl;
+(gdb) 
+Cogiendo nucleo en posicion 2
+290         NodoLista* nodo = obtener_nodo(n);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=2) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xfe810
+(gdb) step
+314     }
+(gdb)
+Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:291
+291         cout << "Nodo obtenido" << endl;
+(gdb)
+Nodo obtenido
+292         if (nodo != nullptr) {
+(gdb) 
+293             cout << "Nodo no es nullptr" << endl;
+(gdb)
+Nodo no es nullptr
+294             Nucleo nucleoaux = nodo->nucleo;
+(gdb)
+295             return nucleoaux;
+(gdb) info locals
+nucleoaux = {id = 4, proceso_en_ejecucion = {PID = -1, PPID = -1, inicio = -1, tiempoDeVida = -1, prioridad = -1, nucleoAsignado = -1}, cola_procesos = {primero = 0x0, ultimo = 0x0, longitud = 0}, 
+  tiempo_inicio = -1, tiempo_fin = -1}
+nodo = 0xfe810
+(gdb)
+(gdb) step
+296         } else {
+(gdb)
+Nucleo::~Nucleo (this=0x5ff220, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ff240, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ff224, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Lista::coger (this=0x5ff5a0, n=2) at Lista.cpp:300
+300     }
+(gdb)
+Nucleo::get_cola_procesos (this=0x5ffac0) at Nucleo.cpp:161
+161         if (cola_procesos.es_vacia()){
+(gdb)
+Cola::es_vacia (this=0x5ffae0) at Cola.cpp:124
+124         return ((primero == NULL) && (ultimo == NULL));
+(gdb)
+125     }
+(gdb)
+Nucleo::get_cola_procesos (this=0x5ffac0) at Nucleo.cpp:162
+162             cout << "Cola de procesos vacia" << endl;
+(gdb)
+Cola de procesos vacia
+163             cout << endl;
+(gdb)
+
+164             return cola_procesos;
+(gdb) finish
+Run till exit from #0  Nucleo::get_cola_procesos (this=0x5ffac0) at Nucleo.cpp:164
+0x00007ff76218377f in main () at main2_test.cpp:199
+199                             if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+Value returned is $10 = {primero = 0x0, ultimo = 0x0, longitud = 0}
+(gdb) step
+Cola::es_vacia (this=0x5ffaa0) at Cola.cpp:124
+124         return ((primero == NULL) && (ultimo == NULL));
+(gdb)
+125     }
+(gdb)
+Cola::~Cola (this=0x5ffaa0, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Nucleo::~Nucleo (this=0x5ffac0, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ffae0, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ffac4, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Proceso::~Proceso (this=0x5ffa30, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+Nucleo::~Nucleo (this=0x5ffa50, __in_chrg=<optimized out>) at Nucleo.cpp:47
+47      Nucleo::~Nucleo() {}
+(gdb)
+Cola::~Cola (this=0x5ffa70, __in_chrg=<optimized out>) at Cola.cpp:24
+24          while (primero) {
+(gdb)
+29      }
+(gdb)
+Proceso::~Proceso (this=0x5ffa54, __in_chrg=<optimized out>) at Proceso.cpp:31
+31      Proceso::~Proceso() {}
+(gdb)
+main () at main2_test.cpp:200
+200                                 cout << "9" << endl;
+(gdb)
+9
+201                                 lista.eliminar(i);
+(gdb)
+Lista::eliminar (this=0x5ff5a0, posicion=2) at Lista.cpp:153
+153         if (posicion < 0 || posicion >= longitud) {
+(gdb) 
+159         if (posicion == 0) {
+(gdb)
+166             NodoLista* anterior = obtener_nodo(posicion - 1);
+(gdb)
+
+Thread 1 hit Breakpoint 3, Lista::obtener_nodo (this=0x5ff5a0, posicion=1) at Lista.cpp:304
+304         if (posicion < 0 || posicion >= longitud) {
+(gdb)
+309         NodoLista* actual = primero;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+311             actual = actual->siguiente;
+(gdb)
+310         for (int i = 0; i < posicion; ++i) {
+(gdb)
+313         return actual; 
+(gdb) info locals
+actual = 0xff3f0
+(gdb) step
+314     }
+(gdb)
+Lista::eliminar (this=0x5ff5a0, posicion=2) at Lista.cpp:167
+167             nodoAEliminar = anterior->siguiente;
+(gdb)
+168             anterior->siguiente = nodoAEliminar->siguiente;
+(gdb) info locals
+anterior = 0xff3f0
+siguiente = 0x7ff76218519c <Nucleo::~Nucleo()+44>
+nodoAEliminar = 0xfe810
+(gdb) step
+169             NodoLista* siguiente = nodoAEliminar->siguiente;
+(gdb)
+170             siguiente->anterior = anterior; // he a├▒adido que actualice el puntero anterior del siguiente nodo, para que no sae null    
+(gdb)
+
+Thread 1 received signal SIGSEGV, Segmentation fault.
+0x00007ff762188182 in Lista::eliminar (this=0x5ff5a0, posicion=2) at Lista.cpp:170
+170             siguiente->anterior = anterior; // he a├▒adido que actualice el puntero anterior del siguiente nodo, para que no sae null
+(gdb)
+
+Thread 1 received signal SIGSEGV, Segmentation fault.
+0x00007ff762188182 in Lista::eliminar (this=0x5ff5a0, posicion=2) at Lista.cpp:170
+170             siguiente->anterior = anterior; // he a├▒adido que actualice el puntero anterior del siguiente nodo, para que no sae null    
+(gdb)

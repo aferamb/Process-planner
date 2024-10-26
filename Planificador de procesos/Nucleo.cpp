@@ -138,13 +138,7 @@ int Nucleo::get_tiempo_fin() const {
  * @return Proceso El proceso en ejecución o un proceso vacío si no hay ninguno en ejecución.
  */
 Proceso Nucleo::get_proceso() const {
-    if (proceso_en_ejecucion.get_PID() == -1){
-        //cout << "No hay proceso en ejecucion, devuelve un proceso vacio" << endl;
-        cout << endl;
-        return Proceso(); //?
-    } else {
         return proceso_en_ejecucion;
-    }
 }
 
 

@@ -183,6 +183,7 @@ int main() {
                     }
 
                     // hacer en forma funcion, eliminar procesos que han terminado
+                    cout << endl;
                     cout << "Inicio de eliminacion de procesos que han terminado." << endl;
                     for (int i = 0; i < lista.get_longitud(); i++){
                         cout << "6" << i << endl;
@@ -193,6 +194,7 @@ int main() {
                     }
 
                     // hacer en forma funcion, eliminar nucleos vacios y sin carga
+                    cout << endl;
                     cout << "Inicio de eliminacion de nucleos vacios y sin carga." << endl;
                     for (int i = 0; i < lista.get_longitud(); i++){
                         cout << "8" << i << endl;

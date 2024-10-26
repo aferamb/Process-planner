@@ -76,17 +76,17 @@ bool Lista::ordenada_menor_mayor() const {
 
 
 
-void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior, NO USAR HASTA QUE SE CORRIJA
+void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior y manejar accesos de memoria vacia, NO USAR HASTA QUE SE CORRIJA
     if (es_vacia() || primero == ultimo) {
         return; 
     }
-
+    int posicion = 0;
     bool intercambiado;
     do {
         intercambiado = false;
         NodoLista* actual = primero;
 
-        while (actual->siguiente != nullptr) {
+        while (actual->siguiente != nullptr && posicion < longitud) {
             if (actual->nucleo.get_id() > actual->siguiente->nucleo.get_id()) {
                 // Intercambiar núcleos
                 Nucleo temp = actual->nucleo;
@@ -94,6 +94,7 @@ void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de a
                 actual->siguiente->nucleo = temp;
                 intercambiado = true;
             }
+            posicion++;
             actual = actual->siguiente;
         }
     } while (intercambiado);
@@ -162,8 +163,14 @@ void Lista::eliminar(int posicion) {
         if (primero != nullptr) {
             primero->anterior = nullptr; // he añadido que actualice el puntero anterior del primer nodo, para que no apunte a cossas raras
         }
+    } else if (posicion == longitud - 1) { // esto esta para que si se elimina el ultimo nodo, no de  SIGSEGV, Segmentation fault al intentar acceder a un puntero nulo
+        nodoAEliminar = ultimo;
+        ultimo = ultimo->anterior;
+        if (ultimo != nullptr) {
+            ultimo->siguiente = nullptr; // he añadido que actualice el puntero siguiente del ultimo nodo, para que no sae null
+        }
     } else {
-        NodoLista* anterior = obtener_nodo(posicion - 1);
+        NodoLista* anterior = obtener_nodo(posicion - 1); // esto hace que no se pueda eliminar el ultimo nodo
         nodoAEliminar = anterior->siguiente;
         anterior->siguiente = nodoAEliminar->siguiente;
         NodoLista* siguiente = nodoAEliminar->siguiente;
@@ -205,14 +212,37 @@ void Lista::eliminar_proceso(int posicion) {
  * @param imprimir 
  * @return int 
  */
-int Lista::nucleo_menos_carga(bool imprimir) {
+int Lista::nucleo_menos_carga(bool imprimir) { // creo qu efunciona bien, cambiar comentarios
     if (es_vacia()) return -1;
 
+    bool nuceloEncontrado = false;  
+
     int posicion = 0, posicionMenosCarga = 0;
+    int pid = primero->nucleo.get_proceso().get_PID();
     int menorCarga = primero->nucleo.get_cola_procesos().get_longitud();
+    NodoLista* actualx = primero;
     NodoLista* actual = primero->siguiente;
 
-    while (actual != nullptr) {
+    while (actualx != nullptr && !nuceloEncontrado && posicion < longitud) {
+        if (pid == -1) {
+            posicionMenosCarga = posicion;
+            menorCarga = 0;
+            nuceloEncontrado = true;
+        }
+        else {
+            posicion++;
+            actualx = actualx->siguiente; // si es el ultimo nodo, el siguiente es nullptr, y no se puede acceder a la propiedad nucleo
+            if (actualx != nullptr && posicion < longitud){
+                pid = actualx->nucleo.get_proceso().get_PID();
+            }
+        }
+    }
+
+    if (!nuceloEncontrado) {
+        posicion = 0;
+    }
+
+    while (actual != nullptr && !nuceloEncontrado && posicion < longitud) {
         posicion++;
         int cargaActual = actual->nucleo.get_cola_procesos().get_longitud();
         if (cargaActual < menorCarga) {
@@ -267,10 +297,12 @@ int Lista::nucleo_mas_carga(bool imprimir) {
 Nucleo Lista::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
     cout << "Cogiendo nucleo en posicion " << n << endl;
     NodoLista* nodo = obtener_nodo(n);
+    __asm__("int $3");
     cout << "Nodo obtenido" << endl;
     if (nodo != nullptr) {
         cout << "Nodo no es nullptr" << endl;
-        return nodo->nucleo;
+        Nucleo nucleoaux = nodo->nucleo;
+        return nucleoaux;
     } else {
         cout << "Posición inválida" << endl;
         return Nucleo(); // Devuelve un núcleo vacío
