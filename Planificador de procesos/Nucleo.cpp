@@ -67,6 +67,7 @@ void Nucleo::set_proceso(Proceso proceso){
     proceso_en_ejecucion.set_nucleo_asignado(id);
     this->tiempo_inicio = Global::tiempoTranscurrido;
     this->tiempo_fin = tiempo_inicio + proceso.get_tiempo_de_vida();    
+    detalles_proceso(true);
 }
 
 
@@ -174,17 +175,20 @@ Cola Nucleo::get_cola_procesos() const {
  * si es que hay alguno en la cola de procesos en espera. Si no hay proceso inserta un proceso de la cola de procesos,
  * y si la cola esta vacia, inserta un proceso vacio.
  * 
+ * Cuando se elimina un proceso se muestra un mensaje en la consola indicando que el proceso ha terminado.
  * Si el proceso es nulo y la cola de procesos esta vacia no hace nada. ()
  * 
  */
 void Nucleo::eliminar_proceso(){
     if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){ 
+        detalles_proceso(false);
         set_proceso(cola_procesos.desencolar());
     }
     else if ((proceso_en_ejecucion.get_PID() == -1) && (!cola_procesos.es_vacia())){
         set_proceso(cola_procesos.desencolar());
     } 
     else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){
+        detalles_proceso(false);
         Proceso paux;
         proceso_en_ejecucion = paux;
         //eliminar nucleo de la lista de nucleos y liberar memoria, if no es el ultimo nucleo, cambiar id de los siguientes nucleos?
