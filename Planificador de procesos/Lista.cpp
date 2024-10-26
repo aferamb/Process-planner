@@ -178,6 +178,13 @@ void Lista::eliminar_proceso(int posicion) {
 }
 
 
+/**
+ * @brief Devuelve la posición del núcleo con menos carga de procesos , o con ninguna carga. Si imprimir es true, muestra la información del nucleo.
+ * y si todos los nucleos tienen mas de dos procesos en espera crea un nuevo nucleo, lo inserta en la lista, y muestra la información del nuevo nucleo al ser el nucleo con menos carga
+ * 
+ * @param imprimir 
+ * @return int 
+ */
 int Lista::nucleo_menos_carga(bool imprimir) const {
     if (es_vacia()) return -1;
 

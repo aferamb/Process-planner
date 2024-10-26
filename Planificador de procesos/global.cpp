@@ -8,6 +8,6 @@
 namespace Global {
     time_t tiempoReferencia = 0;  // Definición de la variable en el namespace
     int tiempoTranscurrido = 0; // Definición de la variable en el namespace
-    int contadorTiempoEstancia = 0; // Definición de la variable en el namespace
-    int tiempoEstanciaMedio = contadorTiempoEstancia/19; // Definición de la variable en el namespace
-}
+    float contadorTiempoEstancia = 0; // Definición de la variable en el namespace
+    //int tiempoEstanciaMedio = 0; // Definición de la variable en el namespace
+    }

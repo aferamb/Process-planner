@@ -23,7 +23,6 @@ using namespace std;
 
 int main() {
     int opcion;
-    float contador_tiempo_estancia = 0; // Contador para calcular el tiempo medio de estancia en el sistema operativo, se hace float para que el resultado de la division sea float
     Pila pila;
     Proceso p;
     Cola cola;
@@ -174,18 +173,19 @@ int main() {
 
                     if (pila.esVacia() && cola.es_vacia() && nucleo1.get_proceso().get_PID() == -1 && nucleo2.get_proceso().get_PID() == -1 && nucleo3.get_proceso().get_PID() == -1){
                         cout << "No hay procesos en la pila ni en la cola de espera, y ambos nucleos estan libres.\n";
-                        cout << endl;
                         cout << "Ejecucion de procesos finalizada." << endl; 
                         cout << endl;
-                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::tiempoEstanciaMedio << " minutos." << endl; // Dividir entre el numero de procesos
+                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
                         cout << endl;
                         cout << endl;
                         break;
                     }
+
                     cout << endl;
                     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
                     cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
                     cout << endl;
+
                     if(!pila.esVacia()){
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
@@ -268,6 +268,7 @@ int main() {
                     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
                     cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
                     cout << endl;
+                    
                     if(!pila.esVacia()){
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
@@ -342,7 +343,7 @@ int main() {
                 cout << endl;
                 cout << "Ejecucion de procesos finalizada." << endl; 
                 cout << endl;
-                cout << "Tiempo medio de estancia en el sistema operativo: " << contador_tiempo_estancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
+                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
                 cout << endl;
                 break;
             }

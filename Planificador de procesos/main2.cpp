@@ -136,47 +136,73 @@ int main() {
                     break;
                 }
                 cout << endl;
-                // Simular ejecución de procesos          
-                // Comprobar si hay procesos en la pila de procesos y meter en cola los procesos que tengan tiempo de inicio igual al tiempo actual/tiempo transcurrido
-                // Ordenar la cola de procesos por prioridad
-                // Comprobar si hay procesos en la cola de procesos y meter los procesos en los núcleos libres, sino, seguir con la ejecución de los procesos en los núcleos
-                // Cuando entren procesos en los núcleos, imprimir los detalles de los procesos en los núcleos cuando entran, y eliminar e imprimir los procesos que terminen su ejecución
-                // ademas de guardar el tiempo en el que el proceso salio de la pila (tiempo de inicio) y el tiempo en el que termino su ejec para calcular el tiempo de estancia en el sistema operativo
-                // actualizar dentro del bucle Global::tiempoTranscurrido += n;  
+                /**
+                 * @brief Al principio, y solo al principio, inserta los procesos de la pila qu ese inician en el tiempo actual en los nucleos, luego en bucle
+                 * comprueva si hay procesos en los nucleos que han terminado y los elimina. Si hay nucleos vacios y sin carga los elimina,
+                 * y para finalizar el ciclo comprueva si hay procesos en la pila que se inician en el tiempo actual y los inserta en nucleos disponibles o sus colas.
+                 * 
+                 */
 
                 for(int i = Global::tiempoTranscurrido; Global::tiempoTranscurrido <= i+n; Global::tiempoTranscurrido++){
 
-                    if (pila.esVacia() && cola.es_vacia() && nucleo1.get_proceso().get_PID() == -1 && nucleo2.get_proceso().get_PID() == -1){
+                    if (pila.esVacia() && lista.get_longitud() == 1 && lista.coger(0).get_proceso().get_PID() == -1 && lista.coger(0).get_cola_procesos().es_vacia()){
                         cout << "No hay procesos en la pila ni en la cola de espera, y ambos nucleos estan libres.\n";
-                        cout << endl;
                         cout << "Ejecucion de procesos finalizada." << endl; 
                         cout << endl;
-                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::tiempoEstanciaMedio << " minutos." << endl; // Dividir entre el numero de procesos
+                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
                         cout << endl;
                         cout << endl;
                         break;
                     }
+
                     cout << endl;
                     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
                     cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
                     cout << endl;
-                    if(!pila.esVacia()){
+
+                    if(!pila.esVacia() && Global::tiempoTranscurrido == 0){ // Al principio, insertar los procesos de la pila que se inician en el tiempo actual
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            cola.insertar_por_prioridad(p);
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
                             } else {
-                                // Igual poner un delete p;
-                                break; // Si no hay mas procesos en la pila que inicien ahora, salir del bucle
+                                break;
                             }
                         }
                     }
 
-                    
+                    // hacer en forma funcion, eliminar procesos que han terminado
+                    for (int i = 0; i < lista.get_longitud(); i++){
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){
+                            lista.eliminar_proceso(i);
+                        }
+                    }
+
+                    // hacer en forma funcion, eliminar nucleos vacios y sin carga
+                    for (int i = 0; i < lista.get_longitud(); i++){
+                        if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+                            lista.eliminar(i);
+                        }
+                    }
+
+                    if(!pila.esVacia()){ // Al final, insertar los procesos de la pila que se inician en el tiempo actual
+                        Proceso p = pila.mostrar();
+                        cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
+                        cout << endl;
+                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
+                            pila.desapilar();
+                            if(!pila.esVacia()){
+                                p = pila.mostrar();
+                            } else {
+                                break;
+                            }
+                        }
+                    }
 
                     cout << endl;
                     lista.mostrar_estado_nucleos();
@@ -213,31 +239,56 @@ int main() {
                 // Simular ejecucion de proceso
                 cout << "A continuacion se simulara el paso del tiempo en el sistema operativo hasta que finalicen todos los procesos" << endl;
 
-                while (!(pila.esVacia() && cola.es_vacia() && (nucleo1.get_proceso().get_PID() == -1) && (nucleo2.get_proceso().get_PID() == -1))){
+                while (!(pila.esVacia() && lista.get_longitud() == 1 && lista.coger(0).get_proceso().get_PID() == -1 && lista.coger(0).get_cola_procesos().es_vacia())){
                     
                     cout << endl;
                     cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
                     cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
                     cout << endl;
-                    if(!pila.esVacia()){
+
+                    if(!pila.esVacia() && Global::tiempoTranscurrido == 0){ // Al principio, insertar los procesos de la pila que se inician en el tiempo actual
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            cola.insertar_por_prioridad(p);
-                            cola.encolar(p);
-                            cola.ordenar_por_prioridad();
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
                             } else {
-                                // Igual poner un delete p;
-                                break; // Si no hay mas procesos en la pila que inicien ahora, salir del bucle
+                                break;
                             }
                         }
                     }
 
-                    
+                    // hacer en forma funcion, eliminar procesos que han terminado
+                    for (int i = 0; i < lista.get_longitud(); i++){
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){
+                            lista.eliminar_proceso(i);
+                        }
+                    }
+
+                    // hacer en forma funcion, eliminar nucleos vacios y sin carga
+                    for (int i = 0; i < lista.get_longitud(); i++){
+                        if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+                            lista.eliminar(i);
+                        }
+                    }
+
+                    if(!pila.esVacia()){ // Al final, insertar los procesos de la pila que se inician en el tiempo actual
+                        Proceso p = pila.mostrar();
+                        cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
+                        cout << endl;
+                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
+                            pila.desapilar();
+                            if(!pila.esVacia()){
+                                p = pila.mostrar();
+                            } else {
+                                break;
+                            }
+                        }
+                    }
 
                     cout << endl;
                     lista.mostrar_estado_nucleos();
@@ -249,7 +300,7 @@ int main() {
                 cout << endl;
                 cout << "Ejecucion de procesos finalizada." << endl; 
                 cout << endl;
-                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::tiempoEstanciaMedio << " minutos." << endl; // Dividir entre el numero de procesos
+                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
                 cout << endl;
                 break;
             }
