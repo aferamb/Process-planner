@@ -265,8 +265,11 @@ int Lista::nucleo_mas_carga(bool imprimir) {
 
 
 Nucleo Lista::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
+    cout << "Cogiendo nucleo en posicion " << n << endl;
     NodoLista* nodo = obtener_nodo(n);
+    cout << "Nodo obtenido" << endl;
     if (nodo != nullptr) {
+        cout << "Nodo no es nullptr" << endl;
         return nodo->nucleo;
     } else {
         cout << "Posición inválida" << endl;

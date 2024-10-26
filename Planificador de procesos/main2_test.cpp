@@ -167,27 +167,37 @@ int main() {
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
+
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); 
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            cout << endl;
+                            lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
                             } else {
+                                cout << "5" << endl;
                                 break;
                             }
                         }
                     }
 
                     // hacer en forma funcion, eliminar procesos que han terminado
+                    cout << "Inicio de eliminacion de procesos que han terminado." << endl;
                     for (int i = 0; i < lista.get_longitud(); i++){
-                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){
+                        cout << "6" << i << endl;
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+                            cout << "7" << endl;
                             lista.eliminar_proceso(i);
                         }
                     }
 
                     // hacer en forma funcion, eliminar nucleos vacios y sin carga
+                    cout << "Inicio de eliminacion de nucleos vacios y sin carga." << endl;
                     for (int i = 0; i < lista.get_longitud(); i++){
+                        cout << "8" << i << endl;
                         if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
+                            cout << "9" << endl;
                             lista.eliminar(i);
                         }
                     }

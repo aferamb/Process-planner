@@ -159,9 +159,9 @@ Proceso Nucleo::get_proceso() const {
  */
 Cola Nucleo::get_cola_procesos() const {
     if (cola_procesos.es_vacia()){
-        cout << "No hay cola de procesos, devuelve una cola vacia" << endl;
+        cout << "Cola de procesos vacia" << endl;
         cout << endl;
-        return Cola();
+        return cola_procesos;
     } else {
         return cola_procesos;
     }
