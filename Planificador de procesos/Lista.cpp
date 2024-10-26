@@ -178,7 +178,7 @@ void Lista::eliminar_proceso(int posicion) {
 }
 
 
-int Lista::nucleo_menos_carga() const {
+int Lista::nucleo_menos_carga(bool imprimir) const {
     if (es_vacia()) return -1;
 
     int posicion = 0, posicionMenosCarga = 0;
@@ -194,10 +194,16 @@ int Lista::nucleo_menos_carga() const {
         }
         actual = actual->siguiente;
     }
+
+    if (imprimir) {
+        cout << "Nucleo con menos carga de procesos: " << endl;
+        estado_nucleo(posicionMenosCarga);
+        cout << endl;
+    }
     return posicionMenosCarga;
 }
 
-int Lista::nucleo_mas_carga() const {
+int Lista::nucleo_mas_carga(bool imprimir) const {
     if (es_vacia()) return -1;
 
     int posicion = 0, posicionMasCarga = 0;
@@ -212,6 +218,12 @@ int Lista::nucleo_mas_carga() const {
             posicionMasCarga = posicion;
         }
         actual = actual->siguiente;
+    }
+
+    if (imprimir) {
+        cout << "Nucleo con más carga de procesos: " << endl;
+        estado_nucleo(posicionMasCarga);
+        cout << endl;
     }
     return posicionMasCarga;
 }

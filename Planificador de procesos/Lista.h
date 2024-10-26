@@ -20,15 +20,15 @@ public:
     bool es_vacia() const; // Devuelve si la lista está vacía
     bool ordenada_menor_mayor() const; // Comprueba si está ordenada
     void ordenar_menor_mayor(); // Ordena la lista de menor a mayor
-    int get_longitud() const; // Devuelve la longitud de la lista   
+    int get_longitud() const; // Devuelve la longitud de la lista, que tambien es el numero de nucleos operativos
     void insertar_nucleo(); // Crea un nucleo y lo inserta en la lista
     void estado_nucleo(int posicion) const; // Muestra la información del nucleo en una posición
     void mostrar_estado_nucleos() const; // Muestra la información de todos los nucleos en la lista
     void eliminar(int posicion); // Elimina un nucleo en una posición
     void insertar_proceso(Proceso proceso, int posicion = 0); // Inserta un proceso en un nucleo dado     
     void eliminar_proceso(int posicion); // Elimina un proceso en un nucleo dado               
-    int nucleo_menos_carga() const; // Devuelve posdicion del nucleo con menos carga, o con ninguna carga
-    int nucleo_mas_carga() const; // Devuelve posición del nucleo con más carga
+    int nucleo_menos_carga(bool imprimir=false) const; // Devuelve posdicion del nucleo con menos carga, o con ninguna carga. Si imprimir es true, muestra la información del nucleo
+    int nucleo_mas_carga(bool imprimir=false) const; // Devuelve posición del nucleo con más carga, ademas si imprimir es true, muestra la información del nucleo
     
     Nucleo coger(int n) const; // Devuelve el nucleo en la posición n
 

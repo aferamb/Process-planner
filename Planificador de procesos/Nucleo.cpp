@@ -181,6 +181,7 @@ Cola Nucleo::get_cola_procesos() const {
  */
 void Nucleo::eliminar_proceso(){
     if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){ 
+        Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         detalles_proceso(false);
         set_proceso(cola_procesos.desencolar());
     }
@@ -188,6 +189,7 @@ void Nucleo::eliminar_proceso(){
         set_proceso(cola_procesos.desencolar());
     } 
     else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){
+        Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         detalles_proceso(false);
         Proceso paux;
         proceso_en_ejecucion = paux;
@@ -248,7 +250,7 @@ void Nucleo::detalles_nucleo(){
         detalles_proceso();
     }
     cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
-    
+    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
     if (cola_procesos.es_vacia()){
         cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
     } else {

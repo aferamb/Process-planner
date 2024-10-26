@@ -24,7 +24,6 @@ using namespace std;
 
 int main() {
     int opcion;
-    float contador_tiempo_estancia = 0; // Contador para calcular el tiempo medio de estancia en el sistema operativo, se hace float para que el resultado de la division sea float
     Pila pila;
     Proceso p;
     Lista lista;
@@ -152,7 +151,7 @@ int main() {
                         cout << endl;
                         cout << "Ejecucion de procesos finalizada." << endl; 
                         cout << endl;
-                        cout << "Tiempo medio de estancia en el sistema operativo: " << contador_tiempo_estancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
+                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::tiempoEstanciaMedio << " minutos." << endl; // Dividir entre el numero de procesos
                         cout << endl;
                         cout << endl;
                         break;
@@ -166,9 +165,7 @@ int main() {
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            //cola.insertar_por_prioridad(p);
-                            cola.encolar(p);
-                            cola.ordenar_por_prioridad();
+                            cola.insertar_por_prioridad(p);
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
@@ -182,9 +179,7 @@ int main() {
                     
 
                     cout << endl;
-                    nucleo1.detalles_proceso();
-                    nucleo2.detalles_proceso();
-                    nucleo3.detalles_proceso();
+                    lista.mostrar_estado_nucleos();
                     cout << endl;
                     cout << endl;
                 }
@@ -195,22 +190,21 @@ int main() {
                 // Mostrar estado de los nucleos
                 cout << "Estado de los nucleos: " << endl;
                 cout << endl;
-                
+                lista.mostrar_estado_nucleos();
                 cout << endl;
                 break;
             }
 
             case 6: {
                 // Consulta nucleo con menos carga, nucleo con mas carga
-                cout << "Nucleo con menos carga: " << endl;
-                cout << "Nucleo con mas carga: " << endl;
-                cout << endl;
+                lista.nucleo_menos_carga();
+                lista.nucleo_mas_carga();
                 break;
             }
 
             case 7: {
                 // Consulta numero de nucleos operativos
-                cout << "Numero de nucleos operativos: " << endl;
+                cout << "Numero de nucleos operativos: " << lista.get_longitud() << endl; // La longitud de la lista de nucleos es igual al numero de nucleos operativos
                 cout << endl;
                 break;
             }
@@ -230,7 +224,7 @@ int main() {
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            //cola.insertar_por_prioridad(p);
+                            cola.insertar_por_prioridad(p);
                             cola.encolar(p);
                             cola.ordenar_por_prioridad();
                             pila.desapilar();
@@ -246,9 +240,7 @@ int main() {
                     
 
                     cout << endl;
-                    nucleo1.detalles_proceso();
-                    nucleo2.detalles_proceso();
-                    nucleo3.detalles_proceso();
+                    lista.mostrar_estado_nucleos();
                     cout << endl;
                     cout << endl;
                     Global::tiempoTranscurrido++;
@@ -257,7 +249,7 @@ int main() {
                 cout << endl;
                 cout << "Ejecucion de procesos finalizada." << endl; 
                 cout << endl;
-                cout << "Tiempo medio de estancia en el sistema operativo: " << contador_tiempo_estancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
+                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::tiempoEstanciaMedio << " minutos." << endl; // Dividir entre el numero de procesos
                 cout << endl;
                 break;
             }
