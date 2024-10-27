@@ -49,6 +49,10 @@ int main() {
         cout << "8. Salir.\n";
         cout << "Seleccione una opcion: ";
         cin >> opcion;
+        if (opcion < 1 || opcion > 9){
+            cout << endl;
+            opcion = 0;
+        }
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
         cout << endl;
 
@@ -281,7 +285,6 @@ int main() {
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
                             } else {
-                                // Igual poner un delete p;
                                 break; // Si no hay mas procesos en la pila que inicien ahora, salir del bucle
                             }
                         }
