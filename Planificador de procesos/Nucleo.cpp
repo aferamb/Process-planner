@@ -153,8 +153,8 @@ Proceso Nucleo::get_proceso() const {
  */
 Cola Nucleo::get_cola_procesos() const {
     if (cola_procesos.es_vacia()){
-        cout << "Cola de procesos vacia" << endl;
-        cout << endl;
+        //cout << "Cola de procesos vacia" << endl;
+        //cout << endl;
         return cola_procesos;
     } else {
         return cola_procesos;

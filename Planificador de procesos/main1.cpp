@@ -155,7 +155,7 @@ int main() {
                 cin >> n;
                 // Para la documentacion
                 n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
-                if (n <= 0){
+                if (n < 0){
                     cout << endl;
                     cout << "El tiempo no puede ser cero o negativo.\n";
                     break;

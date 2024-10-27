@@ -132,7 +132,7 @@ int main() {
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
                 n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
-                if (n <= 0){
+                if (n < 0){
                     cout << endl;
                     cout << "El tiempo no puede ser cero o negativo.\n";
                     break;
@@ -167,8 +167,11 @@ int main() {
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
+
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); 
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            cout << endl;
+                            //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
@@ -180,7 +183,7 @@ int main() {
 
                     // hacer en forma funcion, eliminar procesos que han terminado
                     for (int i = 0; i < lista.get_longitud(); i++){
-                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
                             lista.eliminar_proceso(i);
                         }
                     }
@@ -254,8 +257,11 @@ int main() {
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
+
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); 
+                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            cout << endl;
+                            //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
@@ -267,12 +273,13 @@ int main() {
 
                     // hacer en forma funcion, eliminar procesos que han terminado
                     for (int i = 0; i < lista.get_longitud(); i++){
-                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
                             lista.eliminar_proceso(i);
                         }
                     }
 
                     // hacer en forma funcion, eliminar nucleos vacios y sin carga
+
                     for (int i = 0; i < lista.get_longitud(); i++){
                         if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
                             lista.eliminar(i);
@@ -293,7 +300,6 @@ int main() {
                             }
                         }
                     }
-
                     cout << endl;
                     lista.mostrar_estado_nucleos();
                     cout << endl;

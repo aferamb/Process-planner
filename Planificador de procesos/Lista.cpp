@@ -286,7 +286,7 @@ int Lista::nucleo_mas_carga(bool imprimir) {
     }
 
     if (imprimir) {
-        cout << "Nucleo con más carga de procesos: " << endl;
+        cout << "Nucleo con mas carga de procesos: " << endl;
         estado_nucleo(posicionMasCarga);
         cout << endl;
     }
@@ -295,12 +295,9 @@ int Lista::nucleo_mas_carga(bool imprimir) {
 
 
 Nucleo Lista::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
-    cout << "Cogiendo nucleo en posicion " << n << endl;
     NodoLista* nodo = obtener_nodo(n);
-    __asm__("int $3");
-    cout << "Nodo obtenido" << endl;
+    //__asm__("int $3");
     if (nodo != nullptr) {
-        cout << "Nodo no es nullptr" << endl;
         Nucleo nucleoaux = nodo->nucleo;
         return nucleoaux;
     } else {
