@@ -6,7 +6,6 @@
  * @date 2024-10-23
  * 
  * @copyright Copyright (c) 2024
- * 
  */
 #include "global.h"
 #include "Nucleo.h"
