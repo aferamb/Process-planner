@@ -29,6 +29,7 @@ int main() {
     Nucleo nucleo1;
     Nucleo nucleo2;
     Nucleo nucleo3;
+    int contador = 0;   
     //nucleo1.set_id(1);
     //nucleo2.set_id(2);
     //nucleo3.set_id(3);
@@ -58,6 +59,14 @@ int main() {
 
         switch (opcion) {
             case 1: {
+                Proceso pd1=Proceso(0, 0, 5, 1);
+                Proceso pd2=Proceso(1, 0, 3, 2);
+                Proceso pd3=Proceso(1, 0, 6, 9);
+                Proceso pd4=Proceso(1, 0, 7, 5);
+                Proceso pd5=Proceso(1, 0, 6, 1);
+                Proceso pd6=Proceso(1, 0, 8, 3);
+                Proceso pd7=Proceso(3, 10, 3, 4);
+/*
                 Proceso p1=Proceso(1, 0, 4, 0);
                 Proceso p2=Proceso(1, 0, 5, 1);
                 Proceso p3=Proceso(1, 1, 4, 3);
@@ -77,7 +86,15 @@ int main() {
                 Proceso p17=Proceso(10, 20, 2, 7);
                 Proceso p18=Proceso(8, 21, 1, 8);
                 Proceso p19=Proceso(9, 21, 4, 2);
-
+*/
+                pila.apilar(pd1);
+                pila.apilar(pd2);
+                pila.apilar(pd3);
+                pila.apilar(pd4);
+                pila.apilar(pd5);
+                pila.apilar(pd6);
+                pila.apilar(pd7);
+/*
                 pila.apilar(p7);
                 pila.apilar(p11);
                 pila.apilar(p13);
@@ -97,7 +114,7 @@ int main() {
                 pila.apilar(p16);
                 pila.apilar(p3);
                 pila.apilar(p19);
-
+*/
                 cout << "Pila de procesos creada correctamente.\n";
                 cout << endl;
                 cout << endl;
@@ -179,7 +196,7 @@ int main() {
                         cout << "No hay procesos en la pila ni en la cola de espera, y ambos nucleos estan libres.\n";
                         cout << "Ejecucion de procesos finalizada." << endl; 
                         cout << endl;
-                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
+                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/contador << " minutos." << endl; // Dividir entre el numero de procesos
                         cout << endl;
                         cout << endl;
                         break;
@@ -196,6 +213,7 @@ int main() {
                         cout << endl;
                         while(p.get_inicio() == Global::tiempoTranscurrido){
                             cola.insertar_por_prioridad(p);
+                            contador++;
                             //cola.encolar(p);
                             //cola.ordenar_por_prioridad();
                             pila.desapilar();
@@ -279,6 +297,7 @@ int main() {
                         cout << endl;
                         while(p.get_inicio() == Global::tiempoTranscurrido){
                             cola.insertar_por_prioridad(p);
+                            contador++;
                             //cola.encolar(p);
                             //cola.ordenar_por_prioridad();
                             pila.desapilar();
@@ -346,7 +365,7 @@ int main() {
                 cout << endl;
                 cout << "Ejecucion de procesos finalizada." << endl; 
                 cout << endl;
-                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/19 << " minutos." << endl; // Dividir entre el numero de procesos
+                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/contador << " minutos." << endl; // Dividir entre el numero de procesos
                 cout << endl;
                 break;
             }
