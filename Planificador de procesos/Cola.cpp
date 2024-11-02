@@ -21,11 +21,13 @@ Cola::Cola(){
  * 
  */
 Cola::~Cola() {
+    /*
     while (primero) {
         NodoCola* aux = primero;
         primero = primero->siguiente;
         delete aux;
     }
+    */
 }
 
 

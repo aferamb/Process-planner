@@ -182,6 +182,9 @@ int main() {
                             } else {
                                 break;
                             }
+
+
+                            // ghacer que se metan a una cola primero y luego as los nucleos
                         }
                     }
 
