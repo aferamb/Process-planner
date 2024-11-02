@@ -27,6 +27,7 @@ int main() {
     Pila pila;
     Proceso p;
     Lista lista;
+    Cola colatemp;
     lista.insertar_nucleo();// mirar a ver
     lista.insertar_nucleo();// mirar a ver
     lista.insertar_nucleo();// mirar a ver
@@ -59,23 +60,23 @@ int main() {
             case 1: {
                 Proceso p1=Proceso(1, 0, 4, 0);
                 Proceso p2=Proceso(1, 0, 5, 1);
-                Proceso p3=Proceso(1, 1, 4, 3);
-                Proceso p4=Proceso(2, 4, 3, 7);
-                Proceso p5=Proceso(2, 6, 2, 2);
-                Proceso p6=Proceso(3, 9, 5, 1);
-                Proceso p7=Proceso(3, 10, 3, 4);
-                Proceso p8=Proceso(4, 12, 2, 6);
-                Proceso p9=Proceso(7, 13, 1, 8);
-                Proceso p10=Proceso(5, 15, 4, 2);
-                Proceso p11=Proceso(4, 16, 3, 3);
-                Proceso p12=Proceso(5, 18, 2, 5);
-                Proceso p13=Proceso(6, 18, 1, 1);
-                Proceso p14=Proceso(6, 18, 2, 4);
-                Proceso p15=Proceso(7, 19, 5, 0);
-                Proceso p16=Proceso(8, 19, 3, 6);
-                Proceso p17=Proceso(10, 20, 2, 7);
-                Proceso p18=Proceso(8, 21, 1, 8);
-                Proceso p19=Proceso(9, 21, 4, 2);
+                Proceso p3=Proceso(1, 0, 4, 3);
+                Proceso p4=Proceso(2, 5, 3, 7);
+                Proceso p5=Proceso(2, 3, 2, 2);
+                Proceso p6=Proceso(3, 3, 5, 1);
+                Proceso p7=Proceso(3, 2, 3, 4);
+                Proceso p8=Proceso(4, 2, 2, 6);
+                Proceso p9=Proceso(7, 3, 1, 8);
+                Proceso p10=Proceso(5, 0, 4, 2);
+                Proceso p11=Proceso(4, 0, 3, 3);
+                Proceso p12=Proceso(5, 0, 2, 5);
+                Proceso p13=Proceso(6, 0, 1, 1);
+                Proceso p14=Proceso(6, 0, 2, 4);
+                Proceso p15=Proceso(7, 0, 5, 0);
+                Proceso p16=Proceso(8, 0, 3, 6);
+                Proceso p17=Proceso(10, 0, 2, 7);
+                Proceso p18=Proceso(8, 0, 1, 8);
+                Proceso p19=Proceso(9, 0, 4, 2);
 
                 pila.apilar(p7);
                 pila.apilar(p11);
@@ -173,7 +174,7 @@ int main() {
                         cout << endl;
 
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            colatemp.insertar_por_prioridad(p);
                             cout << endl;
                             //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
@@ -182,9 +183,9 @@ int main() {
                             } else {
                                 break;
                             }
-
-
-                            // ghacer que se metan a una cola primero y luego as los nucleos
+                        }
+                        while (!colatemp.es_vacia()){
+                            lista.insertar_proceso(colatemp.desencolar(), lista.nucleo_menos_carga());
                         }
                     }
 
@@ -266,7 +267,7 @@ int main() {
                         cout << endl;
 
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            colatemp.insertar_por_prioridad(p);
                             cout << endl;
                             //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
@@ -275,6 +276,9 @@ int main() {
                             } else {
                                 break;
                             }
+                        }
+                        while (!colatemp.es_vacia()){
+                            lista.insertar_proceso(colatemp.desencolar(), lista.nucleo_menos_carga());
                         }
                     }
 

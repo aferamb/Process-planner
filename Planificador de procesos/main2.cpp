@@ -26,6 +26,7 @@ int main() {
     Pila pila;
     Proceso p;
     Lista lista;
+    Cola colatemp;
     int contador = 0;
     lista.insertar_nucleo();// mirar a ver
     lista.insertar_nucleo();// mirar a ver
@@ -183,9 +184,8 @@ int main() {
                         cout << endl;
 
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            colatemp.insertar_por_prioridad(p);
                             cout << endl;
-                            contador++;
                             //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
                             if(!pila.esVacia()){
@@ -193,6 +193,10 @@ int main() {
                             } else {
                                 break;
                             }
+                        }
+                        while (!colatemp.es_vacia()){
+                            lista.insertar_proceso(colatemp.desencolar(), lista.nucleo_menos_carga());
+                            contador++;
                         }
                     }
 
@@ -274,9 +278,8 @@ int main() {
                         cout << endl;
 
                         while(p.get_inicio() == Global::tiempoTranscurrido){
-                            lista.insertar_proceso(p, lista.nucleo_menos_carga()); // no mete proceso en otro nucleo en la segunda ejecucion
+                            colatemp.insertar_por_prioridad(p);
                             cout << endl;
-                            contador++;
                             //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
                             if(!pila.esVacia()){
@@ -284,6 +287,10 @@ int main() {
                             } else {
                                 break;
                             }
+                        }
+                        while (!colatemp.es_vacia()){
+                            lista.insertar_proceso(colatemp.desencolar(), lista.nucleo_menos_carga());
+                            contador++;
                         }
                     }
 
