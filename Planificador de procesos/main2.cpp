@@ -186,7 +186,6 @@ int main() {
                         while(p.get_inicio() == Global::tiempoTranscurrido){
                             colatemp.insertar_por_prioridad(p);
                             cout << endl;
-                            //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                             pila.desapilar();
                             if(!pila.esVacia()){
                                 p = pila.mostrar();
