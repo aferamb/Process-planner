@@ -60,7 +60,7 @@ int main() {
                 Proceso pd4=Proceso(1, 0, 7, 5);
                 Proceso pd5=Proceso(1, 0, 6, 1);
                 Proceso pd6=Proceso(1, 0, 8, 3);
-/*
+
                 Proceso p1=Proceso(1, 0, 4, 0);
                 Proceso p2=Proceso(1, 0, 5, 1);
                 Proceso p3=Proceso(1, 1, 4, 3);
@@ -80,14 +80,14 @@ int main() {
                 Proceso p17=Proceso(10, 20, 2, 7);
                 Proceso p18=Proceso(8, 21, 1, 8);
                 Proceso p19=Proceso(9, 21, 4, 2);
-*/
+
                 pila.apilar(pd1);
                 pila.apilar(pd2);
                 pila.apilar(pd3);
                 pila.apilar(pd4);
                 pila.apilar(pd5);
                 pila.apilar(pd6);
-/*
+
                 pila.apilar(p7);
                 pila.apilar(p11);
                 pila.apilar(p13);
@@ -107,7 +107,7 @@ int main() {
                 pila.apilar(p16);
                 pila.apilar(p3);
                 pila.apilar(p19);
-*/
+
                 cout << "Pila de procesos creada correctamente.\n";
                 cout << endl;
                 cout << endl;
