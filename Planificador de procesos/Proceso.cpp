@@ -75,3 +75,12 @@ void Proceso::set_prioridad(int prioridad) {
 void Proceso::set_nucleo_asignado(int nucleoAsignado) {
   this->nucleoAsignado = nucleoAsignado;
 }
+
+// Mostrar 
+void Proceso::mostrar() const {
+    if (PID == -1){
+      cout<< "Proceso vacio" << endl;
+    } else {
+      cout << "PID: " << PID << " PPID: " << PPID << " Inicio: " << inicio << " Tiempo de vida: " << tiempoDeVida << " Prioridad: " << prioridad << " Núcleo asignado: " << nucleoAsignado << endl;
+    }
+}

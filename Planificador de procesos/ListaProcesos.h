@@ -20,13 +20,13 @@ public:
     bool ordenada_menor_mayor() const; 
     void ordenar_menor_mayor(); 
     int get_longitud() const; 
-    void insertar_proceso(); 
+    void insertar_proceso_vacio(); // se puede eliminar si no se utiliza
     void insertar_proceso(Proceso proceso, int posicion = 0); 
-    void eliminar_proceso(); 
-    void eliminar_proceso(int posicion);              
+    void sustituir_proceso(Proceso proceso, int posicion);
+    void eliminar_proceso(int posicion);      
+    void mostrar() const;        
     
     Proceso coger(int n); // Devuelve el proceso en la posición n
-
 
 private:
     NodoListaProcesos* obtener_nodo(int posicion); // Método auxiliar para obtener un nodo

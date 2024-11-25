@@ -14,7 +14,7 @@ int Nucleo::Contador_ID = 0;
  * 
  */
 Nucleo::Nucleo(){
-    id = Contador_ID++;
+    id = Contador_ID++; // mirar por que salen pares
     proceso_en_ejecucion;
     cola_procesos;
     tiempo_inicio = -1; //podria ser NULL

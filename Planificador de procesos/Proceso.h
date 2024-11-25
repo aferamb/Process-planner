@@ -34,6 +34,9 @@ class Proceso {
         void set_tiempo_de_vida(int tiempoDeVida);
         void set_prioridad(int prioridad);
         void set_nucleo_asignado(int nucleoAsignado);
+
+        // Métodos
+        void mostrar() const; // No probado
 };
 
 #endif // PROCESO_H

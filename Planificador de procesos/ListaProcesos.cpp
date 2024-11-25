@@ -70,7 +70,7 @@ bool ListaProcesos::ordenada_menor_mayor() const {
     }
     NodoListaProcesos* actual = primero;
     while (actual->siguiente != nullptr) {
-        if (actual->nucleo.get_id() > actual->siguiente->nucleo.get_id()) {
+        if (actual->proceso.get_prioridad() > actual->siguiente->proceso.get_prioridad()) {
             return false;
         }
         actual = actual->siguiente;
@@ -80,7 +80,7 @@ bool ListaProcesos::ordenada_menor_mayor() const {
 
 
 
-void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior y manejar accesos de memoria vacia, NO USAR HASTA QUE SE CORRIJA
+void ListaProcesos::ordenar_menor_mayor() { // corregir, falta asignar los punteros de anterior y manejar accesos de memoria vacia, NO USAR HASTA QUE SE CORRIJA
     if (es_vacia() || primero == ultimo) {
         return; 
     }
@@ -88,14 +88,14 @@ void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de a
     bool intercambiado;
     do {
         intercambiado = false;
-        NodoLista* actual = primero;
+        NodoListaProcesos* actual = primero;
 
         while (actual->siguiente != nullptr && posicion < longitud) {
-            if (actual->nucleo.get_id() > actual->siguiente->nucleo.get_id()) {
-                // Intercambiar núcleos
-                Nucleo temp = actual->nucleo;
-                actual->nucleo = actual->siguiente->nucleo;
-                actual->siguiente->nucleo = temp;
+            if (actual->proceso.get_prioridad() > actual->siguiente->proceso.get_prioridad()) {
+                // Intercambiar procesos
+                Proceso temp = actual->proceso;
+                actual->proceso = actual->siguiente->proceso;
+                actual->siguiente->proceso = temp;
                 intercambiado = true;
             }
             posicion++;
@@ -106,22 +106,22 @@ void Lista::ordenar_menor_mayor() { // corregir, falta asignar los punteros de a
 
 
 
-int Lista::get_longitud() const {
+int ListaProcesos::get_longitud() const {
     return longitud;
 }
 
 
 
-void Lista::insertar_nucleo() { 
-    Nucleo nuevoNucleo;
-    NodoLista* nuevoNodo = new NodoLista(nuevoNucleo, nullptr);
+void ListaProcesos::insertar_proceso_vacio() { 
+    Proceso nuevoProceso;
+    NodoListaProcesos* nuevoNodo = new NodoListaProcesos(nuevoProceso, nullptr);
 
     if (es_vacia()) {
         primero = nuevoNodo;
         ultimo = nuevoNodo;
     } else {
         ultimo->siguiente = nuevoNodo;
-        nuevoNodo->anterior = ultimo; // he añadido que actualice el puntero anterior del siguiente nodo, para que no sae null
+        nuevoNodo->anterior = ultimo;
         ultimo = nuevoNodo;
     }
     longitud++;
@@ -129,10 +129,37 @@ void Lista::insertar_nucleo() {
 
 
 
-void Lista::estado_nucleo(int posicion) {
-    NodoLista* nodo = obtener_nodo(posicion);
+void ListaProcesos::insertar_proceso(Proceso proc, int posicion) {
+    if (posicion < 0 || posicion > longitud) {
+        cout << "Posición inválida" << endl;
+        return;
+    }
+    NodoListaProcesos* nuevoNodo = new NodoListaProcesos(proc, nullptr);
+    if (posicion == 0) {
+        nuevoNodo->siguiente = primero;
+        primero->anterior = nuevoNodo;
+        primero = nuevoNodo;
+    } else if (posicion == longitud) {
+        ultimo->siguiente = nuevoNodo;
+        nuevoNodo->anterior = ultimo;
+        ultimo = nuevoNodo;
+    } else {
+        NodoListaProcesos* anterior = obtener_nodo(posicion - 1);
+        nuevoNodo->siguiente = anterior->siguiente;
+        anterior->siguiente = nuevoNodo;
+        NodoListaProcesos* siguiente = nuevoNodo->siguiente;
+        siguiente->anterior = nuevoNodo;
+        nuevoNodo->anterior = anterior;
+    }
+    longitud++;
+}
+
+
+
+void ListaProcesos::sustituir_proceso(Proceso proc, int posicion) {
+    NodoListaProcesos* nodo = obtener_nodo(posicion);
     if (nodo != nullptr) {
-        nodo->nucleo.detalles_nucleo();
+        nodo->proceso = proc;
     } else {
         cout << "Posición inválida" << endl;
     }
@@ -140,27 +167,12 @@ void Lista::estado_nucleo(int posicion) {
 
 
 
-void Lista::mostrar_estado_nucleos() const {
-    NodoLista* actual = primero;
-    int pos = 0;
-    while (actual != nullptr) {
-        cout << "Nucleo en posicion " << pos << ":" << endl;
-        actual->nucleo.detalles_nucleo();
-        cout << endl;
-        actual = actual->siguiente;
-        pos++;
-    }
-}
-
-
-
-void Lista::eliminar(int posicion) {
+void ListaProcesos::eliminar_proceso(int posicion) {
     if (posicion < 0 || posicion >= longitud) {
         cout << "Posición inválida" << endl;
         return;
     }
-
-    NodoLista* nodoAEliminar;
+    NodoListaProcesos* nodoAEliminar;
     if (posicion == 0) {
         nodoAEliminar = primero;
         primero = primero->siguiente;
@@ -174,10 +186,10 @@ void Lista::eliminar(int posicion) {
             ultimo->siguiente = nullptr; // he añadido que actualice el puntero siguiente del ultimo nodo, para que no sae null
         }
     } else {
-        NodoLista* anterior = obtener_nodo(posicion - 1); // esto hace que no se pueda eliminar el ultimo nodo
+        NodoListaProcesos* anterior = obtener_nodo(posicion - 1); // esto hace que no se pueda eliminar el ultimo nodo
         nodoAEliminar = anterior->siguiente;
         anterior->siguiente = nodoAEliminar->siguiente;
-        NodoLista* siguiente = nodoAEliminar->siguiente;
+        NodoListaProcesos* siguiente = nodoAEliminar->siguiente;
         siguiente->anterior = anterior; // he añadido que actualice el puntero anterior del siguiente nodo, para que no sae null    
     }
 
@@ -187,126 +199,26 @@ void Lista::eliminar(int posicion) {
 
 
 
-void Lista::insertar_proceso(Proceso proceso, int posicion) {
-    NodoLista* nodo = obtener_nodo(posicion);
-    if (nodo != nullptr) {
-        nodo->nucleo.add_proceso(proceso);
-    } else {
-        cout << "Posición inválida" << endl;
-    }
-}
-
-
-
-void Lista::eliminar_proceso(int posicion) {
-    NodoLista* nodo = obtener_nodo(posicion);
-    if (nodo != nullptr) {
-        nodo->nucleo.eliminar_proceso();
-    } else {
-        cout << "Posición inválida" << endl;
-    }
-}
-
-
-/**
- * @brief Devuelve la posición del núcleo con menos carga de procesos , o con ninguna carga. Si imprimir es true, muestra la información del nucleo.
- * Y si todos los nucleos tienen mas de dos procesos en espera crea un nuevo nucleo, lo inserta en la lista, 
- * y muestra la información del nuevo nucleo al ser el nucleo con menos carga
- * 
- * @param imprimir 
- * @return int 
- */
-int Lista::nucleo_menos_carga(bool imprimir) { // creo qu efunciona bien, cambiar comentarios
-    if (es_vacia()) return -1;
-
-    bool nuceloEncontrado = false;  
-
-    int posicion = 0, posicionMenosCarga = 0;
-    int pid = primero->nucleo.get_proceso().get_PID();
-    int menorCarga = primero->nucleo.get_cola_procesos().get_longitud();
-    NodoLista* actualx = primero;
-    NodoLista* actual = primero->siguiente;
-
-    while (actualx != nullptr && !nuceloEncontrado && posicion < longitud) {
-        if (pid == -1) {
-            posicionMenosCarga = posicion;
-            menorCarga = 0;
-            nuceloEncontrado = true;
-        }
-        else {
-            posicion++;
-            actualx = actualx->siguiente; // si es el ultimo nodo, el siguiente es nullptr, y no se puede acceder a la propiedad nucleo
-            if (actualx != nullptr && posicion < longitud){
-                pid = actualx->nucleo.get_proceso().get_PID();
-            }
-        }
-    }
-
-    if (!nuceloEncontrado) {
-        posicion = 0;
-    }
-
-    while (actual != nullptr && !nuceloEncontrado && posicion < longitud) {
-        posicion++;
-        int cargaActual = actual->nucleo.get_cola_procesos().get_longitud();
-        if (cargaActual < menorCarga) {
-            menorCarga = cargaActual;
-            posicionMenosCarga = posicion;
-        }
-        actual = actual->siguiente;
-    }
-
-    // Si todos los núcleos tienen más de dos procesos en espera, crea un nuevo núcleo
-    if (menorCarga > 2) {
-        insertar_nucleo();
-        posicionMenosCarga = nucleo_menos_carga();
-    }
-
-    if (imprimir) {
-        cout << "Nucleo con menos carga de procesos: " << endl;
-        estado_nucleo(posicionMenosCarga);
-        cout << endl;
-    }
-    return posicionMenosCarga;
-}
-
-
-
-int Lista::nucleo_mas_carga(bool imprimir) {
-    if (es_vacia()) return -1;
-
-    int posicion = 0, posicionMasCarga = 0;
-    int mayorCarga = primero->nucleo.get_cola_procesos().get_longitud();
-    NodoLista* actual = primero->siguiente;
-
+void ListaProcesos::mostrar() const {
+    NodoListaProcesos* actual = primero;
     while (actual != nullptr) {
-        posicion++;
-        int cargaActual = actual->nucleo.get_cola_procesos().get_longitud();
-        if (cargaActual > mayorCarga) {
-            mayorCarga = cargaActual;
-            posicionMasCarga = posicion;
-        }
+        cout << actual->proceso.get_PID() << endl;
         actual = actual->siguiente;
     }
-
-    if (imprimir) {
-        cout << "Nucleo con mas carga de procesos: " << endl;
-        estado_nucleo(posicionMasCarga);
-        cout << endl;
-    }
-    return posicionMasCarga;
+    cout << endl;
 }
 
 
-Nucleo Lista::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
-    NodoLista* nodo = obtener_nodo(n);
+
+Proceso ListaProcesos::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
+    NodoListaProcesos* nodo = obtener_nodo(n);
     //__asm__("int $3");
     if (nodo != nullptr) {
-        Nucleo nucleoaux = nodo->nucleo;
-        return nucleoaux;
+        Proceso paux = nodo->proceso;
+        return paux;
     } else {
         cout << "Posición inválida" << endl;
-        return Nucleo(); // Devuelve un núcleo vacío
+        return Proceso(); // Devuelve un proceso vacío
     }
 }
 
@@ -316,8 +228,7 @@ NodoListaProcesos* ListaProcesos::obtener_nodo(int posicion) {
         cout << "Posición inválida, funcion obtener_nodo devuelve nullptr" << endl;
         return nullptr;
     }
-
-    NodoLista* actual = primero;
+    NodoListaProcesos* actual = primero;
     for (int i = 0; i < posicion; ++i) {
         actual = actual->siguiente;
     }
