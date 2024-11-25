@@ -84,3 +84,16 @@ void Proceso::mostrar() const {
       cout << "PID: " << PID << " PPID: " << PPID << " Inicio: " << inicio << " Tiempo de vida: " << tiempoDeVida << " Prioridad: " << prioridad << " Núcleo asignado: " << nucleoAsignado << endl;
     }
 }
+
+Proceso Proceso::crear_proceso(int ppid, int inicio, int tiempoDeVida, int prioridad){
+  int ppid, inicio, tiempoDeVida, prioridad;
+  cout << "Introduzca el PID del proceso padre: ";
+  cin >> ppid;
+  cout << "Introduzca el tiempo de inicio del proceso: ";
+  cin >> inicio;
+  cout << "Introduzca el tiempo de vida del proceso: ";
+  cin >> tiempoDeVida;
+  cout << "Introduzca la prioridad del proceso: ";
+  cin >> prioridad;
+  return Proceso(ppid, inicio, tiempoDeVida, prioridad);
+}
