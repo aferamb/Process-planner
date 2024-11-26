@@ -155,6 +155,19 @@ void ListaProcesos::insertar_proceso(Proceso proc, int posicion) {
 }
 
 
+void ListaProcesos::insertar_proceso(Proceso proc) {
+    NodoListaProcesos* nuevoNodo = new NodoListaProcesos(proc, nullptr);
+    if (es_vacia()) {
+        primero = nuevoNodo;
+        ultimo = nuevoNodo;
+    } else {
+        ultimo->siguiente = nuevoNodo;
+        nuevoNodo->anterior = ultimo;
+        ultimo = nuevoNodo;
+    }
+    longitud++;
+}
+
 
 void ListaProcesos::sustituir_proceso(Proceso proc, int posicion) {
     NodoListaProcesos* nodo = obtener_nodo(posicion);
@@ -209,7 +222,12 @@ void ListaProcesos::mostrar() const {
 }
 
 
-
+/**
+ * @brief Devuelve el proceso en la posición n
+ * 
+ * @param n 
+ * @return Proceso 
+ */
 Proceso ListaProcesos::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
     NodoListaProcesos* nodo = obtener_nodo(n);
     //__asm__("int $3");

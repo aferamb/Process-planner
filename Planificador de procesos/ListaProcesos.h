@@ -21,7 +21,8 @@ public:
     void ordenar_menor_mayor(); 
     int get_longitud() const; 
     void insertar_proceso_vacio(); // se puede eliminar si no se utiliza
-    void insertar_proceso(Proceso proceso, int posicion = 0); 
+    void insertar_proceso(Proceso proc);
+    void insertar_proceso(Proceso proceso, int posicion); 
     void sustituir_proceso(Proceso proceso, int posicion);
     void eliminar_proceso(int posicion);      
     void mostrar() const;        

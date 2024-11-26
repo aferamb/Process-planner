@@ -1,5 +1,5 @@
 #include "BST.h"
-#include "NodoBST.h"
+
 
 BST::BST() {
     raiz = NULL;
@@ -36,33 +36,32 @@ void BST::verInorden(NodoBST *arb) {
     }
 }
 
-void BST::insertar(ListaProcesos lproc) {
-    insertar(lproc, raiz);
+void BST::insertar(Proceso proc) {
+    insertar(proc, raiz); 
 }
 
-void BST::insertar(ListaProcesos lproc, NodoBST *nodo) {
-    if ((nodo->prioridad < lproc.coger(0).get_prioridad()) || (nodo->prioridad == lproc.coger(0).get_prioridad()))
-    {
-        cout << "Es mayor " << nodo->prioridad << " que " << lproc.coger(0).get_prioridad() << endl;
-        if (nodo->hd == NULL)
-        {
-            NodoBST *nuevo = new NodoBST(lproc);
+// modificar pasar parametros de proceso y arbol
+void BST::insertar(Proceso proc, NodoBST *nodo) {  
+    int priorProceso = proc.get_prioridad();
+    if (nodo->prioridad <= priorProceso) {
+        cout << "Es mayor " << nodo->prioridad << " que " << priorProceso << endl;
+        if (nodo->hd == NULL) {
+            ListaProcesos nuevaLista;
+            nuevaLista.insertar_proceso(proc);
+            NodoBST *nuevo = new NodoBST(nuevaLista, nullptr, nullptr, priorProceso);
             nodo->hd = nuevo;
-        }else{
-            insertar(lproc, nodo->hd);
+        } else {
+            insertar(proc, nodo->hd);
         }
-    }
-    else 
-    {
-        cout << "Es menor " << nodo->prioridad << " que " << lproc.coger(0).get_prioridad() << endl;
-        if (nodo->hi == NULL)
-        {
-            NodoBST *nuevo = new NodoBST(lproc);
+    } else {
+        cout << "Es menor " << nodo->prioridad << " que " << priorProceso << endl;
+        if (nodo->hi == NULL) {
+            ListaProcesos nuevaLista;
+            nuevaLista.insertar_proceso(proc);
+            NodoBST *nuevo = new NodoBST(nuevaLista, nullptr, nullptr, priorProceso);// terminar creaccion de nodo bien
             nodo->hi = nuevo;
-        }else{
-            insertar(lproc, nodo->hi);
+        } else {
+            insertar(proc, nodo->hi);
         }
     }
-    
-    
 }
