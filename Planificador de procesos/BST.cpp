@@ -9,11 +9,15 @@ BST::BST(NodoBST *raiz) {
     this->raiz = raiz;
 }
 
-BST::BST(ListaProcesos lproc, NodoBST *hIz, NodoBST *hDer, int prioridad) {
-
-        // hacer un try catch para asegurar que la prioridad pasada y la de la lista sean iguales
-
-    raiz = new NodoBST(lproc, hIz, hDer, prioridad);
+BST::BST(ListaProcesos lproc, NodoBST *hIz, NodoBST *hDer, int prio) {
+    try { // try catch para asegurar que la prioridad pasada y la de la lista sean iguales, si la lista es vacíano se compara
+        if ((!lproc.es_vacia()) && (prio != lproc.coger(0).get_prioridad())) {
+            throw "La prioridad del nodo no coincide con la prioridad de la lista de procesos; no crea Arbol";
+        }
+    } catch (const char* e) {
+        cerr << e << endl;
+    }
+    raiz = new NodoBST(lproc, hIz, hDer, prio);
 }
 
 BST::~BST() {

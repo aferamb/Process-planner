@@ -15,7 +15,7 @@ class BST
         void verInorden();
         void verInorden(NodoBST *arb);
 
-        void insertar(ListaProcesos lproc);
+        void insertar(ListaProcesos lproc); // si existe nodo con la misma prioridad, insertar en la lista
         void insertar(ListaProcesos lproc, NodoBST *arb);
 
     protected:
