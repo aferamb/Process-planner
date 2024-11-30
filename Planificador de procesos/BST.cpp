@@ -2,7 +2,7 @@
 
 
 BST::BST() {
-    raiz = NULL;
+    raiz = nullptr;
 }
 
 BST::BST(NodoBST *raiz) {
@@ -24,44 +24,109 @@ BST::~BST() {
 }
 
 void BST::verInorden() {
-    verInorden(raiz);
+    if (raiz == nullptr) {
+        cout << "El árbol está vacío" << endl;
+    } else {
+        verInorden(raiz);
+    }
 }
 
-void BST::verInorden(NodoBST *arb) {
-    if (arb != NULL)
-    {
-        verInorden(arb->hi);
-        cout << "Prioridad: " << arb->prioridad << endl;
-        verInorden(arb->hd);
+void BST::verInorden(NodoBST* nodo) {
+    if (nodo != nullptr) {
+        // Recorrer subárbol izquierdo
+        verInorden(nodo->hi);
+
+        // Imprimir la prioridad del nodo
+        cout << "Nodo con prioridad: " << nodo->prioridad << endl;
+
+        // Imprimir los procesos de la lista asociada al nodo
+        cout << "Procesos en la lista:" << endl;
+        nodo->listaProc.mostrar(); // Acceso directo al miembro listaProc
+
+        // Recorrer subárbol derecho
+        verInorden(nodo->hd);
+    }
+}
+
+// modificar pasar parametros de proceso y arbol
+void BST::insertar_arbol(Proceso proc, NodoBST*& nodo) {
+    if (nodo == nullptr) {
+        // Crear un nuevo nodo si no existe uno con la prioridad
+        ListaProcesos nuevaLista;
+        nodo = new NodoBST(nuevaLista, nullptr, nullptr, proc.get_prioridad());
+        cout << "Nodo creado con prioridad: " << proc.get_prioridad() << endl;
+        nodo->listaProc.insertar_proceso(proc);
+        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.get_prioridad() << endl;
+        return;
+    }
+
+    if (proc.get_prioridad() == nodo->prioridad) {
+        // Insertar en la lista si ya existe un nodo con la misma prioridad
+        nodo->listaProc.insertar_proceso(proc);
+        cout << "Proceso insertado en la lista del nodo con prioridad: " << proc.get_prioridad() << endl;
+    } else if (proc.get_prioridad() < nodo->prioridad) {
+        // Recorrer hacia la izquierda si la prioridad del proceso es menor
+        insertar_arbol(proc, nodo->hi);
+    } else {
+        // Recorrer hacia la derecha si la prioridad del proceso es mayor
+        insertar_arbol(proc, nodo->hd);
     }
 }
 
 void BST::insertar(Proceso proc) {
-    insertar(proc, raiz); 
+    insertar_arbol(proc, raiz);
 }
 
-// modificar pasar parametros de proceso y arbol
-void BST::insertar(Proceso proc, NodoBST *nodo) {  
-    int priorProceso = proc.get_prioridad();
-    if (nodo->prioridad <= priorProceso) {
-        cout << "Es mayor " << nodo->prioridad << " que " << priorProceso << endl;
-        if (nodo->hd == NULL) {
-            ListaProcesos nuevaLista;
-            nuevaLista.insertar_proceso(proc);
-            NodoBST *nuevo = new NodoBST(nuevaLista, nullptr, nullptr, priorProceso);
-            nodo->hd = nuevo;
-        } else {
-            insertar(proc, nodo->hd);
-        }
+NodoBST* BST::get_raiz() {
+    return raiz;
+}
+
+/*
+void BST::set_raiz(NodoBST *raiz) {
+    this->raiz = raiz;
+}
+
+bool BST::buscar(int prioridad, NodoBST *nodo) {
+    if (nodo == NULL) {
+        return false;
+    } else if (nodo->prioridad == prioridad) {
+        return true;
+    } else if (nodo->prioridad < prioridad) {
+        return buscar(prioridad, nodo->hd);
     } else {
-        cout << "Es menor " << nodo->prioridad << " que " << priorProceso << endl;
-        if (nodo->hi == NULL) {
-            ListaProcesos nuevaLista;
-            nuevaLista.insertar_proceso(proc);
-            NodoBST *nuevo = new NodoBST(nuevaLista, nullptr, nullptr, priorProceso);// terminar creaccion de nodo bien
-            nodo->hi = nuevo;
-        } else {
-            insertar(proc, nodo->hi);
-        }
+        return buscar(prioridad, nodo->hi);
     }
 }
+
+bool BST::arbolVacio(NodoBST *nodo) {
+    return nodo == NULL;
+}
+
+NodoBST* BST::insertarArbol(Proceso proc, NodoBST *nodo) {
+    if (nodo == NULL) {
+        ListaProcesos nuevaLista;
+        nuevaLista.insertar_proceso(proc);
+        return new NodoBST(nuevaLista, NULL, NULL, proc.get_prioridad());
+    } else if (proc.get_prioridad() < nodo->prioridad) {
+        nodo->hi = insertarArbol(proc, nodo->hi);
+    } else if (proc.get_prioridad() > nodo->prioridad) {
+        nodo->hd = insertarArbol(proc, nodo->hd);
+    } else {
+        nodo->lproc.insertar_proceso(proc);
+    }
+    return nodo;
+}
+
+void BST::postorden(NodoBST *nodo) {
+    if (nodo != NULL) {
+        postorden(nodo->hi);
+        postorden(nodo->hd);
+        cout << "Prioridad: " << nodo->prioridad << endl;
+    }
+}
+
+BST::~BST() {
+    delete raiz;
+}
+
+*/

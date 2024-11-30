@@ -25,3 +25,35 @@ NodoBST::~NodoBST(){
     
 }
 
+ListaProcesos NodoBST::get_lista(){
+    return listaProc;
+}
+
+NodoBST* NodoBST::get_izquierdo(){
+    return hi;
+}
+
+NodoBST* NodoBST::get_derecho(){
+    return hd;
+}
+
+int NodoBST::get_prioridad(){
+    return prioridad;
+}
+
+void NodoBST::set_izquierdo(NodoBST *izq){
+    hi = izq;
+}
+
+void NodoBST::set_derecho(NodoBST *der){
+    hd = der;
+}
+
+void NodoBST::set_prioridad(int prio){
+    prioridad = prio;
+}
+
+void NodoBST::mostrar(){
+    cout << "Prioridad: " << prioridad << endl;
+    listaProc.mostrar();
+}

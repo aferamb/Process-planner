@@ -213,9 +213,19 @@ void ListaProcesos::eliminar_proceso(int posicion) {
 
 
 void ListaProcesos::mostrar() const {
+    if (es_vacia()) {
+        cout << "La lista está vacía" << endl;
+        return;
+    }
+
     NodoListaProcesos* actual = primero;
     while (actual != nullptr) {
-        cout << actual->proceso.get_PID() << endl;
+        cout << "PID: " << actual->proceso.get_PID() 
+            << ", PPID: " << actual->proceso.get_PPID()
+            << ", Inicio: " << actual->proceso.get_inicio()
+            << ", Tiempo de vida: " << actual->proceso.get_tiempo_de_vida()
+            << ", Prioridad: " << actual->proceso.get_prioridad()
+            << endl;
         actual = actual->siguiente;
     }
     cout << endl;
