@@ -70,7 +70,6 @@ int main() {
 
         switch (opcion) {
             case 1: {
-                // Crear pila de procesos
                 Global::cargar_procesos();
                 break;
             }
@@ -85,6 +84,12 @@ int main() {
             }
 
             case 3: {
+                pila.mostrarTodos();
+                cout << endl;
+                cout << endl;
+            }
+
+            case 4: {
                 // Borrar pila de procesos
                 if (pila.esVacia()) {
                     cout << "La pila de procesos ya está vacía.\n";
@@ -102,7 +107,7 @@ int main() {
                 break;
             }
 
-            case 4: {   // añadir arboles binarios 
+            case 5: {   // añadir arboles binarios 
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
@@ -143,7 +148,7 @@ int main() {
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
 
-                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                        while(p.get_inicio() == Global::tiempoTranscurrido){ // poner <= por si se meten procesos con inicio menor al tiempo actual
                             colatemp.insertar_por_prioridad(p);
                             cout << endl;
                             pila.desapilar();
@@ -196,7 +201,7 @@ int main() {
                 break;
             }
 
-            case 5: {
+            case 6: {
                 // Mostrar estado de los nucleos
                 cout << "Estado de los nucleos: " << endl;
                 cout << endl;
@@ -205,21 +210,21 @@ int main() {
                 break;
             }
 
-            case 6: {
+            case 7: {
                 // Consulta nucleo con menos carga, nucleo con mas carga
                 lista.nucleo_menos_carga(true);
                 lista.nucleo_mas_carga(true);
                 break;
             }
 
-            case 7: {
+            case 8: {
                 // Consulta numero de nucleos operativos
                 cout << "Numero de nucleos operativos: " << lista.get_longitud() << endl; // La longitud de la lista de nucleos es igual al numero de nucleos operativos
                 cout << endl;
                 break;
             }
 
-            case 8: {
+            case 9: {
                 // Simular ejecucion de proceso
                 cout << "A continuacion se simulara el paso del tiempo en el sistema operativo hasta que finalicen todos los procesos" << endl;
 
@@ -297,13 +302,13 @@ int main() {
                 break;
             }
 
-            case 9:
+            case 10:
                 cout << "Saliendo del programa...\n";
                 break;
 
             default:
                 cout << "Opcion no valida, intentelo nuevamente.\n";
         }
-    } while (opcion != 9);  // El menú sigue hasta que el usuario seleccione la opción 8 para salir
+    } while (opcion != 10);  // El menú sigue hasta que el usuario seleccione la opción 8 para salir
     return 0;
 }

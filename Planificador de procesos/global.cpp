@@ -111,19 +111,20 @@ namespace Global {
         cin >> ppid1;
         cout << "Introduzca el tiempo de inicio del proceso: ";
         cin >> inicio1;
-        cout << "Introduzca el tiempo de vida del proceso(superior al actual): ";
-        cin >> tiempoDeVida1;
-        if (tiempoDeVida1 <= tiempoTranscurrido) { // mirar a ver
-            cout << "El tiempo de vida del proceso debe ser superior al tiempo actual.\n";
+        if (inicio1 < tiempoTranscurrido) {
+            cout << "El tiempo de inicio del proceso debe ser igual o superior al tiempo actual.\n";
             cout << endl;
             cout << endl;
             return;
         }
+        cout << "Introduzca el tiempo de vida del proceso(superior al actual): ";
+        cin >> tiempoDeVida1;
         cout << "Introduzca la prioridad del proceso: ";
         cin >> prioridad1;
         Proceso p = Proceso(ppid1, inicio1, tiempoDeVida1, prioridad1);
 
         pila.apilar(p);
+        pila.ordenarPorTiempoInicio();
         cout << "Proceso introducido correctamente.\n";
         cout << endl;
         cout << endl;
