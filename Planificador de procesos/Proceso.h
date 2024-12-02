@@ -37,7 +37,7 @@ class Proceso {
 
         // Métodos
         void mostrar() const; // No probado
-        Proceso crear_proceso(int ppid, int inicio, int tiempoDeVida, int prioridad); 
+        //Proceso crear_proceso(); 
 };
 
 #endif // PROCESO_H

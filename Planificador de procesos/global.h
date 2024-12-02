@@ -2,6 +2,17 @@
 #define GLOBAL_H
 
 #include <ctime>
+#include <iostream>
+#include <ctime>
+#include <chrono>
+#include <thread>
+#include "Nucleo.h"
+#include "Cola.h"
+#include "Pila.h"
+#include "Lista.h"
+#include "Proceso.h"
+#include "ListaProcesos.h"
+
 
 
 /**
@@ -9,6 +20,14 @@
  * 
  */
 namespace Global {
+    // Variables globales
+    extern int opcion;
+    extern Pila pila;
+    extern Proceso p;
+    extern Lista lista;
+    extern Cola colatemp;
+    extern int contador;
+
     extern int tiempoTranscurrido; 
     extern float contadorTiempoEstancia; 
     void aumentar_tiempo(); 
