@@ -2,7 +2,8 @@
 #include "Cola.h"
 #include "Proceso.h"
 #include "global.h"
-//#include <ctime>
+#include "ListaProcesos.h"
+#include "BST.h"
 #include <iostream>
 #include <string>
 using namespace std;
@@ -178,6 +179,7 @@ void Nucleo::eliminar_proceso(){
         Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
+        Global::arbolProcesos.insertar(proceso_en_ejecucion);
         set_proceso(cola_procesos.desencolar());
     }
     else if ((proceso_en_ejecucion.get_PID() == -1) && (!cola_procesos.es_vacia())){
@@ -187,6 +189,7 @@ void Nucleo::eliminar_proceso(){
         Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
+        Global::arbolProcesos.insertar(proceso_en_ejecucion);
         Proceso paux;
         proceso_en_ejecucion = paux;
         //eliminar nucleo de la lista de nucleos y liberar memoria, if no es el ultimo nucleo, cambiar id de los siguientes nucleos?
@@ -233,6 +236,7 @@ void Nucleo::detalles_proceso(bool i) const {
         if (!i){
             cout << ", Tiempo de estancia: " << proceso_en_ejecucion.get_tiempo_ejecucion() << " minutos" << endl;
         } else {
+            cout << endl;
             cout << endl;
         }
     }

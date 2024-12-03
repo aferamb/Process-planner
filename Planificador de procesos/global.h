@@ -12,6 +12,7 @@
 #include "Lista.h"
 #include "Proceso.h"
 #include "ListaProcesos.h"
+#include "BST.h"
 
 
 
@@ -27,6 +28,8 @@ namespace Global {
     extern Lista lista;
     extern Cola colatemp;
     extern int contador;
+    extern ListaProcesos lproc;
+    extern BST arbolProcesos;
 
     extern int tiempoTranscurrido; 
     extern float contadorTiempoEstancia; 

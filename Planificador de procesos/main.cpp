@@ -23,7 +23,8 @@
 #include "Pila.h"
 #include "Lista.h"
 #include "Proceso.h"
-
+#include "ListaProcesos.h"
+#include "BST.h"
 
 #include <iostream>
 #include <ctime>
@@ -96,7 +97,7 @@ int main() {
                 int n;
                 cout << "Ingrese el numero de minutos a aumentar: ";
                 cin >> n;
-                n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede der no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
+                n--;   //Depende de la interpretacion del enunciado, aumetar 0 minutos puede ser no hacer nada o terminar la ejecucion de los procesos designados al minuto actual
                 if (n < 0){
                     cout << endl;
                     cout << "El tiempo no puede ser cero o negativo.\n";
@@ -314,7 +315,7 @@ int main() {
                     cout << endl;
                     cout << endl;
                     Global::tiempoTranscurrido++;
-                    this_thread::sleep_for(chrono::seconds(1)); // Esperar 1 segundo
+                    this_thread::sleep_for(chrono::milliseconds(500)); // Esperar 0,5 segundos
                 }
                 cout << endl;
                 cout << "Ejecucion de procesos finalizada." << endl; 

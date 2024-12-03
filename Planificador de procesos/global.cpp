@@ -4,6 +4,8 @@
 #include "Pila.h"
 #include "Lista.h"
 #include "Proceso.h"
+#include "ListaProcesos.h"
+#include "BST.h"
 
 #include <iostream>
 
@@ -21,6 +23,8 @@ namespace Global {
     Lista lista;
     Cola colatemp;
     int contador = 0;
+    ListaProcesos lproc;
+    BST arbolProcesos = BST(lproc);
 
     int tiempoTranscurrido = 0; // Definición de la variable en el namespace
     float contadorTiempoEstancia = 0; // Definición de la variable en el namespace
@@ -119,8 +123,20 @@ namespace Global {
         }
         cout << "Introduzca el tiempo de vida del proceso: ";
         cin >> tiempoDeVida1;
+        if (tiempoDeVida1 < 1) {
+            cout << "El tiempo de vida del proceso debe ser igual o superior a 1.\n";
+            cout << endl;
+            cout << endl;
+            return;
+        }
         cout << "Introduzca la prioridad del proceso: ";
         cin >> prioridad1;
+        if ((prioridad1 < 0) || (prioridad1 > 9)) {
+            cout << "La prioridad del proceso debe estar entre 0 y 9, y no sera mayor que 9.\n";
+            cout << endl;
+            cout << endl;
+            return;
+        }
         Proceso p = Proceso(ppid1, inicio1, tiempoDeVida1, prioridad1);
 
         pila.apilar(p);
