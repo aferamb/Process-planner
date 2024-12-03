@@ -19,6 +19,15 @@ class BST
         void insertar_arbol(Proceso proc, NodoBST *&arb); // Inserta un proceso en el árbol
         NodoBST* get_raiz();
 
+        void buscar(int prioridad); // Busca un proceso en el árbol
+        void buscar(int prioridad, NodoBST *nodo); // Busca un proceso en el árbol
+
+        void mostrarNiveles(); // Muestra los niveles del árbol
+        void mostrarNiveles(NodoBST *nodo); // Muestra los niveles del árbol
+
+        void mostrarNivelesMayorMenor(); // Muestra los niveles del árbol de mayor a menor
+        void mostrarNivelesMayorMenor(NodoBST *nodo); // Muestra los niveles del árbol de mayor a menor
+
 /*    protected:
         NodoBST* get_raiz();
         void set_raiz(NodoBST*);

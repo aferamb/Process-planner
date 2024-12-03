@@ -22,9 +22,9 @@ namespace Global {
     Proceso p;
     Lista lista;
     Cola colatemp;
+    BST arbol;
+
     int contador = 0;
-    ListaProcesos lproc;
-    BST arbolProcesos = BST(lproc);
 
     int tiempoTranscurrido = 0; // Definición de la variable en el namespace
     float contadorTiempoEstancia = 0; // Definición de la variable en el namespace
@@ -123,20 +123,8 @@ namespace Global {
         }
         cout << "Introduzca el tiempo de vida del proceso: ";
         cin >> tiempoDeVida1;
-        if (tiempoDeVida1 < 1) {
-            cout << "El tiempo de vida del proceso debe ser igual o superior a 1.\n";
-            cout << endl;
-            cout << endl;
-            return;
-        }
         cout << "Introduzca la prioridad del proceso: ";
         cin >> prioridad1;
-        if ((prioridad1 < 0) || (prioridad1 > 9)) {
-            cout << "La prioridad del proceso debe estar entre 0 y 9, y no sera mayor que 9.\n";
-            cout << endl;
-            cout << endl;
-            return;
-        }
         Proceso p = Proceso(ppid1, inicio1, tiempoDeVida1, prioridad1);
 
         pila.apilar(p);
@@ -206,6 +194,50 @@ namespace Global {
     void numero_nucleos_operativos() {
         // Consulta numero de nucleos operativos
         cout << "Numero de nucleos operativos: " << lista.get_longitud() << endl; // La longitud de la lista de nucleos es igual al numero de nucleos operativos
+        cout << endl;
+    }
+
+    void introducir_proceso_BST() {
+        int ppid1, inicio1, tiempoDeVida1, prioridad1;
+        cout << "Introduzca el PID del proceso padre: ";
+        cin >> ppid1;
+        cout << "Introduzca el tiempo de inicio del proceso: ";
+        cin >> inicio1;
+        if (inicio1 < tiempoTranscurrido) {
+            cout << "El tiempo de inicio del proceso debe ser igual o superior al tiempo actual.\n";
+            cout << endl;
+            cout << endl;
+            return;
+        }
+        cout << "Introduzca el tiempo de vida del proceso: ";
+        cin >> tiempoDeVida1;
+        cout << "Introduzca la prioridad del proceso: ";
+        cin >> prioridad1;
+        Proceso p = Proceso(ppid1, inicio1, tiempoDeVida1, prioridad1);
+
+        arbol.insertar(p);
+        cout << "Proceso introducido correctamente.\n";
+        cout << endl;
+        cout << endl;
+    }
+
+    void mostrar_procesos_BST() {
+        arbol.verInorden(); 
+        cout << endl;
+    }
+
+    void mostrar_procesos_BST_prioridad(int prioridad) {
+        arbol.buscar(prioridad);
+        cout << endl;
+    }
+
+    void mostrar_niveles_BST() {
+        arbol.mostrarNiveles();
+        cout << endl;
+    }
+
+    void mostrar_niveles_BST_mayor_menor() {
+        arbol.mostrarNivelesMayorMenor();
         cout << endl;
     }
 }
