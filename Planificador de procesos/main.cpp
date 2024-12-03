@@ -77,33 +77,18 @@ int main() {
             case 2: {
                 // Mostrar todos los procesos en la pila
                 Global::introducir_proceso();
-                pila.mostrarTodos();
-                cout << endl;
-                cout << endl;
                 break;
             }
 
             case 3: {
-                pila.mostrarTodos();
-                cout << endl;
-                cout << endl;
+                // Mostrar todos los procesos en la pila
+                Global::mostrar_procesos();
+                break;
             }
 
             case 4: {
                 // Borrar pila de procesos
-                if (pila.esVacia()) {
-                    cout << "La pila de procesos ya está vacía.\n";
-                    cout << endl;
-                    cout << endl;
-                } else {
-                    //pila.~Pila();
-                    while (!pila.esVacia()) {
-                        pila.desapilar();
-                    }
-                    cout << "Pila de procesos eliminada correctamente.\n";
-                    cout << endl;
-                    cout << endl;
-                }
+                Global::borrar_procesos();
                 break;
             }
 
@@ -203,28 +188,65 @@ int main() {
 
             case 6: {
                 // Mostrar estado de los nucleos
-                cout << "Estado de los nucleos: " << endl;
-                cout << endl;
-                lista.mostrar_estado_nucleos();
-                cout << endl;
+                Global::mostrar_estado_nucleos();
                 break;
             }
 
             case 7: {
                 // Consulta nucleo con menos carga, nucleo con mas carga
-                lista.nucleo_menos_carga(true);
-                lista.nucleo_mas_carga(true);
+                Global::nucleo_menos_mas_carga();
                 break;
             }
 
             case 8: {
                 // Consulta numero de nucleos operativos
-                cout << "Numero de nucleos operativos: " << lista.get_longitud() << endl; // La longitud de la lista de nucleos es igual al numero de nucleos operativos
-                cout << endl;
+                Global::numero_nucleos_operativos();
                 break;
             }
 
             case 9: {
+                // Añadir un proceso directamente al ABBProcesos, leyendo sus datos de teclado
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 10: {
+                // Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 11: {
+                // Mostrar los procesos con la prioridad n
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 12: {
+                // Niveles de prioridad registrados
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 13: {
+                // Nivel de prioridad con mayor y menor numero de procesos
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 14: {
+                // Tiempo promedio de ejecucion de procesos con prioridad n
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 15: {
+                // Tiempo promedio de ejecucion de procesos en cada nivel de prioridad
+                cout << "Funcion no implementada.\n";
+                break;
+            }
+
+            case 16: {
                 // Simular ejecucion de proceso
                 cout << "A continuacion se simulara el paso del tiempo en el sistema operativo hasta que finalicen todos los procesos" << endl;
 
@@ -302,13 +324,13 @@ int main() {
                 break;
             }
 
-            case 10:
+            case 17:
                 cout << "Saliendo del programa...\n";
                 break;
 
             default:
                 cout << "Opcion no valida, intentelo nuevamente.\n";
         }
-    } while (opcion != 10);  // El menú sigue hasta que el usuario seleccione la opción 8 para salir
+    } while (opcion != 17);  // El menú sigue hasta que el usuario seleccione la opción 17 para salir
     return 0;
 }

@@ -35,14 +35,22 @@ namespace Global {
     void mostrar_tiempo(); 
 
     // Funciones main
-    void cargar_procesos();
+    void cargar_procesos(); //hecho
     void introducir_proceso(); //leido de teclado, con condicion de que tiempo de inicio sea mas que el actual
-    void mostrar_procesos();
-    void borrar_procesos();
+    void mostrar_procesos(); //hecho
+    void borrar_procesos(); //hecho
     void aumentar_tiempo_sistema(int n);
-    void mostrar_estado_nucleos();
-    void nucleo_menos_mas_carga();
-    void numero_nucleos_operativos();
+    void mostrar_estado_nucleos(); //hecho
+    void nucleo_menos_mas_carga(); //hecho
+    void numero_nucleos_operativos(); //hecho
+
+    void introducir_proceso_BST(); // insertar proceso en el arbol, si el nivel de prioridad no existe, se crea
+    void mostrar_procesos_BST(); //mostrar todos los procesos del arbol ordenados por prioridad
+    void mostrar_procesos_BST_prioridad(int prioridad); //mostrar los procesos de una prioridad concreta
+    void mostrar_niveles_BST(); //mostrar los niveles de prioridad registrados que tienen al menos un proceso (no mostrar los procesos)
+    void mostrar_niveles_BST_mayor_menor(); //mostrar el nivel de prioridad con mayor y menor numero de procesos (no mostrar los procesos)
+    void mostrar_tiempo_promedio_procesos_prioridad(int prioridad); //mostrar el tiempo promedio de ejecucion de procesos con prioridad n
+    void mostrar_tiempo_promedio_procesos_prioridad(); //mostrar el tiempo promedio de ejecucion de procesos en cada nivel de prioridad
 
     void simular_ejecucion_procesos();
 }

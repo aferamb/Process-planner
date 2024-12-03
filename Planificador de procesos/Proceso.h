@@ -14,6 +14,8 @@ class Proceso {
         int prioridad;              // Prioridad del proceso (0 = mayor prioridad, 9 = menor prioridad)
         int nucleoAsignado;         // Núcleo al que se asigna el proceso
 
+        int tiempoEjecucion;        // Tiempo de ejecución del proceso en minutos
+
     public:
         // Constructor por defecto
         Proceso();

@@ -117,7 +117,7 @@ namespace Global {
             cout << endl;
             return;
         }
-        cout << "Introduzca el tiempo de vida del proceso(superior al actual): ";
+        cout << "Introduzca el tiempo de vida del proceso: ";
         cin >> tiempoDeVida1;
         cout << "Introduzca la prioridad del proceso: ";
         cin >> prioridad1;
@@ -127,6 +127,69 @@ namespace Global {
         pila.ordenarPorTiempoInicio();
         cout << "Proceso introducido correctamente.\n";
         cout << endl;
+        cout << endl;
+    }
+
+    /**
+     * @brief Muestra los procesos de la pila
+     * 
+     */
+    void mostrar_procesos() {
+        pila.mostrarTodos();
+        cout << endl;
+        cout << endl;
+    }
+
+    /**
+     * @brief Borra los procesos de la pila
+     * 
+     */
+    void borrar_procesos() {
+        // Borrar pila de procesos
+        if (pila.esVacia()) {
+            cout << "La pila de procesos ya está vacía.\n";
+            cout << endl;
+            cout << endl;
+        } else {
+            //pila.~Pila();
+            while (!pila.esVacia()) {
+                pila.desapilar();
+            }
+            cout << "Pila de procesos eliminada correctamente.\n";
+            cout << endl;
+            cout << endl;
+        }
+    }
+
+    /**
+     * @brief Mostrar el estado de los nucleos
+     * 
+     */
+    void mostrar_estado_nucleos() {
+        // Mostrar estado de los nucleos
+        cout << "Estado de los nucleos: " << endl;
+        cout << endl;
+        lista.mostrar_estado_nucleos();
+        cout << endl;
+    }
+
+    /**
+     * @brief Consulta el nucleo con menos carga y el nucleo con mas carga
+     * 
+     */
+    void nucleo_menos_mas_carga() {
+        // Consulta nucleo con menos carga, nucleo con mas carga
+        lista.nucleo_menos_carga(true);
+        lista.nucleo_mas_carga(true);
+    }
+
+    /**
+     * @brief Consulta el numero de nucleos operativos
+     * 
+     */
+    void numero_nucleos_operativos() {
+        // Consulta numero de nucleos operativos
+        cout << "Numero de nucleos operativos: " << lista.get_longitud() << endl; // La longitud de la lista de nucleos es igual al numero de nucleos operativos
         cout << endl;
     }
 }
