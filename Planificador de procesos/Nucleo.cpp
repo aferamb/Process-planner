@@ -176,6 +176,7 @@ Cola Nucleo::get_cola_procesos() const {
 void Nucleo::eliminar_proceso(){
     if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){ 
         Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
+        proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
         set_proceso(cola_procesos.desencolar());
     }
@@ -184,6 +185,7 @@ void Nucleo::eliminar_proceso(){
     } 
     else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){
         Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
+        proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
         Proceso paux;
         proceso_en_ejecucion = paux;
@@ -223,9 +225,16 @@ void Nucleo::detalles_proceso(bool i) const {
         saux = " | Proceso terminado en nucleo ";
     }
     if (proceso_en_ejecucion.get_PID() == -1){
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "No hay proceso en ejecucion" << endl;
+        Global::mostrar_tiempo();
+        cout << " | " << "No hay proceso en ejecucion" << endl;
     } else {
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << saux << id << ": " << "PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
+        Global::mostrar_tiempo();
+        cout << saux << id << ": " << "PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad();
+        if (!i){
+            cout << ", Tiempo de estancia: " << proceso_en_ejecucion.get_tiempo_ejecucion() << " minutos" << endl;
+        } else {
+            cout << endl;
+        }
     }
 }
 
@@ -252,21 +261,3 @@ void Nucleo::detalles_nucleo(){
         cola_procesos.mostrarCola();
     }
 }
-
-
-/*
-//nooooooooooooooo se si esta bien
-void Nucleo::actualizar_estado(){
-    if (proceso_en_ejecucion.get_PID() != -1){
-        if (time(nullptr) == tiempo_fin){
-            if (cola_procesos.es_vacia()){
-                Proceso paux;
-                proceso_en_ejecucion = paux;
-            } else {
-                set_proceso(cola_procesos.inicio());
-                cola_procesos.desencolar();
-            }
-        }
-    }
-}
-*/

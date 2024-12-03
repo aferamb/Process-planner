@@ -29,6 +29,7 @@ class Proceso {
         int get_tiempo_de_vida() const;
         int get_prioridad() const;
         int get_nucleo_asignado() const;
+        int get_tiempo_ejecucion() const;
 
         // Setters
         void set_PPID(int ppid);
@@ -36,6 +37,7 @@ class Proceso {
         void set_tiempo_de_vida(int tiempoDeVida);
         void set_prioridad(int prioridad);
         void set_nucleo_asignado(int nucleoAsignado);
+        void set_tiempo_ejecucion(int tiempoEjecucion);
 
         // Métodos
         void mostrar() const; // No probado

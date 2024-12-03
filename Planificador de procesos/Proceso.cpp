@@ -15,6 +15,7 @@ Proceso::Proceso(){
   tiempoDeVida = -1;
   prioridad = -1;
   nucleoAsignado = -1;
+  tiempoEjecucion = -1;
 }
 
 // Constructor con parametros
@@ -25,6 +26,7 @@ Proceso::Proceso(int ppid, int inicio, int tiempoDeVida, int prioridad){
   this->tiempoDeVida = tiempoDeVida;
   this->prioridad = prioridad;
   nucleoAsignado = -1;  // El núcleo asignado comienza como -1 ya que no se asigna hasta que el proceso entre en ejecución.
+  tiempoEjecucion = -1; // El tiempo de ejecución comienza como -1 ya que no se ejecuta hasta que el proceso entre en ejec
 }
 
 // Destructor
@@ -55,6 +57,10 @@ int Proceso::get_nucleo_asignado() const {
   return nucleoAsignado;
 }
 
+int Proceso::get_tiempo_ejecucion() const {
+  return tiempoEjecucion;
+}
+
 // Setters
 void Proceso::set_PPID(int ppid) {
   PPID = ppid;
@@ -74,6 +80,10 @@ void Proceso::set_prioridad(int prioridad) {
 
 void Proceso::set_nucleo_asignado(int nucleoAsignado) {
   this->nucleoAsignado = nucleoAsignado;
+}
+
+void Proceso::set_tiempo_ejecucion(int tiempoEjecucion) {
+  this->tiempoEjecucion = tiempoEjecucion;
 }
 
 // Mostrar 
