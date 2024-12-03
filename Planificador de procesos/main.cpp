@@ -207,31 +207,32 @@ int main() {
 
             case 9: {
                 // Añadir un proceso directamente al ABBProcesos, leyendo sus datos de teclado
-                cout << "Funcion no implementada.\n";
+                Global::introducir_proceso_BST();
                 break;
             }
 
             case 10: {
                 // Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad
-                cout << "Funcion no implementada.\n";
+                Global::mostrar_procesos_BST();
                 break;
             }
 
             case 11: {
                 // Mostrar los procesos con la prioridad n
-                cout << "Funcion no implementada.\n";
+                // modificar para que lea la prioridad de teclado
+                Global::mostrar_procesos_BST_prioridad(4);
                 break;
             }
 
             case 12: {
                 // Niveles de prioridad registrados
-                cout << "Funcion no implementada.\n";
+                Global::mostrar_niveles_BST();
                 break;
             }
 
             case 13: {
                 // Nivel de prioridad con mayor y menor numero de procesos
-                cout << "Funcion no implementada.\n";
+                Global::mostrar_niveles_BST_mayor_menor();
                 break;
             }
 

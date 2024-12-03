@@ -22,7 +22,7 @@ namespace Global {
     Proceso p;
     Lista lista;
     Cola colatemp;
-    BST arbol;
+    BST arbolProcesos;
 
     int contador = 0;
 
@@ -215,29 +215,29 @@ namespace Global {
         cin >> prioridad1;
         Proceso p = Proceso(ppid1, inicio1, tiempoDeVida1, prioridad1);
 
-        arbol.insertar(p);
+        arbolProcesos.insertar(p);
         cout << "Proceso introducido correctamente.\n";
         cout << endl;
         cout << endl;
     }
 
     void mostrar_procesos_BST() {
-        arbol.verInorden(); 
+        arbolProcesos.verInorden(); 
         cout << endl;
     }
 
     void mostrar_procesos_BST_prioridad(int prioridad) {
-        arbol.buscar(prioridad);
+        arbolProcesos.buscar(prioridad);
         cout << endl;
     }
 
     void mostrar_niveles_BST() {
-        arbol.mostrarNiveles();
+        arbolProcesos.mostrarNiveles();
         cout << endl;
     }
 
     void mostrar_niveles_BST_mayor_menor() {
-        arbol.mostrarNivelesMayorMenor();
+        arbolProcesos.mostrarNivelesMayorMenor();
         cout << endl;
     }
 }
