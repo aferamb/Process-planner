@@ -225,6 +225,7 @@ void ListaProcesos::mostrar() const {
             << ", Inicio: " << actual->proceso.get_inicio()
             << ", Tiempo de vida: " << actual->proceso.get_tiempo_de_vida()
             << ", Prioridad: " << actual->proceso.get_prioridad()
+            << ", Tiempo de ejecucion: " << actual->proceso.get_tiempo_ejecucion()
             << endl;
         actual = actual->siguiente;
     }

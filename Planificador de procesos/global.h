@@ -49,10 +49,10 @@ namespace Global {
 
     void introducir_proceso_BST(); // insertar proceso en el arbol, si el nivel de prioridad no existe, se crea
     void mostrar_procesos_BST(); //mostrar todos los procesos del arbol ordenados por prioridad
-    void mostrar_procesos_BST_prioridad(int prioridad); //mostrar los procesos de una prioridad concreta
+    void mostrar_procesos_BST_prioridad(); //mostrar los procesos de una prioridad concreta
     void mostrar_niveles_BST(); //mostrar los niveles de prioridad registrados que tienen al menos un proceso (no mostrar los procesos)
     void mostrar_niveles_BST_mayor_menor(); //mostrar el nivel de prioridad con mayor y menor numero de procesos (no mostrar los procesos)
-    void mostrar_tiempo_promedio_procesos_prioridad(int prioridad); //mostrar el tiempo promedio de ejecucion de procesos con prioridad n
+    void mostrar_tiempo_promedio_procesos_prioridad_insertada(); //mostrar el tiempo promedio de ejecucion de procesos con prioridad n
     void mostrar_tiempo_promedio_procesos_prioridad(); //mostrar el tiempo promedio de ejecucion de procesos en cada nivel de prioridad
 
     void simular_ejecucion_procesos();

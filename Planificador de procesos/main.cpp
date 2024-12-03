@@ -219,8 +219,7 @@ int main() {
 
             case 11: {
                 // Mostrar los procesos con la prioridad n
-                // modificar para que lea la prioridad de teclado
-                Global::mostrar_procesos_BST_prioridad(4);
+                Global::mostrar_procesos_BST_prioridad();
                 break;
             }
 
@@ -238,13 +237,13 @@ int main() {
 
             case 14: {
                 // Tiempo promedio de ejecucion de procesos con prioridad n
-                cout << "Funcion no implementada.\n";
+                Global::mostrar_tiempo_promedio_procesos_prioridad_insertada();
                 break;
             }
 
             case 15: {
                 // Tiempo promedio de ejecucion de procesos en cada nivel de prioridad
-                cout << "Funcion no implementada.\n";
+                Global::mostrar_tiempo_promedio_procesos_prioridad();
                 break;
             }
 

@@ -226,7 +226,10 @@ namespace Global {
         cout << endl;
     }
 
-    void mostrar_procesos_BST_prioridad(int prioridad) {
+    void mostrar_procesos_BST_prioridad() {
+        int prioridad;
+        cout << "Introduzca la prioridad de los procesos a mostrar: ";
+        cin >> prioridad;
         arbolProcesos.buscar(prioridad);
         cout << endl;
     }
@@ -238,6 +241,23 @@ namespace Global {
 
     void mostrar_niveles_BST_mayor_menor() {
         arbolProcesos.mostrarNivelesMayorMenor();
+        cout << endl;
+    }
+
+    void mostrar_tiempo_promedio_procesos_prioridad_insertada() {
+        int prioridad;
+        cout << "Introduzca la prioridad de los procesos a mostrar: ";
+        cin >> prioridad;
+        cout << "Tiempo promedio de ejecucion de procesos con prioridad " << prioridad << ": " << arbolProcesos.tiempoPromedioProcesos(prioridad) << " minutos" << endl;
+        cout << endl;
+    }
+
+    void mostrar_tiempo_promedio_procesos_prioridad() {
+        cout << "Tiempo promedio de ejecucion de procesos en cada nivel de prioridad:" << endl;
+        cout << endl;
+        for (int i = 0; i < 11 ; i++) {
+            cout << "Tiempo promedio de ejecucion de procesos con prioridad " << i << ": " << arbolProcesos.tiempoPromedioProcesos(i) << " minutos" << endl;
+        }
         cout << endl;
     }
 }

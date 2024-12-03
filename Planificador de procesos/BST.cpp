@@ -1,4 +1,6 @@
 #include "BST.h"
+#include <vector>
+#include <algorithm>
 
 
 BST::BST() {
@@ -30,6 +32,7 @@ void BST::verInorden() {
         verInorden(raiz);
     }
 }
+
 
 void BST::verInorden(NodoBST* nodo) {
     if (nodo != nullptr) {
@@ -115,62 +118,52 @@ void BST::mostrarNivelesMayorMenor(){
     mostrarNivelesMayorMenor(raiz);
 }
 
-void BST::mostrarNivelesMayorMenor(NodoBST *nodo) {
+void BST::mostrarNivelesMayorMenor(NodoBST* nodo) {
+    if (nodo == nullptr) {
+        cout << "El arbol esta vacio o el nodo proporcionado es nulo" << endl;
+        return;
+    }
+    std::vector<NodoBST*> nodos;
+    llenarVector(nodo, nodos); // Función auxiliar para llenar el vector con nodos del árbol
+    sort(nodos.begin(), nodos.end(), [](NodoBST* a, NodoBST* b) {
+        return a->listaProc.get_longitud() > b->listaProc.get_longitud();
+    });
+    for (NodoBST* n : nodos) {
+        cout << "Nodo con prioridad: " << n->prioridad 
+            << ", Cantidad de procesos: " << n->listaProc.get_longitud() << endl;
+    }
+}
+
+void BST::llenarVector(NodoBST* nodo, std::vector<NodoBST*>& nodos) { // Función auxiliar para recorrer el árbol y llenar el vector
     if (nodo != nullptr) {
-        mostrarNivelesMayorMenor(nodo->hd);
-        cout << "Prioridad: " << nodo->prioridad << " N. de procesos: " << nodo->listaProc.get_longitud() << endl;
-        mostrarNivelesMayorMenor(nodo->hi);
+        nodos.push_back(nodo); // Agregar el nodo al vector
+        llenarVector(nodo->hi, nodos); // Recorrer el subárbol izquierdo
+        llenarVector(nodo->hd, nodos); // Recorrer el subárbol derecho
     }
 }
 
-
-
-/*
-void BST::set_raiz(NodoBST *raiz) {
-    this->raiz = raiz;
+float BST::tiempoPromedioProcesos(int prioridad) {
+    return tiempoPromedioProcesos(prioridad, raiz);
 }
 
-bool BST::buscar(int prioridad, NodoBST *nodo) {
-    if (nodo == NULL) {
-        return false;
-    } else if (nodo->prioridad == prioridad) {
-        return true;
-    } else if (nodo->prioridad < prioridad) {
-        return buscar(prioridad, nodo->hd);
+float BST::tiempoPromedioProcesos(int prioridad, NodoBST* nodo) {
+    if (nodo == nullptr) {
+        return 0;
+    }
+    if (nodo->prioridad == prioridad) {
+        float tiempoTotal = 0;
+        float cantidadProcesos = nodo->listaProc.get_longitud();
+        if (cantidadProcesos == 0) {
+            return 0;
+        }
+        for (int i = 0; i < cantidadProcesos; ++i) {
+            Proceso p = nodo->listaProc.coger(i);
+            tiempoTotal += p.get_tiempo_ejecucion(); // O cambiar a get_tiempo_ejecucion si es correcto
+        }
+    return tiempoTotal / cantidadProcesos;
+    } else if (prioridad < nodo->prioridad) {
+        return tiempoPromedioProcesos(prioridad, nodo->hi);
     } else {
-        return buscar(prioridad, nodo->hi);
+        return tiempoPromedioProcesos(prioridad, nodo->hd);
     }
 }
-
-bool BST::arbolVacio(NodoBST *nodo) {
-    return nodo == NULL;
-}
-
-NodoBST* BST::insertarArbol(Proceso proc, NodoBST *nodo) {
-    if (nodo == NULL) {
-        ListaProcesos nuevaLista;
-        nuevaLista.insertar_proceso(proc);
-        return new NodoBST(nuevaLista, NULL, NULL, proc.get_prioridad());
-    } else if (proc.get_prioridad() < nodo->prioridad) {
-        nodo->hi = insertarArbol(proc, nodo->hi);
-    } else if (proc.get_prioridad() > nodo->prioridad) {
-        nodo->hd = insertarArbol(proc, nodo->hd);
-    } else {
-        nodo->lproc.insertar_proceso(proc);
-    }
-    return nodo;
-}
-
-void BST::postorden(NodoBST *nodo) {
-    if (nodo != NULL) {
-        postorden(nodo->hi);
-        postorden(nodo->hd);
-        cout << "Prioridad: " << nodo->prioridad << endl;
-    }
-}
-
-BST::~BST() {
-    delete raiz;
-}
-
-*/
