@@ -1,5 +1,5 @@
-#ifndef GLOBAL_H
-#define GLOBAL_H
+#ifndef PLANIFICADOR_H
+#define PLANIFICADOR_H
 
 #include <ctime>
 #include <iostream>
@@ -17,10 +17,10 @@
 
 
 /**
- * @brief Namespace Global para variables globales
+ * @brief Namespace Planificador para variables globales y funciones del programa
  * 
  */
-namespace Global {
+namespace Planificador {
     // Variables globales
     extern int opcion;
     extern Pila pila;
@@ -38,14 +38,14 @@ namespace Global {
     void mostrar_tiempo(); 
 
     // Funciones main
-    void cargar_procesos(); //hecho
-    void introducir_proceso(); //leido de teclado, con condicion de que tiempo de inicio sea mas que el actual
-    void mostrar_procesos(); //hecho
-    void borrar_procesos(); //hecho
-    void aumentar_tiempo_sistema(int n);
-    void mostrar_estado_nucleos(); //hecho
-    void nucleo_menos_mas_carga(); //hecho
-    void numero_nucleos_operativos(); //hecho
+    void cargar_procesos(); 
+    void introducir_proceso(); 
+    void mostrar_procesos(); 
+    void borrar_procesos(); 
+    void aumentar_tiempo_sistema(int n); // hacer
+    void mostrar_estado_nucleos(); 
+    void nucleo_menos_mas_carga(); 
+    void numero_nucleos_operativos(); 
 
     void introducir_proceso_BST(); // insertar proceso en el arbol, si el nivel de prioridad no existe, se crea
     void mostrar_procesos_BST(); //mostrar todos los procesos del arbol ordenados por prioridad
@@ -58,4 +58,4 @@ namespace Global {
     void simular_ejecucion_procesos();
 }
 
-#endif // GLOBAL_H
+#endif // PLANIFICADOR_H

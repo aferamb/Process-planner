@@ -1,7 +1,7 @@
 #include "Nucleo.h"
 #include "Cola.h"
 #include "Proceso.h"
-#include "global.h"
+#include "Planificador.h"
 #include "ListaProcesos.h"
 #include "BST.h"
 #include <iostream>
@@ -33,7 +33,7 @@ Nucleo::Nucleo(){
 Nucleo::Nucleo(int id, Proceso proceso){
     this->id = id;
     this->proceso_en_ejecucion = proceso;
-    time_t tiempo_inicio = Global::tiempoTranscurrido;
+    time_t tiempo_inicio = Planificador::tiempoTranscurrido;
     this->tiempo_inicio = tiempo_inicio;
     time_t tiempo_fin = tiempo_inicio + proceso.get_tiempo_de_vida();
     this->tiempo_fin = tiempo_fin;
@@ -66,7 +66,7 @@ void Nucleo::set_id(int id){
 void Nucleo::set_proceso(Proceso proceso){
     this->proceso_en_ejecucion = proceso;
     proceso_en_ejecucion.set_nucleo_asignado(id);
-    this->tiempo_inicio = Global::tiempoTranscurrido;
+    this->tiempo_inicio = Planificador::tiempoTranscurrido;
     this->tiempo_fin = tiempo_inicio + proceso.get_tiempo_de_vida();    
     detalles_proceso(true);
 }
@@ -175,21 +175,21 @@ Cola Nucleo::get_cola_procesos() const {
  * 
  */
 void Nucleo::eliminar_proceso(){
-    if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){ 
-        Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
+    if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Planificador::tiempoTranscurrido)){ 
+        Planificador::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
-        Global::arbolProcesos.insertar(proceso_en_ejecucion);
+        Planificador::arbolProcesos.insertar(proceso_en_ejecucion);
         set_proceso(cola_procesos.desencolar());
     }
     else if ((proceso_en_ejecucion.get_PID() == -1) && (!cola_procesos.es_vacia())){
         set_proceso(cola_procesos.desencolar());
     } 
-    else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Global::tiempoTranscurrido)){
-        Global::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
+    else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Planificador::tiempoTranscurrido)){
+        Planificador::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
-        Global::arbolProcesos.insertar(proceso_en_ejecucion);
+        Planificador::arbolProcesos.insertar(proceso_en_ejecucion);
         Proceso paux;
         proceso_en_ejecucion = paux;
         //eliminar nucleo de la lista de nucleos y liberar memoria, if no es el ultimo nucleo, cambiar id de los siguientes nucleos?
@@ -205,9 +205,11 @@ void Nucleo::eliminar_proceso(){
  */
 void Nucleo::detalles_proceso() const {
     if (proceso_en_ejecucion.get_PID() == -1){
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | Nucleo " << id << ": No hay proceso en ejecucion" << endl;
+        Planificador::mostrar_tiempo();
+        cout << " | Nucleo " << id << ": No hay proceso en ejecucion" << endl;
     } else {
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Proceso en nucleo " << id << " PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
+        Planificador::mostrar_tiempo();
+        cout << " | " << "Proceso en nucleo " << id << " PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad() << endl;
     }
 }
 
@@ -228,10 +230,10 @@ void Nucleo::detalles_proceso(bool i) const {
         saux = " | Proceso terminado en nucleo ";
     }
     if (proceso_en_ejecucion.get_PID() == -1){
-        Global::mostrar_tiempo();
+        Planificador::mostrar_tiempo();
         cout << " | " << "No hay proceso en ejecucion" << endl;
     } else {
-        Global::mostrar_tiempo();
+        Planificador::mostrar_tiempo();
         cout << saux << id << ": " << "PID: " << proceso_en_ejecucion.get_PID() << ", PPID: " << proceso_en_ejecucion.get_PPID() << ", Inicio: " << proceso_en_ejecucion.get_inicio() << ", Tiempo de vida: " << proceso_en_ejecucion.get_tiempo_de_vida() << ", Prioridad: " << proceso_en_ejecucion.get_prioridad();
         if (!i){
             cout << ", Tiempo de estancia: " << proceso_en_ejecucion.get_tiempo_ejecucion() << " minutos" << endl;
@@ -252,16 +254,21 @@ void Nucleo::detalles_proceso(bool i) const {
  */
 void Nucleo::detalles_nucleo(){
     if (proceso_en_ejecucion.get_PID() == -1){
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
+        Planificador::mostrar_tiempo();
+        cout << " | " << "Nucleo: " << id << " No hay proceso en ejecucion" << endl;
     } else {
         detalles_proceso();
     }
-    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
-    cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Global::tiempoTranscurrido << " minutos" << endl;
+    Planificador::mostrar_tiempo();
+    cout << " | " << "Tiempo de inicio ejecucion: " << tiempo_inicio << ", Tiempo de finalizacion: " << tiempo_fin << endl;
+    Planificador::mostrar_tiempo();
+    cout << " | " << "Tiempo de ejecucion restante: " << tiempo_fin-Planificador::tiempoTranscurrido << " minutos" << endl;
     if (cola_procesos.es_vacia()){
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos vacia" << endl;
+        Planificador::mostrar_tiempo();
+        cout << " | " << "Cola de procesos vacia" << endl;
     } else {
-        cout << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << " | " << "Cola de procesos: " << endl;
+        Planificador::mostrar_tiempo();
+        cout << " | " << "Cola de procesos: " << endl;
         cola_procesos.mostrarCola();
     }
 }

@@ -1,4 +1,4 @@
-#include "global.h"
+#include "Planificador.h"
 #include "Nucleo.h"
 #include "Cola.h"
 #include "Pila.h"
@@ -16,7 +16,7 @@ using namespace std;
  * 
  */ 
 
-namespace Global {
+namespace Planificador {
     int opcion;
     Pila pila;
     Proceso p;

@@ -1,6 +1,5 @@
 #include "ListaProcesos.h"
 #include "Proceso.h"
-#include "global.h"
 #include <iostream>
 
 using namespace std;

@@ -17,7 +17,7 @@
 -- meter en global las funciones del main, para que sea mas limpio
 */
 
-#include "global.h"
+#include "Planificador.h"
 #include "Nucleo.h"
 #include "Cola.h"
 #include "Pila.h"
@@ -32,19 +32,19 @@
 #include <thread>
 
 using namespace std;
-using namespace Global;
+using namespace Planificador;
 
 
 int main() {
     int opcion;
-    Global::lista.insertar_nucleo();// mirar a ver
-    Global::lista.insertar_nucleo();// mirar a ver
-    Global::lista.insertar_nucleo();// mirar a ver
-    Global::tiempoTranscurrido = 0;
+    Planificador::lista.insertar_nucleo();// mirar a ver
+    Planificador::lista.insertar_nucleo();// mirar a ver
+    Planificador::lista.insertar_nucleo();// mirar a ver
+    Planificador::tiempoTranscurrido = 0;
 
     do {
         cout << "-----------------------------------------------------------------------------------------------------------------------------------------------------------------" << endl;
-        Global::mostrar_tiempo(); cout << "              MENU PRINCIPAL\n\n";
+        Planificador::mostrar_tiempo(); cout << "              MENU PRINCIPAL\n\n";
         cout << "1. Crear pila de procesos. (datos creados manualmente en el codigo)\n";
         cout << "2. Crear e introducir proceso en la pila de procesos.\n";
         cout << "3. Mostrar todos los procesos en la pila de procesos.\n";
@@ -71,25 +71,25 @@ int main() {
 
         switch (opcion) {
             case 1: {
-                Global::cargar_procesos();
+                Planificador::cargar_procesos();
                 break;
             }
 
             case 2: {
                 // Mostrar todos los procesos en la pila
-                Global::introducir_proceso();
+                Planificador::introducir_proceso();
                 break;
             }
 
             case 3: {
                 // Mostrar todos los procesos en la pila
-                Global::mostrar_procesos();
+                Planificador::mostrar_procesos();
                 break;
             }
 
             case 4: {
                 // Borrar pila de procesos
-                Global::borrar_procesos();
+                Planificador::borrar_procesos();
                 break;
             }
 
@@ -111,13 +111,13 @@ int main() {
                  * 
                  */
 
-                for(int i = Global::tiempoTranscurrido; Global::tiempoTranscurrido <= i+n; Global::tiempoTranscurrido++){
+                for(int i = Planificador::tiempoTranscurrido; Planificador::tiempoTranscurrido <= i+n; Planificador::tiempoTranscurrido++){
 
                     if (pila.esVacia() && lista.get_longitud() == 1 && lista.coger(0).get_proceso().get_PID() == -1 && lista.coger(0).get_cola_procesos().es_vacia()){
                         cout << "No hay procesos en la pila ni en la cola de espera, y ambos nucleos estan libres.\n";
                         cout << "Ejecucion de procesos finalizada." << endl; 
                         cout << endl;
-                        cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/contador << " minutos." << endl; // Dividir entre el numero de procesos
+                        cout << "Tiempo medio de estancia en el sistema operativo: " << Planificador::contadorTiempoEstancia/contador << " minutos." << endl; // Dividir entre el numero de procesos
                         cout << endl;
                         cout << endl;
                         break;
@@ -125,16 +125,18 @@ int main() {
 
                     cout << endl;
                     cout << "-----------------------------------------------------------------------------------------------------------------------" << endl;
-                    cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
+                    cout << "Tiempo actual: ";
+                    Planificador::mostrar_tiempo();
+                    cout << endl;
                     cout << endl;
 
                     // Al principio, insertar los procesos de la pila que se inician en el tiempo actual
-                    if(!pila.esVacia() && Global::tiempoTranscurrido == 0){ 
+                    if(!pila.esVacia() && Planificador::tiempoTranscurrido == 0){ 
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
 
-                        while(p.get_inicio() == Global::tiempoTranscurrido){ // poner <= por si se meten procesos con inicio menor al tiempo actual
+                        while(p.get_inicio() == Planificador::tiempoTranscurrido){ // poner <= por si se meten procesos con inicio menor al tiempo actual
                             colatemp.insertar_por_prioridad(p);
                             cout << endl;
                             pila.desapilar();
@@ -152,7 +154,7 @@ int main() {
 
                     // hacer en forma funcion, eliminar procesos que han terminado
                     for (int i = 0; i < lista.get_longitud(); i++){
-                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Planificador::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
                             lista.eliminar_proceso(i);
                         }
                     }
@@ -168,7 +170,7 @@ int main() {
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
-                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                        while(p.get_inicio() == Planificador::tiempoTranscurrido){
                             lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
                             pila.desapilar();
                             if(!pila.esVacia()){
@@ -189,61 +191,61 @@ int main() {
 
             case 6: {
                 // Mostrar estado de los nucleos
-                Global::mostrar_estado_nucleos();
+                Planificador::mostrar_estado_nucleos();
                 break;
             }
 
             case 7: {
                 // Consulta nucleo con menos carga, nucleo con mas carga
-                Global::nucleo_menos_mas_carga();
+                Planificador::nucleo_menos_mas_carga();
                 break;
             }
 
             case 8: {
                 // Consulta numero de nucleos operativos
-                Global::numero_nucleos_operativos();
+                Planificador::numero_nucleos_operativos();
                 break;
             }
 
             case 9: {
                 // Añadir un proceso directamente al ABBProcesos, leyendo sus datos de teclado
-                Global::introducir_proceso_BST();
+                Planificador::introducir_proceso_BST();
                 break;
             }
 
             case 10: {
                 // Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad
-                Global::mostrar_procesos_BST();
+                Planificador::mostrar_procesos_BST();
                 break;
             }
 
             case 11: {
                 // Mostrar los procesos con la prioridad n
-                Global::mostrar_procesos_BST_prioridad();
+                Planificador::mostrar_procesos_BST_prioridad();
                 break;
             }
 
             case 12: {
                 // Niveles de prioridad registrados
-                Global::mostrar_niveles_BST();
+                Planificador::mostrar_niveles_BST();
                 break;
             }
 
             case 13: {
                 // Nivel de prioridad con mayor y menor numero de procesos
-                Global::mostrar_niveles_BST_mayor_menor();
+                Planificador::mostrar_niveles_BST_mayor_menor();
                 break;
             }
 
             case 14: {
                 // Tiempo promedio de ejecucion de procesos con prioridad n
-                Global::mostrar_tiempo_promedio_procesos_prioridad_insertada();
+                Planificador::mostrar_tiempo_promedio_procesos_prioridad_insertada();
                 break;
             }
 
             case 15: {
                 // Tiempo promedio de ejecucion de procesos en cada nivel de prioridad
-                Global::mostrar_tiempo_promedio_procesos_prioridad();
+                Planificador::mostrar_tiempo_promedio_procesos_prioridad();
                 break;
             }
 
@@ -255,16 +257,18 @@ int main() {
                     
                     cout << endl;
                     cout << "-----------------------------------------------------------------------------------------------------------------------" << endl;
-                    cout << "Tiempo actual: " << (Global::tiempoTranscurrido/60 < 10 ? "0" : "") << Global::tiempoTranscurrido/60 << ":" << (Global::tiempoTranscurrido%60 < 10 ? "0" : "") << Global::tiempoTranscurrido%60 << endl;
+                    cout << "Tiempo actual: ";
+                    Planificador::mostrar_tiempo();
+                    cout << endl;
                     cout << endl;
 
                     // Al principio, insertar los procesos de la pila que se inician en el tiempo actual
-                    if(!pila.esVacia() && Global::tiempoTranscurrido == 0){ 
+                    if(!pila.esVacia() && Planificador::tiempoTranscurrido == 0){ 
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
 
-                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                        while(p.get_inicio() == Planificador::tiempoTranscurrido){
                             colatemp.insertar_por_prioridad(p);
                             cout << endl;
                             //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
@@ -283,7 +287,7 @@ int main() {
 
                     // hacer en forma funcion, eliminar procesos que han terminado
                     for (int i = 0; i < lista.get_longitud(); i++){
-                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Global::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
+                        if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Planificador::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
                             lista.eliminar_proceso(i);
                         }
                     }
@@ -300,7 +304,7 @@ int main() {
                         Proceso p = pila.mostrar();
                         cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                         cout << endl;
-                        while(p.get_inicio() == Global::tiempoTranscurrido){
+                        while(p.get_inicio() == Planificador::tiempoTranscurrido){
                             lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
                             pila.desapilar();
                             if(!pila.esVacia()){
@@ -314,13 +318,13 @@ int main() {
                     lista.mostrar_estado_nucleos();
                     cout << endl;
                     cout << endl;
-                    Global::tiempoTranscurrido++;
+                    Planificador::tiempoTranscurrido++;
                     this_thread::sleep_for(chrono::milliseconds(500)); // Esperar 0,5 segundos
                 }
                 cout << endl;
                 cout << "Ejecucion de procesos finalizada." << endl; 
                 cout << endl;
-                cout << "Tiempo medio de estancia en el sistema operativo: " << Global::contadorTiempoEstancia/contador << " minutos." << endl; // Dividir entre el numero de procesos
+                cout << "Tiempo medio de estancia en el sistema operativo: " << Planificador::contadorTiempoEstancia/contador << " minutos." << endl; // Dividir entre el numero de procesos
                 cout << endl;
                 break;
             }

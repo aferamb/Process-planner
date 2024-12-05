@@ -1,7 +1,6 @@
 #include "Lista.h"
 #include "Nucleo.h"
 #include "Proceso.h"
-#include "global.h"
 #include <iostream>
 
 using namespace std;
