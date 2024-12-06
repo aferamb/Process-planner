@@ -38,11 +38,13 @@ namespace Planificador {
     void mostrar_tiempo(); 
 
     // Funciones main
+    void iniciar_nucleos();
+    
     void cargar_procesos(); 
     void introducir_proceso(); 
     void mostrar_procesos(); 
     void borrar_procesos(); 
-    void aumentar_tiempo_sistema(int n); // hacer
+    void aumentar_tiempo_sistema(); // hacer
     void mostrar_estado_nucleos(); 
     void nucleo_menos_mas_carga(); 
     void numero_nucleos_operativos(); 
