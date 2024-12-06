@@ -18,7 +18,7 @@ int main() {
         cout << "6. Mostrar estado de los nucleos.\n";              
         cout << "7. Consulta nucleo con menos carga, nucleo con mas carga.\n";
         cout << "8. Consulta numero de nucleos operativos.\n";              
-        cout << "9. Insertar un proceso directamente al ABBProcesos, leyendo sus datos de teclado.\n"; // Corregir
+        cout << "9. Insertar un proceso directamente al ABBProcesos, leyendo sus datos de teclado.\n"; 
         cout << "10. Mostrar los datos almacenados en el ABBProcesos, ordenados por prioridad.\n"; 
         cout << "11. Mostrar los procesos con la prioridad n.\n"; 
         cout << "12. Niveles de prioridad registrados.\n"; 
