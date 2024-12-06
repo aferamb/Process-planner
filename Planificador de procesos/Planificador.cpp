@@ -394,7 +394,7 @@ namespace Planificador {
      * 
      */
     void mostrar_niveles_BST_mayor_menor() {
-        arbolProcesos.mostrarNivelesMayorMenor();
+        arbolProcesos.nivelesMayorMenorProcesos();
         cout << endl;
     }
 
@@ -421,9 +421,7 @@ namespace Planificador {
     void mostrar_tiempo_promedio_procesos_prioridad() {
         cout << "Tiempo promedio de ejecucion de procesos en cada nivel de prioridad:" << endl;
         cout << endl;
-        for (int i = 0; i < 11 ; i++) {
-            cout << "Tiempo promedio de ejecucion de procesos con prioridad " << i << ": " << arbolProcesos.tiempoPromedioProcesos(i) << " minutos" << endl;
-        }
+        arbolProcesos.mostrar_tiempo_promedio_procesos_prioridad();
         cout << endl;
     }
 

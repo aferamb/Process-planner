@@ -1,7 +1,5 @@
 #include "BST.h"
 #include <vector>
-#include <algorithm>
-
 
 BST::BST() {
     raiz = nullptr;
@@ -114,31 +112,53 @@ void BST::mostrarNiveles(NodoBST *nodo) {
     }
 }
 
-void BST::mostrarNivelesMayorMenor(){
-    mostrarNivelesMayorMenor(raiz);
+void BST::nivelesMayorMenorProcesos() {
+    vector<NodoBST*> nodosMayor; // Nodos con la mayor cantidad de procesos
+    vector<NodoBST*> nodosMenor; // Nodos con la menor cantidad de procesos
+    int maxProcesos = -1;
+    int minProcesos = INT_MAX;
+
+    // Recorrer el árbol en preorden para determinar los niveles
+    nivelesMayorMenorProcesos(raiz, nodosMayor, nodosMenor, maxProcesos, minProcesos);
+
+    // Mostrar los nodos con mayor cantidad de procesos
+    cout << "Niveles con mayor cantidad de procesos (" << maxProcesos << " procesos):" << endl;
+    for (NodoBST* nodo : nodosMayor) {
+        cout << "Prioridad: " << nodo->prioridad << endl;
+    }
+
+    // Mostrar los nodos con menor cantidad de procesos
+    cout << "Niveles con menor cantidad de procesos (" << minProcesos << " procesos):" << endl;
+    for (NodoBST* nodo : nodosMenor) {
+        cout << "Prioridad: " << nodo->prioridad << endl;
+    }
 }
 
-void BST::mostrarNivelesMayorMenor(NodoBST* nodo) {
-    if (nodo == nullptr) {
-        cout << "El arbol esta vacio o el nodo proporcionado es nulo" << endl;
-        return;
-    }
-    std::vector<NodoBST*> nodos;
-    llenarVector(nodo, nodos); // Función auxiliar para llenar el vector con nodos del árbol
-    sort(nodos.begin(), nodos.end(), [](NodoBST* a, NodoBST* b) {
-        return a->listaProc.get_longitud() > b->listaProc.get_longitud();
-    });
-    for (NodoBST* n : nodos) {
-        cout << "Nodo con prioridad: " << n->prioridad 
-            << ", Cantidad de procesos: " << n->listaProc.get_longitud() << endl;
-    }
-}
-
-void BST::llenarVector(NodoBST* nodo, std::vector<NodoBST*>& nodos) { // Función auxiliar para recorrer el árbol y llenar el vector
+void BST::nivelesMayorMenorProcesos(NodoBST* nodo, vector<NodoBST*>& nodosMayor, vector<NodoBST*>& nodosMenor, int& maxProcesos, int& minProcesos) {
     if (nodo != nullptr) {
-        nodos.push_back(nodo); // Agregar el nodo al vector
-        llenarVector(nodo->hi, nodos); // Recorrer el subárbol izquierdo
-        llenarVector(nodo->hd, nodos); // Recorrer el subárbol derecho
+        int cantidadProcesos = nodo->listaProc.get_longitud();
+
+        // Comparar con el máximo actual
+        if (cantidadProcesos > maxProcesos) {
+            maxProcesos = cantidadProcesos;
+            nodosMayor.clear(); // Limpiar los nodos previos, ya que hay un nuevo máximo
+            nodosMayor.push_back(nodo);
+        } else if (cantidadProcesos == maxProcesos) {
+            nodosMayor.push_back(nodo); // Agregar nodo al vector si empata con el máximo
+        }
+
+        // Comparar con el mínimo actual
+        if (cantidadProcesos < minProcesos) {
+            minProcesos = cantidadProcesos;
+            nodosMenor.clear(); // Limpiar los nodos previos, ya que hay un nuevo mínimo
+            nodosMenor.push_back(nodo);
+        } else if (cantidadProcesos == minProcesos) {
+            nodosMenor.push_back(nodo); // Agregar nodo al vector si empata con el mínimo
+        }
+
+        // Recorrer subárbol izquierdo y derecho
+        nivelesMayorMenorProcesos(nodo->hi, nodosMayor, nodosMenor, maxProcesos, minProcesos);
+        nivelesMayorMenorProcesos(nodo->hd, nodosMayor, nodosMenor, maxProcesos, minProcesos);
     }
 }
 
@@ -165,5 +185,21 @@ float BST::tiempoPromedioProcesos(int prioridad, NodoBST* nodo) {
         return tiempoPromedioProcesos(prioridad, nodo->hi);
     } else {
         return tiempoPromedioProcesos(prioridad, nodo->hd);
+    }
+}
+
+void BST::mostrar_tiempo_promedio_procesos_prioridad() {
+    mostrar_tiempo_promedio_procesos_prioridad(raiz);
+}
+
+void BST::mostrar_tiempo_promedio_procesos_prioridad(NodoBST* nodo) {
+    if (nodo != nullptr) {
+        // Calcular el tiempo promedio para el nodo actual
+        float tiempoPromedio = tiempoPromedioProcesos(nodo->prioridad, nodo);
+        cout << "Prioridad: " << nodo->prioridad << " - Tiempo promedio: " << tiempoPromedio << " minutos" << endl;
+
+        // Recorrer el subárbol izquierdo y derecho
+        mostrar_tiempo_promedio_procesos_prioridad(nodo->hi);
+        mostrar_tiempo_promedio_procesos_prioridad(nodo->hd);
     }
 }

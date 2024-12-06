@@ -24,26 +24,18 @@ class BST
         void mostrarNiveles(); // Muestra los niveles del árbol
         void mostrarNiveles(NodoBST *nodo);
 
-        void mostrarNivelesMayorMenor(); // Muestra los niveles del árbol de mayor a menor
-        void mostrarNivelesMayorMenor(NodoBST *nodo);
+        void nivelesMayorMenorProcesos();
+        void nivelesMayorMenorProcesos(NodoBST* nodo, vector<NodoBST*>& nodosMayor, vector<NodoBST*>& nodosMenor, int& maxProcesos, int& minProcesos);
 
         float tiempoPromedioProcesos(int prioridad); // Devuelve tiempo promedio de ejecución de los procesos de una prioridad dada
         float tiempoPromedioProcesos(int prioridad, NodoBST *nodo);
 
+        void mostrar_tiempo_promedio_procesos_prioridad(); // Muestra el tiempo promedio de ejecución de los procesos de una prioridad dada
+        void mostrar_tiempo_promedio_procesos_prioridad(NodoBST *nodo);
+
     protected:
         void verInorden(NodoBST *nodo); 
         void insertar_arbol(Proceso proc, NodoBST *&arb); // Inserta un proceso en el árbol
-        void llenarVector(NodoBST* nodo, std::vector<NodoBST*>& nodos); // Recolecta nodos en un vector
 };
-
-
-/*    protected:
-        NodoBST* get_raiz();
-        void set_raiz(NodoBST*);
-        bool buscar(int prioridad, NodoBST*);// Busca un proceso en el árbol
-        bool arbolVacio(NodoBST*); // Verifica si el árbol está vacío
-        NodoBST* insertarArbol(Proceso, NodoBST*); // Realiza un recorrido postorden del árbol
-        void postorden(NodoBST*); // Realiza un recorrido postorden del árbol
-        ~BST();*/
 
 #endif // BST_
