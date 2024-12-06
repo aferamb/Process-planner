@@ -33,13 +33,11 @@ namespace Planificador {
 
     extern int tiempoTranscurrido; 
     extern float contadorTiempoEstancia; 
-    void aumentar_tiempo(); 
-    void aumentar_tiempo(int n); 
     void mostrar_tiempo(); 
 
     // Funciones main
     void iniciar_nucleos();
-    
+
     void cargar_procesos(); 
     void introducir_proceso(); 
     void mostrar_procesos(); 

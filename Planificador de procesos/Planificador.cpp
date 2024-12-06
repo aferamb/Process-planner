@@ -36,16 +36,6 @@ namespace Planificador {
     }
 
 
-    void aumentar_tiempo() {
-        tiempoTranscurrido++;
-    }
-
-
-    void aumentar_tiempo(int n) {
-        tiempoTranscurrido += n;
-    }
-
-
 
     /**
      * @brief Inicia los nucleos
@@ -462,7 +452,6 @@ namespace Planificador {
                 while(p.get_inicio() == Planificador::tiempoTranscurrido){
                     colatemp.insertar_por_prioridad(p);
                     cout << endl;
-                    //lista.mostrar_estado_nucleos(); // para ver si mete el proceso
                     pila.desapilar();
                     if(!pila.esVacia()){
                         p = pila.mostrar();
@@ -476,14 +465,14 @@ namespace Planificador {
                 }
             }
 
-            // hacer en forma funcion, eliminar procesos que han terminado
+            // Eliminar procesos que han terminado
             for (int i = 0; i < lista.get_longitud(); i++){
                 if (lista.coger(i).get_proceso().get_PID() != -1 && lista.coger(i).get_tiempo_fin() == Planificador::tiempoTranscurrido){ // aqui falla la ejecucion, PROBLEMAS creo en coger()
                     lista.eliminar_proceso(i);
                 }
             }
 
-            // hacer en forma funcion, eliminar nucleos vacios y sin carga
+            // Eliminar nucleos vacios y sin carga
             for (int i = 0; i < lista.get_longitud(); i++){
                 if (lista.get_longitud() > 1 && lista.coger(i).get_proceso().get_PID() == -1 && lista.coger(i).get_cola_procesos().es_vacia()){
                     lista.eliminar(i);
@@ -495,7 +484,7 @@ namespace Planificador {
                 cout << "Proceso en la cima de la pila: PID: " << p.get_PID() << ", PPID: " << p.get_PPID() << ", Inicio: " << p.get_inicio() << ", Tiempo de vida: " << p.get_tiempo_de_vida() << ", Prioridad: " << p.get_prioridad() << endl;
                 cout << endl;
                 while(p.get_inicio() == Planificador::tiempoTranscurrido){
-                    lista.insertar_proceso(p, lista.nucleo_menos_carga()); // terminar funcion de nucleo menos carga, para que añada un nucleo si es necesario
+                    lista.insertar_proceso(p, lista.nucleo_menos_carga()); 
                     pila.desapilar();
                     if(!pila.esVacia()){
                         p = pila.mostrar();
