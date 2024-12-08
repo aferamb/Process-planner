@@ -17,6 +17,7 @@ class BST
         int contarNodos(); // Cuenta los nodos del árbol
         void insertar(Proceso proc); // Inserta un proceso en el árbol
         NodoBST* get_raiz();
+        bool esVacio();
 
         void buscar(int prioridad); // Muestra procesos en el arbol de una prioridad dada
         void buscar(int prioridad, NodoBST *nodo);

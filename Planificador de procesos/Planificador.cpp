@@ -35,8 +35,6 @@ namespace Planificador {
         cout << (tiempoTranscurrido/60 < 10 ? "0" : "") << tiempoTranscurrido/60 << ":" << (tiempoTranscurrido%60 < 10 ? "0" : "") << tiempoTranscurrido%60;
     }
 
-
-
     /**
      * @brief Inicia los nucleos
      * 
@@ -46,8 +44,6 @@ namespace Planificador {
         lista.insertar_nucleo();
         lista.insertar_nucleo();
     }
-
-
 
     /**
      * @brief Carga los procesos en la pila
@@ -113,8 +109,6 @@ namespace Planificador {
         pila.ordenarPorTiempoInicio();
     }
 
-
-
     /**
      * @brief Introduce un proceso en la pila
      * 
@@ -144,8 +138,6 @@ namespace Planificador {
         cout << endl;
     }
 
-
-
     /**
      * @brief Muestra los procesos de la pila
      * 
@@ -155,8 +147,6 @@ namespace Planificador {
         cout << endl;
         cout << endl;
     }
-
-
 
     /**
      * @brief Borra los procesos de la pila
@@ -178,8 +168,6 @@ namespace Planificador {
             cout << endl;
         }
     }
-
-
 
     /**
      * @brief Aumenta el tiempo del sistema
@@ -277,8 +265,6 @@ namespace Planificador {
         }
     }
 
-
-
     /**
      * @brief Mostrar el estado de los nucleos
      * 
@@ -291,8 +277,6 @@ namespace Planificador {
         cout << endl;
     }
 
-
-
     /**
      * @brief Consulta el nucleo con menos carga y el nucleo con mas carga
      * 
@@ -303,8 +287,6 @@ namespace Planificador {
         lista.nucleo_mas_carga(true);
     }
 
-
-
     /**
      * @brief Consulta el numero de nucleos operativos
      * 
@@ -314,7 +296,6 @@ namespace Planificador {
         cout << "Numero de nucleos operativos: " << lista.get_longitud() << endl; // La longitud de la lista de nucleos es igual al numero de nucleos operativos
         cout << endl;
     }
-
 
     /**
      * @brief Introduce un proceso en el arbol de procesos
@@ -351,81 +332,91 @@ namespace Planificador {
         cout << endl;
     }
 
-
-
     /**
      * @brief Muestra los procesos del arbol de procesos
      * 
      */
     void mostrar_procesos_BST() {
-        arbolProcesos.verInorden(); 
-        cout << endl;
+        if (arbolProcesos.esVacio()) {
+            cout << "El arbol de procesos esta vacio." << endl;
+        } else {
+            arbolProcesos.verInorden(); 
+            cout << endl;
+        }
     }
-
-
 
     /**
      * @brief Muestra los procesos de una prioridad concreta
      * 
      */
     void mostrar_procesos_BST_prioridad() {
-        int prioridad;
-        cout << "Introduzca la prioridad de los procesos a mostrar: ";
-        cin >> prioridad;
-        arbolProcesos.buscar(prioridad);
-        cout << endl;
+        if (arbolProcesos.esVacio()) {
+            cout << "El arbol de procesos esta vacio." << endl;
+        } else {
+            int prioridad;
+            cout << "Introduzca la prioridad de los procesos a mostrar: ";
+            cin >> prioridad;
+            arbolProcesos.buscar(prioridad);
+            cout << endl;
+        }
     }
-
-
 
     /**
      * @brief Muestra los niveles de prioridad registrados que tienen al menos un proceso
      * 
      */
     void mostrar_niveles_BST() {
-        arbolProcesos.mostrarNiveles();
-        cout << endl;
+        if (arbolProcesos.esVacio()) {
+            cout << "El arbol de procesos esta vacio." << endl;
+        } else {
+            arbolProcesos.mostrarNiveles();
+            cout << endl;
+        }
     }
-
-
 
     /**
      * @brief Muestra el nivel de prioridad con mayor y menor numero de procesos
      * 
      */
     void mostrar_niveles_BST_mayor_menor() {
-        arbolProcesos.nivelesMayorMenorProcesos();
-        cout << endl;
+        if (arbolProcesos.esVacio()) {
+            cout << "El arbol de procesos esta vacio." << endl;
+        } else {
+            arbolProcesos.nivelesMayorMenorProcesos();
+            cout << endl;
+        }
     }
-
-
 
     /**
      * @brief Muestra el tiempo promedio de ejecucion de procesos con prioridad n
      * 
      */
     void mostrar_tiempo_promedio_procesos_prioridad_insertada() {
-        int prioridad;
-        cout << "Introduzca la prioridad de los procesos a mostrar: ";
-        cin >> prioridad;
-        cout << "Tiempo promedio de ejecucion de procesos con prioridad " << prioridad << ": " << arbolProcesos.tiempoPromedioProcesos(prioridad) << " minutos" << endl;
-        cout << endl;
+        if (arbolProcesos.esVacio()) {
+            cout << "El arbol de procesos esta vacio." << endl;
+        } else {
+            int prioridad;
+            cout << "Introduzca la prioridad de los procesos a mostrar: ";
+            cin >> prioridad;
+            cout << "Tiempo promedio de ejecucion de procesos con prioridad " << prioridad << ": " << arbolProcesos.tiempoPromedioProcesos(prioridad) << " minutos" << endl;
+            cout << endl;
+        }
     }
-
-
 
     /**
      * @brief Muestra el tiempo promedio de ejecucion de procesos en cada nivel de prioridad
      * 
      */
     void mostrar_tiempo_promedio_procesos_prioridad() {
-        cout << "Tiempo promedio de ejecucion de procesos en cada nivel de prioridad:" << endl;
-        cout << endl;
-        arbolProcesos.mostrar_tiempo_promedio_procesos_prioridad();
-        cout << endl;
+        if (arbolProcesos.esVacio()) {
+            cout << "El arbol de procesos esta vacio." << endl;
+        } else {
+            cout << "Tiempo promedio de ejecucion de procesos en cada nivel de prioridad:" << endl;
+            cout << endl;
+            arbolProcesos.mostrar_tiempo_promedio_procesos_prioridad();
+            cout << endl;
+        }
     }
-
-
 
     /**
      * @brief Simula la ejecucion de los procesos

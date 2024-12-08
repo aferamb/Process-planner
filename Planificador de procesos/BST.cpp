@@ -82,6 +82,10 @@ NodoBST* BST::get_raiz() {
     return raiz;
 }
 
+bool BST::esVacio() {
+    return raiz == nullptr;
+}
+
 void BST::buscar(int prioridad) {
     buscar(prioridad, raiz);
 }
@@ -106,9 +110,9 @@ void BST::mostrarNiveles() {
 
 void BST::mostrarNiveles(NodoBST *nodo) {
     if (nodo != nullptr && !nodo->listaProc.es_vacia()) {
-        mostrarNiveles(nodo->hi);
         mostrarNiveles(nodo->hd);
         cout << "Prioridad: " << nodo->prioridad << endl;
+        mostrarNiveles(nodo->hi);
     }
 }
 
