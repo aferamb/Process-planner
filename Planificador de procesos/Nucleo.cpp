@@ -170,12 +170,13 @@ Cola Nucleo::get_cola_procesos() const {
  * si es que hay alguno en la cola de procesos en espera. Si no hay proceso inserta un proceso de la cola de procesos,
  * y si la cola esta vacia, inserta un proceso vacio.
  * 
- * Cuando se elimina un proceso se muestra un mensaje en la consola indicando que el proceso ha terminado.
+ * Cuando se elimina un proceso se muestra un mensaje en la consola indicando que el proceso ha terminado y se inserta en el arbol de procesos.
  * Si el proceso es nulo y la cola de procesos esta vacia no hace nada. ()
  * 
  */
 void Nucleo::eliminar_proceso(){
     if ((proceso_en_ejecucion.get_PID() != -1) && (!cola_procesos.es_vacia()) && (tiempo_fin == Planificador::tiempoTranscurrido)){ 
+        // Caso 1: Hay un proceso en ejecución, la cola no está vacía y el tiempo de ejecución ha finalizado
         Planificador::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
@@ -183,16 +184,17 @@ void Nucleo::eliminar_proceso(){
         set_proceso(cola_procesos.desencolar());
     }
     else if ((proceso_en_ejecucion.get_PID() == -1) && (!cola_procesos.es_vacia())){
+        // Caso 2: No hay proceso en ejecución y la cola no está vacía
         set_proceso(cola_procesos.desencolar());
     } 
     else if ((proceso_en_ejecucion.get_PID() != -1) && (cola_procesos.es_vacia()) && (tiempo_fin == Planificador::tiempoTranscurrido)){
+        // Caso 3: Hay un proceso en ejecución, la cola está vacía y el tiempo de ejecución ha finalizado
         Planificador::contadorTiempoEstancia += get_tiempo_fin() - get_proceso().get_inicio();
         proceso_en_ejecucion.set_tiempo_ejecucion(get_tiempo_fin() - get_proceso().get_inicio());
         detalles_proceso(false);
         Planificador::arbolProcesos.insertar(proceso_en_ejecucion);
         Proceso paux;
         proceso_en_ejecucion = paux;
-        //eliminar nucleo de la lista de nucleos y liberar memoria, if no es el ultimo nucleo, cambiar id de los siguientes nucleos?
     }
 }
 
