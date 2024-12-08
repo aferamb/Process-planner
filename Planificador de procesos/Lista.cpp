@@ -160,20 +160,20 @@ void Lista::eliminar(int posicion) {
         nodoAEliminar = primero;
         primero = primero->siguiente;
         if (primero != nullptr) {
-            primero->anterior = nullptr; // he añadido que actualice el puntero anterior del primer nodo, para que no apunte a cossas raras
+            primero->anterior = nullptr; 
         }
     } else if (posicion == longitud - 1) { // esto esta para que si se elimina el ultimo nodo, no de  SIGSEGV, Segmentation fault al intentar acceder a un puntero nulo
         nodoAEliminar = ultimo;
         ultimo = ultimo->anterior;
         if (ultimo != nullptr) {
-            ultimo->siguiente = nullptr; // he añadido que actualice el puntero siguiente del ultimo nodo, para que no sae null
+            ultimo->siguiente = nullptr; 
         }
     } else {
-        NodoLista* anterior = obtener_nodo(posicion - 1); // esto hace que no se pueda eliminar el ultimo nodo
+        NodoLista* anterior = obtener_nodo(posicion - 1); 
         nodoAEliminar = anterior->siguiente;
         anterior->siguiente = nodoAEliminar->siguiente;
         NodoLista* siguiente = nodoAEliminar->siguiente;
-        siguiente->anterior = anterior; // he añadido que actualice el puntero anterior del siguiente nodo, para que no sae null    
+        siguiente->anterior = anterior; 
     }
 
     delete nodoAEliminar;
@@ -293,7 +293,7 @@ int Lista::nucleo_mas_carga(bool imprimir) {
 }
 
 
-Nucleo Lista::coger(int n) { // esta igual deveria devolvel un puntero al nucleo por si se quieren hacer modificaciones
+Nucleo Lista::coger(int n) { 
     NodoLista* nodo = obtener_nodo(n);
     //__asm__("int $3");
     if (nodo != nullptr) {
