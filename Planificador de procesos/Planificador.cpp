@@ -135,6 +135,12 @@ namespace Planificador {
         cin >> tiempoDeVida1;
         cout << "Introduzca la prioridad del proceso: ";
         cin >> prioridad1;
+        if (prioridad1 < 0 || prioridad1 >= 10) {
+            cout << "La prioridad del proceso debe estar entre 0 y 9.\n";
+            cout << endl;
+            cout << endl;
+            return;
+        }
         Proceso p = Proceso(ppid1, inicio1, tiempoDeVida1, prioridad1);
 
         pila.apilar(p);
