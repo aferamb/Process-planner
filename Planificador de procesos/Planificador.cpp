@@ -24,7 +24,8 @@ namespace Planificador {
     Proceso p;
     Lista lista;
     Cola colatemp;
-    BST arbolProcesos;
+    ListaProcesos listproc;
+    BST arbolProcesos(listproc, nullptr, nullptr, 5);
 
     int contador = 0;
 

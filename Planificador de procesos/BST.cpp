@@ -27,25 +27,31 @@ void BST::verInorden() {
     if (raiz == nullptr) {
         cout << "El árbol está vacío" << endl;
     } else {
-        verInorden(raiz);
+        verInorden(raiz, raiz, true);
     }
 }
 
 
-void BST::verInorden(NodoBST* nodo) {
+void BST::verInorden(NodoBST* nodo, NodoBST* nodopadre, bool drch) {
     if (nodo != nullptr) {
         // Recorrer subárbol izquierdo
-        verInorden(nodo->hi);
+        verInorden(nodo->hi, nodo, false);
+        
 
         // Imprimir la prioridad del nodo
         cout << "Nodo con prioridad: " << nodo->prioridad << endl;
+        if (drch) {
+            cout << "Nodo derecho hijo de " << nodopadre->prioridad << endl;
+        } else {
+            cout << "Nodo izquierdo hijo de " << nodopadre->prioridad << endl;
+        }
 
         // Imprimir los procesos de la lista asociada al nodo
         cout << "Procesos en la lista:" << endl;
         nodo->listaProc.mostrar(); // Acceso directo al miembro listaProc
 
         // Recorrer subárbol derecho
-        verInorden(nodo->hd);
+        verInorden(nodo->hd, nodo, true);
     }
 }
 

@@ -36,6 +36,7 @@ class BST
 
     protected:
         void verInorden(NodoBST *nodo); 
+        void verInorden(NodoBST *nodo, NodoBST *nodopadre, bool drch); 
         void insertar_arbol(Proceso proc, NodoBST *&arb); // Inserta un proceso en el árbol
 };
 
