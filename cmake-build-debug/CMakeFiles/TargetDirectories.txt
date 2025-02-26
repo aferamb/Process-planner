@@ -1,3 +1,0 @@
-C:/Users/matin/CLionProjects/PL1_ESTRUCTURA_DE_DATOS/cmake-build-debug/CMakeFiles/PL1.dir
-C:/Users/matin/CLionProjects/PL1_ESTRUCTURA_DE_DATOS/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/matin/CLionProjects/PL1_ESTRUCTURA_DE_DATOS/cmake-build-debug/CMakeFiles/rebuild_cache.dir
